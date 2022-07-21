@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 
-interface IInputErrorsProps {
+interface IInputErrorProps {
 	condition: boolean;
-	text: string | undefined;
+	text?: string;
 }
 
-const InputErrors: FC<IInputErrorsProps> = ({ condition, text }) => {
+const InputError: FC<IInputErrorProps> = ({ condition, text }) => {
 	return <> {condition && <span className='text-red-600'>{text}</span>} </>;
 };
 
-export default InputErrors;
+export default InputError;

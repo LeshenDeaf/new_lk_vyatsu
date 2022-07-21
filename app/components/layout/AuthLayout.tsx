@@ -1,30 +1,47 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styles from '../../../styles/Home.module.scss';
 import Meta from '../../utils/Meta';
 import SideBar from '../screens/menus/SideBar';
-import Header from '../screens/menus/Header';
+import Header from '../screens/menus/header/Header';
+import { ILayoutProps } from './ILayoutProps';
+import { Transition } from 'react-spring';
+import { isMobile } from 'react-device-detect';
 
-interface Props {
-	children: JSX.Element
-}
+const AuthLayout: FC<ILayoutProps> = ({ children, title, description }) => {
+	const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
 
-const AppLayout: FC<Props> = ({ children }) => {
+	useEffect(() => setIsSidebarVisible(!isMobile), []);
 
 	return (
-	<div className={styles.container}>
-		<Meta title="Главная страница" description="Главная страница" />
-		<SideBar />
-		<Header />
+		<div className={styles.container}>
+			<Meta title={title} description={description} />
 
-		<main className={styles.main}>
-			<>{ children }</>
-		</main>
+			<Transition
+				items={isSidebarVisible}
+				from={{ transform: 'translateY(-100%)' }}
+				enter={{ transform: 'translateY(0%)' }}
+				leave={{ transform: 'translateY(-100%)' }}
+				reverse={isSidebarVisible}
+			>
+				{(styles, item) =>
+					item && (
+						<SideBar
+							styles={styles}
+							closeSidebar={() => setIsSidebarVisible(false)}
+						/>
+					)
+				}
+			</Transition>
 
-		<footer className={styles.footer}>
+			<Header openSidebar={() => setIsSidebarVisible(true)} />
 
-		</footer>
-	</div>
+			<main className="body-page absolute text-justify top-48 sm:top-36 sm:left-72 p-4 sm:p-10">
+				<>{children}</>
+			</main>
+
+			<footer className={styles.footer}></footer>
+		</div>
 	);
 };
 
-export default AppLayout;
+export default AuthLayout;

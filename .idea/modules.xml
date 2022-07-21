@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/lk_vyatsu.iml" filepath="$PROJECT_DIR$/.idea/lk_vyatsu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../work/vyatsu-master/vyatsu-master/.idea/vyatsu-master.iml" filepath="$PROJECT_DIR$/../../work/vyatsu-master/vyatsu-master/.idea/vyatsu-master.iml" />
     </modules>
   </component>
 </project>

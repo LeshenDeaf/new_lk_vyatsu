@@ -1,22 +1,38 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import userReducer from './reducers/UserSlice'
-import { postAPI } from '../services/PostService'
-import { userAPI } from '../services/UserService'
+import {
+	Action,
+	combineReducers,
+	configureStore,
+	ThunkAction,
+} from '@reduxjs/toolkit';
+import AuthReducer from './reducers/AuthSlice';
+import UserReducer from './reducers/UserSlice';
+import NavbarReducer from './reducers/NavbarSlice';
+import { basicVyatsu } from '../services/BasicVyatsu';
+import { createWrapper } from 'next-redux-wrapper';
 
 const rootReducer = combineReducers({
-	userReducer,
-	[postAPI.reducerPath]: postAPI.reducer,
-	[userAPI.reducerPath]: userAPI.reducer
-})
+	auth: AuthReducer,
+	user: UserReducer,
+	navbar: NavbarReducer,
+	[basicVyatsu.reducerPath]: basicVyatsu.reducer,
+});
 
 export const setupStore = () => {
 	return configureStore({
 		reducer: rootReducer,
 		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware().concat(postAPI.middleware, userAPI.middleware)
-	})
-}
+			getDefaultMiddleware().concat(basicVyatsu.middleware),
+	});
+};
 
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['dispatch']
+export type RootStore = ReturnType<typeof setupStore>;
+export type RootState = ReturnType<RootStore['getState']>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+	ReturnType,
+	RootState,
+	unknown,
+	Action
+>;
+export type AppDispatch = RootStore['dispatch'];
+
+export const wrapper = createWrapper<RootStore>(setupStore);
