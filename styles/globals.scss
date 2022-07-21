@@ -1,0 +1,64 @@
+@import "~tailwindcss/base";
+@import "~tailwindcss/components";
+@import "~tailwindcss/utilities";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .top-menu {
+    width: calc(100% - 18rem);
+  }
+
+  .left-menu-cont-items {
+    height: calc(90vh - 31rem);
+  }
+  #body {
+    width: calc(100% - 18rem);
+  }
+}
+/*  */
+@media (max-width: 640px) {
+  .left-menu-cont-items {
+    height: calc(100vh - 31rem);
+  }
+
+  #body {
+    width: 100%;
+  }
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-color-main {
+  scrollbar-color: rgba(0, 0, 0, 0.3) #2e9ecb;
+}
+
+.scrollbar-thin {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
