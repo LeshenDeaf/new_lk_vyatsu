@@ -1,25 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '../store';
+import { NavList } from '../../utils/Pages';
 
-export interface INavbarAction {
-	categoryIndex: number;
-}
 
 export type NavbarState = {
 	categoryIndex: number;
-}
+	categoriesCount: number;
+};
 
 const initialState: NavbarState = {
-	categoryIndex: 0
-}
+	categoryIndex: 0,
+	categoriesCount: NavList.length,
+};
 
 const navbarSlice = createSlice({
 	name: 'navbar',
 	initialState,
 	reducers: {
-		setNavbarIndex: (state, action: PayloadAction<INavbarAction|NavbarState>) => {
-			state.categoryIndex = action.payload.categoryIndex;
+		setNavbarIndex: (
+			state,
+			action: PayloadAction<number>
+		) => {
+			state.categoryIndex = action.payload;
 		},
 	},
 	extraReducers: {
@@ -30,8 +33,8 @@ const navbarSlice = createSlice({
 				...state,
 				...action.payload.navbar,
 			};
-		}
-	}
+		},
+	},
 });
 
 export const { setNavbarIndex } = navbarSlice.actions;
