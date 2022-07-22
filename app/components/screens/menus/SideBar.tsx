@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { animated } from 'react-spring';
-import { useAppSelector } from '../../../hooks/redux';
-import { selectNavbar } from '../../../store/reducers/NavbarSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { selectNavbar, setNavbarIndex } from '../../../store/reducers/NavbarSlice';
 import { NavList } from '../../../utils/Pages';
 
 interface Props {
@@ -12,8 +12,39 @@ interface Props {
 }
 
 const SideBar = ({ styles, closeSidebar }: Props) => {
-	const { categoryIndex } = useAppSelector(selectNavbar);
+	const dispatch = useAppDispatch();
+	const { categoryIndex, categoriesCount } = useAppSelector(selectNavbar);
 	const category = NavList[categoryIndex];
+	const [arrowsVisible, setArrowsVisible] = useState({
+		left: categoryIndex === 0,
+		right: categoryIndex + 1 >= categoriesCount,
+	});
+
+	const increment = useCallback(() => {
+		if (categoryIndex + 1 < categoriesCount) {
+			dispatch(setNavbarIndex(categoryIndex + 1));
+		}
+	}, [categoryIndex, categoriesCount, dispatch]);
+
+	const decrement = useCallback(() => {
+		if (categoryIndex - 1 >= 0) {
+			dispatch(setNavbarIndex(categoryIndex - 1));
+		}
+	}, [categoryIndex, dispatch]);
+
+	useEffect(() => {
+		if (categoryIndex === 0) {
+			setArrowsVisible(prev => ({...prev, left: false}));
+		} else {
+			setArrowsVisible(prev => ({...prev, left: true}));
+		}
+
+		if (categoryIndex + 1 >= categoriesCount) {
+			setArrowsVisible(prev => ({...prev, right: false}));
+		} else {
+			setArrowsVisible(prev => ({...prev, right: true}));
+		}
+	}, [categoryIndex, categoriesCount])
 
 	return (
 		<>
@@ -24,7 +55,7 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 			>
 				{/* logo */}
 				<div className="h-20 sm:h-36 px-7 sm:px-0 flex justify-between sm:justify-center items-center sm:border-b border-vyatsu-darkblue">
-					<Link href={process.env.APP_URL || ''}>
+					<Link href={process.env.APP_URL as string}>
 						<div className="flex flex-row items-center justify-evenly">
 							<Image
 								className="h-10 sm:h-14"
@@ -61,13 +92,14 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 						id="left-menu-left-arrow"
 						className="cursor-pointer w-6 flex justify-center"
 					>
-						<Image
+						{arrowsVisible.left && <Image
+							onClick={decrement}
 							src="/images/arrow_left.svg"
 							alt="left"
 							draggable="false"
 							width="16"
 							height="16"
-						/>
+						/>}
 					</div>
 					<div className="flex">
 						<span id="left-menu-number-top" className="mr-1"></span>
@@ -77,14 +109,15 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 						id="left-menu-right-arrow"
 						className="cursor-pointer w-6 flex justify-center"
 					>
-						<Image
+						{arrowsVisible.right && <Image
+							onClick={increment}
 							className="rotate-180"
 							src="/images/arrow_left.svg"
 							alt="right"
 							draggable="false"
 							width="16"
 							height="16"
-						/>
+						/>}
 					</div>
 				</div>
 
@@ -94,7 +127,7 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 					className="overflow-auto left-menu-cont-items scrollbar-thin scrollbar-color-main"
 				>
 					{category.pages.map((e) => (
-						<Link href={e.link}>
+						<Link href={e.link} key={e.id}>
 							<a
 								draggable="false"
 								className="w-full h-16 px-5 border-t first:border-t-0 border-vyatsu-dark-blue flex justify-start items-center text-white text-[14px] sm:text-base cursor-pointer "
