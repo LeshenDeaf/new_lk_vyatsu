@@ -1,4 +1,5 @@
 export type NavLink = {
+	id: number;
 	name: string;
 	link: string;
 };
@@ -12,13 +13,13 @@ export const NavList = [
 	{
 		name: 'Учёба',
 		pages: [
-			{ name: 'Расписание', link: '/edu/schedule' }
+			{ id: 1, name: 'Расписание', link: '/edu/schedule' }
 		],
 	} as Category,
 	{
 		name: 'Учёба2',
 		pages: [
-			{ name: 'Расписание2', link: '/edu/schedule' }
+			{ id: 2, name: 'Расписание2', link: '/edu/schedule' }
 		],
 	} as Category
 ] as Category[];
