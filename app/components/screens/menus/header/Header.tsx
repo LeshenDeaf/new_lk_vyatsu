@@ -1,12 +1,11 @@
 import React, { memo, useCallback, useRef, useState } from 'react';
-import Image from 'next/image';
 import { useAppSelector } from '../../../../hooks/redux';
 import { selectUser } from '../../../../store/reducers/UserSlice';
 import { useOnClickOutside } from 'usehooks-ts';
 import UserDropDown from './UserDropDown';
 import HeaderSearch from './HeaderSearch';
 import HeaderMobile from './HeaderMobile';
-import { animated, Spring, Transition } from 'react-spring';
+import { animated, config, Spring, Transition } from 'react-spring';
 import HeaderUser from './user/HeaderUser';
 
 interface Props {
@@ -75,6 +74,7 @@ const Header = memo(function Header({ openSidebar }: Props) {
 							enter={{ opacity: 1, transform: 'translateY(0rem)' }}
 							leave={{ opacity: 0, transform: 'translateY(-4rem)' }}
 							reverse={isVisible}
+							config={config.stiff}
 						>
 							{(styles, item) =>
 								item && <UserDropDown user={user} styles={styles} />
