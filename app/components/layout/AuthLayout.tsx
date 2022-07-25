@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from '../../../styles/Home.module.scss';
 import Meta from '../../utils/Meta';
-import SideBar from '../screens/menus/SideBar';
+import SideBar from '../screens/menus/sidebar/SideBar';
 import Header from '../screens/menus/header/Header';
 import { ILayoutProps } from './ILayoutProps';
 import { Transition } from 'react-spring';
