@@ -47,7 +47,7 @@ const Login: NextPage = () => {
 		<>
 			<LoginForm onSubmit={onSubmit} isLoading={loginRes.isLoading} />
 			<Fio />
-			<Link href={process.env.APP_URL as string}>
+			<Link href={process.env.APP_URL + "/" as string}>
 				<a>Главная страница</a>
 			</Link>
 		</>
