@@ -39,7 +39,7 @@ const UserDropDown = memo(function UserDropDown({
 		} catch (e) {
 			console.error(e);
 		}
-	}, []);
+	}, [dispatch, router, token]);
 
 	return (
 		<animated.div
