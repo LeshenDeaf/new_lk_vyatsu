@@ -7,7 +7,7 @@ import {
 } from '../../../../store/reducers/NavbarSlice';
 import { NavList } from '../../../../utils/Pages';
 import Link from 'next/link';
-import { v4 as uuid4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const ArrowMenu: FC = () => {
 	const dispatch = useAppDispatch();
@@ -63,7 +63,9 @@ const ArrowMenu: FC = () => {
 					)}
 				</div>
 				<div className="flex font-bold">
-					<span id="left-menu-number-top" className="mr-1">{categoryIndex + 1}. </span>
+					<span id="left-menu-number-top" className="mr-1">
+						{categoryIndex + 1}.{' '}
+					</span>
 					<div className="left-menu-name">{category.name}</div>
 				</div>
 				<div
@@ -88,7 +90,7 @@ const ArrowMenu: FC = () => {
 				className="overflow-auto left-menu-cont-items scrollbar-thin scrollbar-color-main"
 			>
 				{category.pages.map((e) => (
-					<Link href={e.link} key={e.id}>
+					<Link href={e.link} key={uuidv4()}>
 						<a
 							draggable="false"
 							className="w-full h-16 px-5 border-t first:border-t-0 border-vyatsu-dark-blue flex justify-start items-center text-white text-[14px] sm:text-base cursor-pointer "
