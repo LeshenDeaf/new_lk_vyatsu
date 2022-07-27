@@ -19,7 +19,7 @@ const navbarSlice = createSlice({
 	initialState,
 	reducers: {
 		setNavbarIndex: (
-			state,
+			state: NavbarState,
 			action: PayloadAction<number>
 		) => {
 			state.categoryIndex = action.payload;
