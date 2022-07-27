@@ -3,6 +3,7 @@ import { animated } from 'react-spring';
 import VyatsuLogo from './VyatsuLogo';
 import ArrowMenu from './ArrowMenu';
 import ReviewButton from './ReviewButton';
+import NumberMenu from './NumberMenu';
 
 interface Props {
 	closeSidebar: () => void;
@@ -24,13 +25,7 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 
 				<div className="h-72 w-full absolute bottom-20 sm:bottom-0 p-7 flex flex-col justify-between">
 					{/* number-menu */}
-					<div className="flex flex-col justify-between items-start">
-						<div
-							id="number-menu"
-							className="text-white flex items-center"
-						></div>
-						<div className="left-menu-name font-bold text-white">Текст</div>
-					</div>
+					<NumberMenu />
 					{/* centre-info */}
 					<div className="text-white flex flex-col justify-between h-32">
 						<div>
