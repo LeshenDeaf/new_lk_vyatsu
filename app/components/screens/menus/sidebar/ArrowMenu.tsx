@@ -5,7 +5,7 @@ import {
 	selectNavbar,
 	setNavbarIndex,
 } from '../../../../store/reducers/NavbarSlice';
-import { NavList } from '../../../../utils/Pages';
+import { NavList } from '../../../../configs/Pages';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 

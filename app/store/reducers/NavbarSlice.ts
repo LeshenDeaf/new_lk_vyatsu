@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '../store';
-import { NavList } from '../../utils/Pages';
+import { NavList } from '../../configs/Pages';
 
 
 export type NavbarState = {
