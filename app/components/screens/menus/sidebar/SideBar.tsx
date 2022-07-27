@@ -2,6 +2,7 @@ import React from 'react';
 import { animated } from 'react-spring';
 import VyatsuLogo from './VyatsuLogo';
 import ArrowMenu from './ArrowMenu';
+import ReviewButton from './ReviewButton';
 
 interface Props {
 	closeSidebar: () => void;
@@ -43,21 +44,9 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 				</div>
 
 				{/* feedback mobile */}
-				<div className="flex sm:hidden fixed h-28 w-full bottom-0 justify-center items-center">
-					<button className="border-2 border-white rounded-xl h-[50px] w-[240px] flex justify-center items-center">
-						<div className="text-[14px] text-white">
-							Оставить отзыв о странице
-						</div>
-					</button>
-				</div>
+				<ReviewButton isMobile={true} />
 			</animated.div>
-			<div className="hidden sm:flex fixed h-[10%] w-72 bottom-0 justify-center items-center">
-				<button className="border-2 border-vyatsu-blue rounded-xl h-[50px] w-[240px] flex justify-center items-center">
-					<div className="text-[14px] text-vyatsu-blue">
-						Оставить отзыв о странице
-					</div>
-				</button>
-			</div>
+			<ReviewButton isMobile={false} />
 		</>
 	);
 };
