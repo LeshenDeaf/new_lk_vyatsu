@@ -5,11 +5,13 @@ import { NavList } from '../../configs/Pages';
 
 
 export type NavbarState = {
+	prevCategory: null|number;
 	categoryIndex: number;
 	categoriesCount: number;
 };
 
 const initialState: NavbarState = {
+	prevCategory: null,
 	categoryIndex: 0,
 	categoriesCount: NavList.length,
 };
@@ -22,6 +24,7 @@ const navbarSlice = createSlice({
 			state: NavbarState,
 			action: PayloadAction<number>
 		) => {
+			state.prevCategory = state.categoryIndex;
 			state.categoryIndex = action.payload;
 		},
 	},
