@@ -46,14 +46,14 @@ const ArrowMenu: FC = () => {
 
 	return (
 		<>
-			<div className="w-full h-16 border-b border-vyatsu-darkblue justify-evenly items-center text-white flex">
+			<div className="w-full px-[20px] h-16 border-b border-vyatsu-darkblue justify-between items-center text-white flex">
 				<div
 					id="left-menu-left-arrow"
 					className="cursor-pointer w-6 flex justify-center"
+					onClick={decrement}
 				>
 					{arrowsVisible.left && (
 						<Image
-							onClick={decrement}
 							src="/images/arrow_left.svg"
 							alt="left"
 							draggable="false"
@@ -71,10 +71,10 @@ const ArrowMenu: FC = () => {
 				<div
 					id="left-menu-right-arrow"
 					className="cursor-pointer w-6 flex justify-center"
+					onClick={increment}
 				>
 					{arrowsVisible.right && (
 						<Image
-							onClick={increment}
 							className="rotate-180"
 							src="/images/arrow_left.svg"
 							alt="right"
