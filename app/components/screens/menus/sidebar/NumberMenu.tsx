@@ -10,7 +10,7 @@ import Number from './Number';
 
 const NumberMenu: FC = () => {
 	const dispatch = useAppDispatch();
-	const { categoryIndex, categoriesCount } = useAppSelector(selectNavbar);
+	const { categoryIndex, prevCategory, categoriesCount } = useAppSelector(selectNavbar);
 	const category = useMemo(() => NavList[categoryIndex], [categoryIndex]);
 	const numbers = useMemo(() => [...Array(categoriesCount)], [categoriesCount]);
 
@@ -28,8 +28,8 @@ const NumberMenu: FC = () => {
 			<div id="number-menu" className="text-white flex items-end h-8">
 				{numbers.map((_, index) => (
 					<Number
-						reset={categoryIndex === index}
-						reverse={categoryIndex !== index}
+						isSelected={categoryIndex === index}
+						isPrev={prevCategory === index}
 						number={index + 1}
 						onClick={() => changeCategory(index)}
 						key={uuidv4()}

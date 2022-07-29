@@ -1,35 +1,32 @@
 import React, { FC } from 'react';
-import { animated, config, Spring } from 'react-spring';
+import { animated, config, Spring, useSpring } from 'react-spring';
 
 interface Props {
-	reset: boolean;
-	reverse: boolean;
+	isSelected: boolean;
+	isPrev: boolean;
 	number: number;
 	onClick: () => void;
 }
 
-const Number: FC<Props> = ({ reset, reverse, number, onClick }) => {
-	console.log(reset);
+const Number: FC<Props> = ({ isSelected, isPrev, number, onClick }) => {
+	const props = useSpring({
+		from: { fontSize: 18, fontWeight: 'normal' },
+		to: { fontSize: isSelected || isPrev ? 24 : 18, fontWeight: isSelected || isPrev ? 'bold' : 'normal' },
+		reverse: isPrev,
+		fontSize: isSelected ? 24 : 18,
+		config: config.gentle,
+	});
+
 	return (
-		<Spring
-			from={{ fontSize: 18, fontWeight: 'normal' }}
-			to={{ fontSize: 24, fontWeight: 'bold' }}
-			reset={reset}
-			reverse={reverse}
-			config={config.gentle}
+		<animated.div
+			style={props}
+			className={
+				'number-menu-item align-text-bottom cursor-pointer mr-4 last:mr-0 font-lg'
+			}
+			onClick={onClick}
 		>
-			{(styles) => (
-				<animated.div
-					style={styles}
-					className={
-						'number-menu-item align-text-bottom cursor-pointer mr-4 last:mr-0 font-lg'
-					}
-					onClick={onClick}
-				>
-					{number}
-				</animated.div>
-			)}
-		</Spring>
+			{number}
+		</animated.div>
 	);
 };
 
