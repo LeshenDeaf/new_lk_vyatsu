@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { animated, config, Spring, useSpring } from 'react-spring';
+import { animated, config, useSpring } from 'react-spring';
 
 interface Props {
 	isSelected: boolean;
