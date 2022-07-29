@@ -12,7 +12,7 @@ function App({ Component, pageProps }: AppProps) {
 	return (
 		<Authenticate>
 			{/*<PageLoader>*/}
-				<Component {...pageProps} />
+			<Component {...pageProps} />
 			{/*</PageLoader>*/}
 		</Authenticate>
 	);
@@ -122,9 +122,12 @@ App.getInitialProps = wrapper.getInitialAppProps(
 			}
 
 			return {
-				pageProps: Component.getInitialProps
-					? await Component.getInitialProps({ ...ctx, store })
-					: {},
+				pageProps: {
+					...(Component.getInitialProps
+						? await Component.getInitialProps({ ...ctx, store })
+						: {}),
+					pathname: ctx.pathname,
+				},
 			};
 		}
 );

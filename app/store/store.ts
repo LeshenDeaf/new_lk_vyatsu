@@ -35,4 +35,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 export type AppDispatch = RootStore['dispatch'];
 
-export const wrapper = createWrapper<RootStore>(setupStore);
+export const wrapper = createWrapper<RootStore>(setupStore, {debug: true});
