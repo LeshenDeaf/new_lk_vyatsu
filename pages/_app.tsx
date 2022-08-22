@@ -7,14 +7,17 @@ import { setAuthData } from '../app/store/reducers/AuthSlice';
 import axios from 'axios';
 import { setUserData } from '../app/store/reducers/UserSlice';
 import { AuthResponse, RefreshRequest } from '../app/models/api/auth/types';
+import { useMemo } from 'react';
 
 function App({ Component, pageProps }: AppProps) {
+	const comp = useMemo(() => <Component {...pageProps} />, []);
+	const authComp = useMemo(() => <Authenticate>{comp}</Authenticate>, []);
 	return (
-		<Authenticate>
-			{/*<PageLoader>*/}
-			<Component {...pageProps} />
-			{/*</PageLoader>*/}
-		</Authenticate>
+		// <Authenticate>
+			// {/* <Component {...pageProps} /> */}
+		// </Authenticate>
+
+		<>{authComp}</>
 	);
 }
 
@@ -31,8 +34,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 						Location: '/auth/login/',
 						credentials: 'include',
 					});
-					// ctx.res.setHeader('Status', 302);
-					// ctx.res.setHeader('Location', '/');
+
 					ctx.res.end();
 				}
 			};
@@ -50,14 +52,20 @@ App.getInitialProps = wrapper.getInitialAppProps(
 				}
 			};
 
-			const getAndSetUserData = async (token: string) => {
-				console.log('getAndSetUserData');
+			const getAndSetUserData = async (
+				token: string,
+				isTokenNew: boolean = false
+			) => {
 				const userData = await axios.get(`${process.env.APP_URL}/api/user/me`, {
 					headers: { authorization: `Bearer ${token}` },
 				});
 
-				store.dispatch(setUserData(userData.data));
-				store.dispatch(setAuthData({ token, isAuth: true }));
+				if (!store.getState().user.data) {
+					store.dispatch(setUserData(userData.data));
+				}
+				if (isTokenNew) {
+					store.dispatch(setAuthData({ token, isAuth: true }));
+				}
 			};
 
 			const refresh = async (rToken: string) => {
@@ -75,8 +83,6 @@ App.getInitialProps = wrapper.getInitialAppProps(
 					ctx.res?.setHeader('set-cookie', cookie)
 				);
 
-				store.dispatch(setAuthData({ token: tokens.data.token, isAuth: true }));
-
 				return tokens.data;
 			};
 
@@ -85,9 +91,8 @@ App.getInitialProps = wrapper.getInitialAppProps(
 
 				try {
 					const { token } = await refresh(rToken);
-					store.dispatch(setAuthData({ token, isAuth: true }));
 
-					await getAndSetUserData(token);
+					await getAndSetUserData(token, true);
 
 					redirectToHome();
 				} catch (e) {
@@ -95,7 +100,8 @@ App.getInitialProps = wrapper.getInitialAppProps(
 				}
 			};
 
-			const token = parseCookies(ctx).vyatsu_a_token;
+			const token =
+				parseCookies(ctx).vyatsu_a_token || store.getState().auth.token;
 			const rToken = parseCookies(ctx).vyatsu_r_token;
 
 			console.log(parseCookies(ctx));
@@ -104,6 +110,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 
 			if (token) {
 				try {
+					console.log(token);
 					await getAndSetUserData(token);
 
 					redirectToHome();
@@ -123,10 +130,13 @@ App.getInitialProps = wrapper.getInitialAppProps(
 
 			return {
 				pageProps: {
+					// Call page-level getInitialProps
 					...(Component.getInitialProps
-						? await Component.getInitialProps({ ...ctx, store })
-						: {}),
-					pathname: ctx.pathname,
+						? await Component?.getInitialProps({ ...ctx, store })
+						: {}
+					),
+					// Some custom thing for all pages
+					// pathname: ctx.pathname,
 				},
 			};
 		}

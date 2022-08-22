@@ -7,6 +7,7 @@ import {
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
+import Link from 'next/link';
 
 const Schedule = () => {
 	const { data: schedule, isLoading } = usePersonalQuery();
@@ -35,6 +36,14 @@ const Schedule = () => {
 				<div>{byTabnumLoading && 'ЗАГРУЗКА'}</div>
 				<div>{s && !byTabnumLoading ? s.map(getJSXDaySchedule) : ''}</div>
 			</div>
+			<Link href='/'>
+				<a
+					draggable="false"
+					className=""
+				>
+					TEST
+				</a>
+			</Link>
 		</>
 	);
 };

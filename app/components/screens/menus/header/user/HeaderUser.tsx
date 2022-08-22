@@ -2,7 +2,6 @@ import React, { ForwardedRef, forwardRef, useMemo } from 'react';
 import { IUser } from '../../../../../models/IUser';
 import UserAvatar from './UserAvatar';
 import UserInfo from './UserInfo';
-import { isMobile } from 'react-device-detect';
 
 interface Props {
 	notifications: number;

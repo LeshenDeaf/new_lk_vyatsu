@@ -32,7 +32,7 @@ const NumberMenu: FC = () => {
 						isPrev={prevCategory === index}
 						number={index + 1}
 						onClick={() => changeCategory(index)}
-						key={uuidv4()}
+						key={`${categoryIndex}${index}`}
 					/>
 				))}
 			</div>

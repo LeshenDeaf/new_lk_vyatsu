@@ -17,13 +17,11 @@ const rootReducer = combineReducers({
 	[basicVyatsu.reducerPath]: basicVyatsu.reducer,
 });
 
-export const setupStore = () => {
-	return configureStore({
-		reducer: rootReducer,
-		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware().concat(basicVyatsu.middleware),
-	});
-};
+export const setupStore = () => configureStore({
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(basicVyatsu.middleware),
+});
 
 export type RootStore = ReturnType<typeof setupStore>;
 export type RootState = ReturnType<RootStore['getState']>;
@@ -35,4 +33,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 export type AppDispatch = RootStore['dispatch'];
 
-export const wrapper = createWrapper<RootStore>(setupStore, {debug: true});
+export const wrapper = createWrapper<RootStore>(setupStore);

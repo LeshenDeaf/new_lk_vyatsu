@@ -5,13 +5,14 @@ import { selectUser } from '../../../store/reducers/UserSlice';
 
 
 const Fio: FC = () => {
-	const { token } = useAppSelector(selectAuth);
-	const { data: user } = useAppSelector(selectUser);
+	// const { token } = useAppSelector(selectAuth);
+	// const { data: user } = useAppSelector(selectUser);
 
 	return (
 		<div>
 			{/*{token}*/}
-			{ user && user.fio.full }
+			{/* { user && user.fio.full } */}
+			test
 		</div>
 	);
 };

@@ -22,11 +22,11 @@ const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setAuthData: (state, action: PayloadAction<IAuthAction|AuthState>) => {
+		setAuthData: (state: AuthState, action: PayloadAction<IAuthAction|AuthState>) => {
 			state.token = action.payload.token;
 			state.isAuth = action.payload.isAuth;
 		},
-		changeToken: (state, action: PayloadAction<{ token: string }>) => {
+		changeToken: (state: AuthState, action: PayloadAction<{ token: string }>) => {
 			state.token = action.payload.token;
 		},
 	},

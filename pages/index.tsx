@@ -3,6 +3,7 @@ import React from 'react';
 import { useAppSelector } from '../app/hooks/redux';
 import { selectUser } from '../app/store/reducers/UserSlice';
 import { Spring, animated } from 'react-spring';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
 	const user = useAppSelector(selectUser);
@@ -10,9 +11,19 @@ const Home: NextPage = () => {
 	return (
 		<>
 			<div>ASD ASD</div>
-			<Spring from={{opacity: 0}} to={{opacity: 1}}>
-				{styles => (<animated.div style={styles}>{user.data?.login}</animated.div>)}
+			<Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+				{(styles) => (
+					<animated.div style={styles}>{user.data?.login}</animated.div>
+				)}
 			</Spring>
+			<Link href='/edu/schedule'>
+				<a
+					draggable="false"
+					className=""
+				>
+					TEST
+				</a>
+			</Link>
 		</>
 	);
 };

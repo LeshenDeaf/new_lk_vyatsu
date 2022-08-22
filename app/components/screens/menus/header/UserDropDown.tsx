@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import { IUser } from '../../../../models/IUser';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import { unsetUserData } from '../../../../store/reducers/UserSlice';
 import axios from 'axios';
 import { selectAuth } from '../../../../store/reducers/AuthSlice';
 import { animated } from 'react-spring';
-
+import Image from 'next/image'
 interface IUserDropDownProps {
 	user: IUser;
 	// isVisible: boolean;
@@ -18,7 +18,7 @@ const UserDropDown = memo(function UserDropDown({
 	styles,
 }: IUserDropDownProps) {
 	const dispatch = useAppDispatch();
-	const router = useRouter();
+	// const router = useRouter();
 	const { token } = useAppSelector(selectAuth);
 
 	const logout = useCallback(async (e: React.MouseEvent) => {
@@ -35,11 +35,11 @@ const UserDropDown = memo(function UserDropDown({
 
 			dispatch(unsetUserData());
 
-			await router.push('/auth/login');
+			// await router.push('/auth/login');
 		} catch (e) {
 			console.error(e);
 		}
-	}, [dispatch, router, token]);
+	}, [dispatch, /* router */, token]);
 
 	return (
 		<animated.div
@@ -53,10 +53,12 @@ const UserDropDown = memo(function UserDropDown({
 			{/* информация о пользователе  */}
 			<div>
 				<div className="flex flex-row">
-					<img
+					<Image
 						className="rounded-full w-14 mr-[12px]"
 						src="/images/user.svg"
 						alt="avatar"
+						height="52"
+						width="52"
 					/>
 					<div className="text-vyatsu-blue text-[16px] font-[400] leading-5 mr-5 flex flex-col">
 						<div>{user.fio.last_name}</div>

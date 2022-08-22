@@ -15,12 +15,12 @@ const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setUserData: (state, action: PayloadAction<IUser>) => {
+		setUserData: (state: UserState, action: PayloadAction<IUser>) => {
 			state.data = action.payload;
 		},
-		unsetUserData: (state) => {
+		unsetUserData: (state: UserState) => {
 			state.data = null;
-		}
+		},
 	},
 	extraReducers: {
 		[HYDRATE]: (state, action) => {
