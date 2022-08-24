@@ -1,17 +1,23 @@
-import '../styles/globals.scss';
-import type { AppProps } from 'next/app';
-import { wrapper } from '../app/store/store';
-import Authenticate from '../app/providers/Authenticate';
-import { parseCookies } from 'nookies';
-import { setAuthData } from '../app/store/reducers/AuthSlice';
 import axios from 'axios';
-import { setUserData } from '../app/store/reducers/UserSlice';
+import type { AppProps } from 'next/app';
+import { parseCookies } from 'nookies';
+import { Provider } from 'react-redux';
 import { AuthResponse, RefreshRequest } from '../app/models/api/auth/types';
-import { useMemo } from 'react';
+import Authenticate from '../app/providers/Authenticate';
+import { setAuthData } from '../app/store/reducers/AuthSlice';
+import { setUserData } from '../app/store/reducers/UserSlice';
+import { wrapper } from '../app/store/store';
+import '../styles/globals.scss';
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
+	const { store, props } = wrapper.useWrappedStore(rest);
+
 	return (
-		<Authenticate><Component {...pageProps} /></Authenticate>
+		<Provider store={store}>
+			<Authenticate>
+				<Component {...props.pageProps} />
+			</Authenticate>
+		</Provider>
 	);
 }
 
@@ -19,11 +25,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 	(store) =>
 		async ({ ctx, Component }) => {
 			const redirectToLogin = () => {
-				console.log('redirectToLogin');
-
 				if (ctx.res && ctx.asPath !== '/auth/login/') {
-					console.log('redirected');
-
 					ctx.res.writeHead(302, {
 						Location: '/auth/login/',
 						credentials: 'include',
@@ -34,10 +36,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 			};
 
 			const redirectToHome = () => {
-				console.log('redirectToHome');
-
 				if (ctx.res && ctx.asPath === '/auth/login/') {
-					console.log('redirected');
 					ctx.res.writeHead(302, {
 						Location: '/',
 						credentials: 'include',
@@ -63,8 +62,6 @@ App.getInitialProps = wrapper.getInitialAppProps(
 			};
 
 			const refresh = async (rToken: string) => {
-				console.log('refresh');
-
 				const tokens = await axios.post<AuthResponse>(
 					`${process.env.APP_URL}/api/auth/refresh`,
 					{
@@ -81,8 +78,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 			};
 
 			const refreshAll = async (rToken: string) => {
-				console.log('refreshAll');
-
+				console.log('refreshed');
 				try {
 					const { token } = await refresh(rToken);
 
@@ -100,11 +96,13 @@ App.getInitialProps = wrapper.getInitialAppProps(
 
 			if (token) {
 				try {
-					console.log(token);
+					console.log('getting user data')
 					await getAndSetUserData(token);
 
 					redirectToHome();
 				} catch (e) {
+					console.log('trying to refresh')
+
 					// @ts-ignore
 					if (e?.response?.status !== 401 || !rToken) {
 						redirectToLogin();
@@ -123,8 +121,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 					// Call page-level getInitialProps
 					...(Component.getInitialProps
 						? await Component?.getInitialProps({ ...ctx, store })
-						: {}
-					),
+						: {}),
 					// Some custom thing for all pages
 					// pathname: ctx.pathname,
 				},
@@ -132,4 +129,5 @@ App.getInitialProps = wrapper.getInitialAppProps(
 		}
 );
 
-export default wrapper.withRedux(App);
+// export default wrapper.withRedux(App);
+export default App;
