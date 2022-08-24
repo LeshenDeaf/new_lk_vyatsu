@@ -98,10 +98,6 @@ App.getInitialProps = wrapper.getInitialAppProps(
 				parseCookies(ctx).vyatsu_a_token || store.getState().auth.token;
 			const rToken = parseCookies(ctx).vyatsu_r_token;
 
-			console.log(parseCookies(ctx));
-
-			// store.dispatch(setAuthData({ token, isAuth: false }));
-
 			if (token) {
 				try {
 					console.log(token);

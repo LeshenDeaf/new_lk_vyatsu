@@ -21,8 +21,6 @@ const NumberMenu: FC = () => {
 		[dispatch]
 	);
 
-	console.log('rerendered');
-
 	return (
 		<div className="flex flex-col justify-between items-start">
 			<div id="number-menu" className="text-white flex items-end h-8">
