@@ -12,7 +12,7 @@ const LoginForm: FC<ILoginFormProps> = ({ onSubmit, isLoading }) => {
 	} = useForm<ILoginFormFields>();
 
 	return (
-		<div className="m-auto w-1/2">
+		<div className="w-1/2 rounded-lg shadow-vyatsu-shadow shadow-lg absolute top-1/2 translate-x-[-50%] left-1/2 translate-y-[-50%]">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<LoginInput
 					register={register}
