@@ -16,7 +16,6 @@ import { LoginRequest } from '../../app/models/api/auth/types';
 const Login: NextPage = () => {
 	const [login, loginRes] = useLoginMutation();
 	const dispatch = useAppDispatch();
-	const { token } = useAppSelector(selectAuth);
 	const router = useRouter();
 
 	const onSubmit: SubmitHandler<ILoginFormFields> = useCallback(
@@ -44,13 +43,7 @@ const Login: NextPage = () => {
 	);
 
 	return (
-		<>
 			<LoginForm onSubmit={onSubmit} isLoading={loginRes.isLoading} />
-			<Fio />
-			<Link href={process.env.APP_URL + "/" as string}>
-				<a>Главная страница</a>
-			</Link>
-		</>
 	);
 };
 

@@ -30,8 +30,6 @@ const navbarSlice = createSlice({
 	},
 	extraReducers: {
 		[HYDRATE]: (state, action) => {
-			// state.token = action.payload.token;
-			// state.isAuth = action.payload.isAuth;
 			return {
 				...state,
 				...action.payload.navbar,
