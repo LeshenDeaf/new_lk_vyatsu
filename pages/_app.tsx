@@ -10,14 +10,8 @@ import { AuthResponse, RefreshRequest } from '../app/models/api/auth/types';
 import { useMemo } from 'react';
 
 function App({ Component, pageProps }: AppProps) {
-	const comp = useMemo(() => <Component {...pageProps} />, []);
-	const authComp = useMemo(() => <Authenticate>{comp}</Authenticate>, []);
 	return (
-		// <Authenticate>
-			// {/* <Component {...pageProps} /> */}
-		// </Authenticate>
-
-		<>{authComp}</>
+		<Authenticate><Component {...pageProps} /></Authenticate>
 	);
 }
 
