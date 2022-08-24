@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useMemo, useCallback } from 'react';
 import FancyInput from '../../../ui/inputs/FancyInput';
 import { IInputProps } from './types';
 import { ILoginFormFields } from '../form/types';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const PasswordInput: FC<IInputProps<ILoginFormFields>> = (props) => {
 	const options = props.validationOptions || {
@@ -10,17 +11,25 @@ const PasswordInput: FC<IInputProps<ILoginFormFields>> = (props) => {
 		maxLength: 64,
 	};
 
-	const registered = props.register('password', options);
+	const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
-	return (
+	const togglePasswordVisiblity = useCallback(() => {
+		setPasswordVisible(prev => !prev);
+	}, [])
+
+	const registered = useMemo(() => props.register('password', options), [options]);
+
+	return (<>
 		<FancyInput
 			label={props.label}
 			errors={[props.loginError]}
 			register={registered}
 			options={options}
 			ref={registered.ref}
-			attrs={{ type: 'password' }}
+			attrs={{ type: passwordVisible ? 'text' : 'password' }}
 		/>
+		<i onClick={togglePasswordVisiblity}>{passwordVisible ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}</i>{" "}	
+	</>
 	);
 };
 
