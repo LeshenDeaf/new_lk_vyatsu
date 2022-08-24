@@ -44,7 +44,7 @@ const UserDropDown = memo(function UserDropDown({
 	return (
 		<animated.div
 			className={
-				'user-menu fixed top-[7.9rem] right-[5%] rounded-2xl py-4 px-5 w-[320px] min-h-[290px] bg-white z-30 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.1)]'
+				'user-menu fixed top-[7.9rem] right-[5%] rounded-2xl py-4 px-5 w-[320px] min-h-[290px] bg-white z-30 shadow-lg shadow-vyatsu-shadow'
 			}
 			style={styles}
 		>
@@ -60,7 +60,7 @@ const UserDropDown = memo(function UserDropDown({
 						height="52"
 						width="52"
 					/>
-					<div className="text-vyatsu-blue text-[16px] font-[400] leading-5 mr-5 flex flex-col">
+					<div className="text-vyatsu-blue text-[16px] font-[400] leading-5 ml-3 flex flex-col">
 						<div>{user.fio.last_name}</div>
 						<div>{user.fio.first_name}</div>
 						<div>{user.fio.second_name || ''}</div>

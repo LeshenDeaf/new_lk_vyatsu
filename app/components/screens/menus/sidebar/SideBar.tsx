@@ -15,7 +15,7 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 		<>
 			<animated.div
 				id="left-menu"
-				className={`fixed z-50 bg-vyatsu-blue rounded-b-2xl w-full sm:w-72 h-[95%] sm:h-[90%] sm:drop-shadow-lg sm:block`}
+				className={`fixed z-50 bg-vyatsu-blue rounded-b-2xl w-full sm:w-72 h-[95%] sm:h-[90%] shadow-xl sm:block  shadow-vyatsu-blue-shadow`}
 				style={styles}
 			>
 				{/* logo */}
