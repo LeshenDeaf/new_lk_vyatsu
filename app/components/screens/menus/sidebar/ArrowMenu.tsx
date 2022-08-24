@@ -93,7 +93,7 @@ const ArrowMenu: FC = () => {
 					<Link href={e.link} key={e.link}>
 						<a
 							draggable="false"
-							className="w-full h-16 px-5 border-t first:border-t-0 border-vyatsu-dark-blue flex justify-start items-center text-white text-[14px] sm:text-base cursor-pointer "
+							className="w-full h-16 px-5 border-t first:border-t-0  border-vyatsu-darkblue flex justify-start items-center text-white text-[14px] sm:text-base cursor-pointer "
 						>
 							{e.name}
 						</a>
