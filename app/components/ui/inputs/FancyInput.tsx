@@ -1,18 +1,13 @@
-import React, {
-	Attributes,
-	ComponentProps,
-	FC,
-	forwardRef,
-	HTMLInputTypeAttribute,
-	InputHTMLAttributes,
-	useCallback,
+import {
+	forwardRef, InputHTMLAttributes,
+	useCallback
 } from 'react';
-import { v4 as uuid4 } from 'uuid';
 import {
 	FieldError,
 	RegisterOptions,
-	UseFormRegisterReturn,
+	UseFormRegisterReturn
 } from 'react-hook-form';
+import { v4 as uuid4 } from 'uuid';
 import InputError from './InputError';
 
 interface IFancyInputProps {
