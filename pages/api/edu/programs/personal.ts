@@ -2,6 +2,36 @@ import { AxiosResponse } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import vyatsuApi from '../../../../app/services/VyatsuApi';
 
+enum ProgramTypes {
+	universal,
+	common,
+	prof,
+	other,
+}
+export interface ProgramDiscipline {
+	zet: number;
+	cp: number;
+	color: ProgramTypes;
+	subjectId: number;
+	opId: number;
+	name: string;
+}
+export interface ProgramCourse {
+	course: number;
+	disciplines: ProgramDiscipline[];
+}
+type ProgramTypesDescriptions = {
+	[key in ProgramTypes]: string;
+};
+export interface ProgramsApiResponse {
+	program: ProgramCourse[];
+	colors: {
+		used: string[];
+		descriptions: ProgramTypesDescriptions;
+	};
+	courses: number;
+}
+
 export default async function handle(
 	req: NextApiRequest,
 	res: NextApiResponse<any>
