@@ -4,7 +4,7 @@ import Meta from '../../utils/Meta';
 import SideBar from '../screens/menus/sidebar/SideBar';
 import Header from '../screens/menus/header/Header';
 import { ILayoutProps } from './ILayoutProps';
-import { Transition } from 'react-spring';
+import { Spring, Transition, animated } from 'react-spring';
 import { isMobile } from 'react-device-detect';
 
 const AuthLayout: FC<ILayoutProps> = ({ children, title, description }) => {
@@ -36,7 +36,11 @@ const AuthLayout: FC<ILayoutProps> = ({ children, title, description }) => {
 			<Header openSidebar={() => setIsSidebarVisible(true)} />
 
 			<main className="body-page absolute text-justify top-48 sm:top-36 sm:left-72 p-4 sm:p-10">
-				<>{children}</>
+			<Spring from={{ opacity: 0, translateY: '-100%' }} to={{ opacity: 1, translateY: '0' }}>
+				{(styles) => (
+					<animated.div style={styles}>{children}</animated.div>
+				)}
+			</Spring>
 			</main>
 
 			<footer className={styles.footer}></footer>
