@@ -17,7 +17,7 @@ export const NavList = [
 		name: 'Учёба',
 		pages: [
 			{ name: 'Расписание', link: '/edu/schedule' },
-			{ name: 'Программы', link: '/edu/programms' },
+			{ name: 'Программы', link: '/edu/programs' },
 		],
 	} as Category,
 	{
