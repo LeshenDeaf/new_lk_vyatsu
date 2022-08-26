@@ -7,7 +7,7 @@ import {
 } from '../../../../store/reducers/NavbarSlice';
 import { NavList } from '../../../../configs/Pages';
 import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
+import { Transition, animated } from 'react-spring';
 
 const ArrowMenu: FC = () => {
 	const dispatch = useAppDispatch();
@@ -52,15 +52,27 @@ const ArrowMenu: FC = () => {
 					className="cursor-pointer w-6 flex justify-center"
 					onClick={decrement}
 				>
-					{arrowsVisible.left && (
-						<Image
-							src="/images/arrow_left.svg"
-							alt="left"
-							draggable="false"
-							width="16"
-							height="16"
-						/>
-					)}
+					<Transition
+						items={arrowsVisible.left}
+						from={{ transform: 'translateX(-100%)', opacity: 0 }}
+						enter={{ transform: 'translateX(0%)', opacity: 1 }}
+						leave={{ transform: 'translateX(-100%)', opacity: 0 }}
+						reverse={arrowsVisible.left}
+					>
+						{(styles, item) =>
+							item && (
+								<animated.div style={styles}>
+									<Image
+										src="/images/arrow_left.svg"
+										alt="left"
+										draggable="false"
+										width="16"
+										height="16"
+									/>
+								</animated.div>
+							)
+						}
+					</Transition>
 				</div>
 				<div className="flex font-bold">
 					<span id="left-menu-number-top" className="mr-1">
@@ -73,16 +85,28 @@ const ArrowMenu: FC = () => {
 					className="cursor-pointer w-6 flex justify-center"
 					onClick={increment}
 				>
-					{arrowsVisible.right && (
-						<Image
-							className="rotate-180"
-							src="/images/arrow_left.svg"
-							alt="right"
-							draggable="false"
-							width="16"
-							height="16"
-						/>
-					)}
+					<Transition
+						items={arrowsVisible.right}
+						from={{ transform: 'translateX(100%)', opacity: 0 }}
+						enter={{ transform: 'translateX(0%)', opacity: 1 }}
+						leave={{ transform: 'translateX(100%)', opacity: 0 }}
+						reverse={arrowsVisible.right}
+					>
+						{(styles, item) =>
+							item && (
+								<animated.div style={styles}>
+									<Image
+										className="rotate-180"
+										src="/images/arrow_left.svg"
+										alt="right"
+										draggable="false"
+										width="16"
+										height="16"
+									/>
+								</animated.div>
+							)
+						}
+					</Transition>
 				</div>
 			</div>
 			<div
