@@ -24,6 +24,9 @@ const Home: NextPage = () => {
 					TEST
 				</a>
 			</Link>
+			<div className="top-1/2 translate-y-[-50%] left-1/2 translate-x-[50%] text-8xl text-[#141414] opacity-10">
+				Информация
+			</div>
 		</>
 	);
 };
