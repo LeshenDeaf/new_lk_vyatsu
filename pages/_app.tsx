@@ -57,6 +57,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 					store.dispatch(setUserData(userData.data));
 				}
 				if (isTokenNew) {
+					console.log('setting auth data')
 					store.dispatch(setAuthData({ token, isAuth: true }));
 				}
 			};
@@ -97,7 +98,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 			if (token) {
 				try {
 					console.log('getting user data')
-					await getAndSetUserData(token);
+					await getAndSetUserData(token, true);
 
 					redirectToHome();
 				} catch (e) {
