@@ -1,8 +1,8 @@
 export const enum ProgramTypes {
-	universal,
-	common,
-	prof,
-	other,
+	universal = 'universal',
+	common = 'common',
+	prof = 'prof',
+	other = 'other',
 }
 export interface ProgramDiscipline {
 	zet: number;

@@ -90,7 +90,7 @@ export default memo(function ProgramsTable({ programs }: Props) {
 								courseDisciplines.course !== selectedCourse &&
 								selectedCourse !== 0
 							}
-							color={TypeColor[discipline.color]}
+							color={TypeColor[discipline.color] || ''}
 							discipline={discipline}
 						/>
 					))
