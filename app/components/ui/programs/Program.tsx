@@ -1,11 +1,18 @@
 import React from 'react';
+import { ProgramsApiResponse } from '../../../models/api/edu/programsTypes';
 import ProgramsLegend from './ProgramsLegend';
+import ProgramsTable from './ProgramsTable';
 
-export default function Program() {
+interface Props {
+	programs: ProgramsApiResponse;
+}
+
+export default function Program({programs}: Props) {
   
 	return (
-		<div>
-			<ProgramsLegend />
-		</div>
+		<>
+			<ProgramsLegend colors={programs.colors} />
+			<ProgramsTable programs={programs} />
+		</>
 	);
 }
