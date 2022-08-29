@@ -63,6 +63,7 @@ const Header = memo(function Header({ openSidebar }: Props) {
 							avatarClicked={avatarClicked}
 							notifications={notifications}
 							user={user}
+							fullInfoVisible={isVisible}
 						/>
 					</div>
 
