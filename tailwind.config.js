@@ -11,7 +11,11 @@ module.exports = {
         'vyatsu-blue-shadow': 'rgba(46, 158, 203, 0.2)',
         'vyatsu-shadow': 'rgba(34, 47, 162, 0.2)',
         'vyatsu-shadow-light': 'rgba(34, 47, 162, 0.1)',
-        'vytsu-review-button-shadow': 'rgba(27, 96, 255, 0.25)',
+        'vyatsu-review-button-shadow': 'rgba(27, 96, 255, 0.25)',
+        'vyatsu-programs-universal': '#C0E2EF',
+        'vyatsu-programs-common': '#FFF8B6',
+        'vyatsu-programs-prof': '#C4EAAB',
+        'vyatsu-programs-other': '#E9BBFF',
       },
     },
     fontFamily: {
