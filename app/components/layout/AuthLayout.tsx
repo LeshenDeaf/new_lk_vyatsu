@@ -35,13 +35,21 @@ const AuthLayout: FC<ILayoutProps> = ({ children, title, description }) => {
 
 			<Header openSidebar={() => setIsSidebarVisible(true)} />
 
-			<main className="body-page absolute text-justify top-48 sm:top-36 sm:left-72 p-4 sm:p-10">
-			<Spring from={{ opacity: 0, translateY: '-100%' }} to={{ opacity: 1, translateY: '0' }}>
-				{(styles) => (
-					<animated.div style={styles}>{children}</animated.div>
-				)}
-			</Spring>
-			</main>
+			{/* <main className="body-page absolute text-justify top-48 sm:top-36 sm:left-72 p-4 sm:p-10"> */}
+				<Spring
+					from={{ opacity: 0, translateY: '100%' }}
+					to={{ opacity: 1, translateY: '0%' }}
+				>
+					{(styles) => (
+						<animated.main
+							className="body-page absolute text-justify top-48 sm:top-36 sm:left-72 p-4 sm:p-10 z-[-1]"
+							style={styles}
+						>
+							{children}
+						</animated.main>
+					)}
+				</Spring>
+			{/* </main> */}
 
 			<footer className={styles.footer}></footer>
 		</div>
