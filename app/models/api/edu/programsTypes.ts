@@ -1,4 +1,4 @@
-export enum ProgramTypes {
+export const enum ProgramTypes {
 	universal,
 	common,
 	prof,
@@ -8,8 +8,8 @@ export interface ProgramDiscipline {
 	zet: number;
 	cp: number;
 	color: ProgramTypes;
-	subjectId: number;
-	opId: number;
+	subject_id: number;
+	op_id: number;
 	name: string;
 }
 export interface ProgramCourse {
