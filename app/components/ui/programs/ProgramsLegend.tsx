@@ -1,17 +1,11 @@
 import React, { memo } from 'react';
 import { ProgramColors } from '../../../models/api/edu/programsTypes';
 import BirdLogo from '../../shared/BirdLogo';
+import { ProgramDisciplineColors } from '../../../configs/ProgramDisciplineColors';
 
 interface Props {
 	colors: ProgramColors;
 }
-
-export const TypeColor = {
-	universal: '#C0E2EF',
-	common: '#FFF8B6',
-	prof: '#C4EAAB',
-	other: '#E9BBFF',
-};
 
 export default memo(function ProgramsLegend({ colors }: Props) {
 	return (
@@ -24,7 +18,7 @@ export default memo(function ProgramsLegend({ colors }: Props) {
 					<div key={colorType} className="flex items-center my-[10px]">
 						<BirdLogo
 						//@ts-ignore
-							color={TypeColor[colorType] || ''}
+							color={ProgramDisciplineColors[colorType] || ''}
 							className="mr-[20px]"
 						/>
 						{/*@ts-ignore*/}

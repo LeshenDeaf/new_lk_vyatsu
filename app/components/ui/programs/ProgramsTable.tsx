@@ -1,7 +1,7 @@
 import React, { memo, useMemo, useState } from 'react';
+import { ProgramDisciplineColors } from '../../../configs/ProgramDisciplineColors';
 import { ProgramsApiResponse } from '../../../models/api/edu/programsTypes';
 import ProgramDicsipline from './ProgramDicsipline';
-import { TypeColor } from './ProgramsLegend';
 
 interface Props {
 	programs: ProgramsApiResponse;
@@ -90,7 +90,7 @@ export default memo(function ProgramsTable({ programs }: Props) {
 								courseDisciplines.course !== selectedCourse &&
 								selectedCourse !== 0
 							}
-							color={TypeColor[discipline.color] || ''}
+							color={ProgramDisciplineColors[discipline.color] || ''}
 							discipline={discipline}
 						/>
 					))
