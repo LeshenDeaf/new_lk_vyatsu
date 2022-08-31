@@ -7,15 +7,16 @@ import {
 	RefreshRequest,
 } from '../../../app/models/api/auth/types';
 import { setCookieTokens } from '../../../app/helpers/api/set-cookie-tokens';
+import { parseCookies } from 'nookies';
 
 export default async function handle(
 	req: NextApiRequest,
 	res: NextApiResponse<AuthResponse>
 ) {
 	return new Promise<void>((resolve) => {
-		if (req.method === 'POST') {
+		if (req.method === 'POST' || req.method === 'GET') {
 			const reqData = {
-				refresh_token: req.body.refresh_token,
+				refresh_token: req.body.refresh_token || parseCookies({ req }).vyatsu_r_token || '',
 			} as RefreshRequest;
 
 			vyatsuApi
