@@ -6,6 +6,13 @@ export const scheduleApi = basicVyatsu.injectEndpoints({
 		personal: builder.query<IDaySchedule[], void>({
 			query: () => 'api/edu/schedule/personal',
 		}),
+		teacher: builder.query<IDaySchedule[], number>({
+			query: (tabnum) => ({
+				url: 'api/edu/schedule/by_tabnum',
+				method: 'POST',
+				body: {tabnum}
+			})
+		}),
 		byTabnum: builder.mutation<IDaySchedule[], number>({
 			query: (tabnum) => ({
 				url: 'api/edu/schedule/by_tabnum',
@@ -16,4 +23,4 @@ export const scheduleApi = basicVyatsu.injectEndpoints({
 	}),
 });
 
-export const { usePersonalQuery, useByTabnumMutation } = scheduleApi;
+export const { usePersonalQuery, useTeacherQuery, useByTabnumMutation } = scheduleApi;
