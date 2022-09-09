@@ -33,14 +33,11 @@ const baseQueryWithReauth: BaseQueryFn<
 	let result = await baseQuery(args, api, extraOptions);
 
 	if (result.error && result.error.status === 401) {
-		console.log('tried to refresh')
 		const refreshResult = await baseQuery(
 			'/api/auth/refresh/',
 			api,
 			extraOptions
 		);
-
-		console.log(refreshResult);
 
 		if (refreshResult.data) {
 			// store the new token
