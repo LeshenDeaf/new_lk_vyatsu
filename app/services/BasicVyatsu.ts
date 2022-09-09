@@ -39,9 +39,11 @@ const baseQueryWithReauth: BaseQueryFn<
 			extraOptions
 		);
 
+
 		if (refreshResult.data) {
+			const res = refreshResult.data as AuthResponse;
 			// store the new token
-			api.dispatch(setAuthData({token: refreshResult.data.token, isAuth: true}));
+			api.dispatch(setAuthData(res));
 			// retry the initial query
 			result = await baseQuery(args, api, extraOptions);
 		} else {
