@@ -1,0 +1,23 @@
+.daySchedule {
+	@apply min-h-[205px] sm:min-h-[130px] bg-[#F7F8FA] mb-4 last:mb-0 flex flex-col sm:flex-row sm:rounded-tl-2xl sm:rounded-bl-2xl;
+}
+.dateLabel {
+	@apply sm:min-w-[103px] min-h-[70px] sm:min-h-[130px] flex justify-start sm:justify-start items-center sm:items-center sm:flex-col p-4 sm:py-5 sm:rounded-tl-2xl sm:rounded-bl-2xl;
+
+	.date {
+		@apply text-white font-bold text-4xl;
+	}
+	.day {
+		@apply text-white font-light ml-4 sm:ml-0;
+	}
+}
+
+.pairGroup {
+  @apply flex flex-col p-4 pr-8;
+  .time {
+    @apply text-vyatsu-blue font-bold;
+  }
+  .pair {
+    @apply mb-1;
+  }
+}
