@@ -42,7 +42,7 @@ const AuthLayout: FC<ILayoutProps> = ({ children, title, description }) => {
 				>
 					{(styles) => (
 						<animated.main
-							className="body-page absolute text-justify top-48 sm:top-36 sm:left-72 p-4 sm:p-10 z-[-1]"
+							className="body-page absolute text-justify top-48 sm:top-36 sm:left-72 p-4 sm:p-10"
 							style={styles}
 						>
 							{children}

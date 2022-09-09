@@ -52,8 +52,8 @@ const Header = memo(function Header({ openSidebar }: Props) {
 			// config={{ duration: 2000 }}
 		>
 			{(styles) => (
-				<animated.header style={styles}>
-					<div className="top-menu sm:h-36 top-24 sm:top-0 sm:left-72 relative sm:fixed bg-white shadow-md shadow-vyatsu-shadow-light sm:z-30 sm:flex justify-between">
+				<animated.header style={styles} className="relative z-10">
+					<div className="top-menu sm:h-36 top-24 sm:top-0 sm:left-72 relative sm:fixed bg-white shadow-l-blue sm:z-30 sm:flex justify-between">
 						{/* search and tags */}
 						{<HeaderSearch />}
 
