@@ -25,6 +25,7 @@ const Schedule = () => {
 	// const [getByTabnum, { isLoading: byTabnumLoading }] = useByTabnumMutation();
 
 	const [tabnum, setTabnum] = useState(0);
+	const [fio, setFio] = useState('');
 	const {
 		data: teacherSchedule,
 		isLoading: isLoadingT,
@@ -37,8 +38,9 @@ const Schedule = () => {
 	dayjs.extend(require('dayjs/plugin/customParseFormat'));
 	dayjs.locale(require('dayjs/locale/ru'));
 
-	const teacherClicked = useCallback(async (tnum: number) => {
+	const teacherClicked = useCallback(async (tnum: number, fio: string ) => {
 		setTabnum(tnum);
+		setFio(fio);
 		setIsVisible(true);
 	}, []);
 
@@ -62,6 +64,7 @@ const Schedule = () => {
 						isVisible={isVisible}
 						isLoading={isLoadingT || isFetching}
 						setIsVisible={setIsVisible}
+						header={fio}
 					>
 						{teacherSchedule.map(getJSXDaySchedule)}
 					</Modal>
