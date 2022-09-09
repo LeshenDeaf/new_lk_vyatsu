@@ -23,6 +23,7 @@ module.exports = {
       boxShadow: {
         'side-blue': '0px 20px 20px rgba(46, 158, 203, 0.2)',
         'l-blue': '0px 0px 40px rgba(34, 47, 162, 0.1)',
+        // 'l-blue': '0px 0px 40px rgba(34, 47, 162, 1)',
       },
       
     },
