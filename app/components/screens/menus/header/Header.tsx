@@ -28,17 +28,20 @@ const Header = memo(function Header({ openSidebar }: Props) {
 
 	useOnClickOutside(
 		ref,
-		useCallback((e: MouseEvent) => {
-			console.log('clicked outside');
-			if (
-				isVisible &&
-				e.target !== avatarRef.current &&
-				// @ts-ignore
-				!avatarRef.current?.contains(e.target)
-			) {
-				setIsVisible(false);
-			}
-		}, [isVisible])
+		useCallback(
+			(e: MouseEvent) => {
+				console.log('clicked outside');
+				if (
+					isVisible &&
+					e.target !== avatarRef.current &&
+					// @ts-ignore
+					!avatarRef.current?.contains(e.target)
+				) {
+					setIsVisible(false);
+				}
+			},
+			[isVisible]
+		)
 	);
 
 	if (!user) {
@@ -46,50 +49,48 @@ const Header = memo(function Header({ openSidebar }: Props) {
 	}
 
 	return (
-		<Spring
-			from={{ opacity: 0, transform: 'translateY(-4rem)' }}
-			to={{ opacity: 1, transform: 'translateY(0rem)' }}
-			// config={{ duration: 2000 }}
-		>
-			{(styles) => (
-				<animated.header style={styles} className="relative z-10">
-					<div className="top-menu sm:h-36 top-24 sm:top-0 sm:left-72 relative sm:fixed bg-white shadow-l-blue sm:z-30 sm:flex justify-between">
-						{/* search and tags */}
-						{<HeaderSearch />}
+		<>
+			<Spring
+				from={{ opacity: 0, transform: 'translateY(-4rem)' }}
+				to={{ opacity: 1, transform: 'translateY(0rem)' }}
+				// config={{ duration: 2000 }}
+			>
+				{(styles) => (
+					<animated.header style={styles} className="relative z-10">
+						<div className="top-menu sm:h-36 top-24 sm:top-0 sm:left-72 relative sm:fixed bg-white shadow-l-blue sm:z-30 sm:flex justify-between">
+							{/* search and tags */}
+							{<HeaderSearch />}
 
-						{/* user */}
-						<HeaderUser
-							ref={avatarRef}
-							avatarClicked={avatarClicked}
-							notifications={notifications}
-							user={user}
-							fullInfoVisible={isVisible}
-						/>
-					</div>
+							{/* user */}
+							<HeaderUser
+								ref={avatarRef}
+								avatarClicked={avatarClicked}
+								notifications={notifications}
+								user={user}
+								fullInfoVisible={isVisible}
+							/>
+						</div>
 
-					{/* user-menu */}
-					<div ref={ref}>
-						<Transition
-							items={isVisible}
-							from={{ opacity: 0, transform: 'translateY(-4rem)' }}
-							enter={{ opacity: 1, transform: 'translateY(0rem)' }}
-							leave={{ opacity: 0, transform: 'translateY(-4rem)' }}
-							reverse={isVisible}
-							config={config.stiff}
-						>
-							{(styles, item) =>
-								item && <UserDropDown user={user} styles={styles} />
-							}
-						</Transition>
-					</div>
-
-					<HeaderMobile
-						openSidebar={openSidebar}
-						notifications={notifications}
-					/>
-				</animated.header>
-			)}
-		</Spring>
+						{/* user-menu */}
+						<div ref={ref}>
+							<Transition
+								items={isVisible}
+								from={{ opacity: 0, transform: 'translateY(-4rem)' }}
+								enter={{ opacity: 1, transform: 'translateY(0rem)' }}
+								leave={{ opacity: 0, transform: 'translateY(-4rem)' }}
+								reverse={isVisible}
+								config={config.stiff}
+							>
+								{(styles, item) =>
+									item && <UserDropDown user={user} styles={styles} />
+								}
+							</Transition>
+						</div>
+					</animated.header>
+				)}
+			</Spring>
+			<HeaderMobile openSidebar={openSidebar} notifications={notifications} />
+		</>
 	);
 });
 
