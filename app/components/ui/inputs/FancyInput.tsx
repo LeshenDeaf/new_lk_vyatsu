@@ -41,10 +41,10 @@ const FancyInput = forwardRef<HTMLInputElement, IFancyInputProps>(
 		}, [props.options.max, props.options.maxLength, props.options.min, props.options.minLength]);
 
 		return (
-			<label className="block mt-2 mx-auto w-1/2">
+			<label className="block mt-2 mx-auto md:w-1/2 w-full">
 				{props.label}
 				<input
-					className="rounded-lg border px-2 py-1 w-full"
+					className="rounded-lg border px-2 py-1 w-full focus:outline-none outline-none focus:border-vyatsu-blue transition-all bg-white autofill:bg-white "
 					{...props.register}
 					{...props.attrs}
 					ref={ref}

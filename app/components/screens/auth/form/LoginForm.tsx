@@ -12,7 +12,7 @@ const LoginForm: FC<ILoginFormProps> = ({ onSubmit, isLoading }) => {
 	} = useForm<ILoginFormFields>();
 
 	return (
-		<div className="w-1/2 py-3 rounded-lg shadow-vyatsu-shadow shadow-lg absolute top-1/2 translate-x-[-50%] left-1/2 translate-y-[-50%]">
+		<div className="xl:w-1/2 w-full py-8 rounded-[10px] shadow-vyatsu-shadow shadow-side-blue absolute top-1/2 translate-x-[-50%] left-1/2 translate-y-[-50%]">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<LoginInput
 					register={register}
@@ -25,7 +25,7 @@ const LoginForm: FC<ILoginFormProps> = ({ onSubmit, isLoading }) => {
 					label="Пароль"
 				/>
 
-				<button className={`${isLoading ? 'bg-gray-400' : 'bg-blue-600'} text-white w-[100px] block m-auto py-1 px-2 mt-2 rounded-lg `}
+				<button className={`${isLoading ? 'bg-gray-400' : 'bg-blue-600'} text-white md:w-1/2 w-full block m-auto py-3 px-2 mt-2 rounded-[10px] `}
 								{...isLoading && { 'disabled': true }}
 				>
 					Login
