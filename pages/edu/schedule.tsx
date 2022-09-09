@@ -3,32 +3,44 @@ import { IDaySchedule } from '../../app/models/schedule';
 import {
 	useByTabnumMutation,
 	usePersonalQuery,
+	useTeacherQuery,
 } from '../../app/services/edu/ScheduleService';
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
 import Link from 'next/link';
 import { ScheduleColors } from '../../app/configs/ScheduleColors';
+import Modal from '../../app/components/ui/modal/Modal';
+import {
+	animated,
+	config,
+	useChain,
+	useSpring,
+	useSpringRef,
+	useTransition,
+} from 'react-spring';
 
 const Schedule = () => {
 	const { data: schedule, isLoading } = usePersonalQuery();
-	const [getByTabnum, { isLoading: byTabnumLoading }] = useByTabnumMutation();
-	// const {
-	// 	data: teacherSchedule,
-	// 	isLoading: isLoadingT,
-	// } = useTeacherQuery();
-	const [s, setS] = useState<IDaySchedule[] | null>(null);
+	// const [getByTabnum, { isLoading: byTabnumLoading }] = useByTabnumMutation();
+
+	const [tabnum, setTabnum] = useState(0);
+	const {
+		data: teacherSchedule,
+		isLoading: isLoadingT,
+		isError,
+		error,
+		isFetching,
+	} = useTeacherQuery(tabnum, { skip: false });
+	const [isVisible, setIsVisible] = useState(false);
 
 	dayjs.extend(require('dayjs/plugin/customParseFormat'));
 	dayjs.locale(require('dayjs/locale/ru'));
 
-	const teacherClicked = useCallback(async (tabnum: number) => {
-		const res = await getByTabnum(tabnum);
-		if ('data' in res) {
-			console.log(res.data)
-			setS(res.data);
-		}
-	}, [getByTabnum]);
+	const teacherClicked = useCallback(async (tnum: number) => {
+		setTabnum(tnum);
+		setIsVisible(true);
+	}, []);
 
 	const getJSXDaySchedule = (schedule: IDaySchedule, index: number) => (
 		<DaySchedule
@@ -43,10 +55,20 @@ const Schedule = () => {
 	return (
 		<>
 			<div>{!isLoading && schedule?.map(getJSXDaySchedule)}</div>
-			<div>
-				<div>{byTabnumLoading && 'ЗАГРУЗКА'}</div>
-				<div>{s && !byTabnumLoading ? s.map(getJSXDaySchedule) : ''}</div>
-			</div>
+			{teacherSchedule && !isLoading  && !isFetching && !isError ? (
+				<>
+					<div>{isLoading && 'ЗАГРУЗКА'}</div>
+					<Modal
+						isVisible={isVisible}
+						isLoading={isLoadingT || isFetching}
+						setIsVisible={setIsVisible}
+					>
+						{teacherSchedule.map(getJSXDaySchedule)}
+					</Modal>
+				</>
+			) : (
+				''
+			)}
 		</>
 	);
 };
