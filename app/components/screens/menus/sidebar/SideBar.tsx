@@ -15,7 +15,7 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 		<>
 			<animated.div
 				id="left-menu"
-				className={`fixed z-50 bg-vyatsu-blue rounded-b-2xl w-full sm:w-72 h-[95%] sm:h-[90%] sm:block shadow-side-blue`}
+				className={`fixed z-50 bg-vyatsu-blue rounded-b-2xl w-full sm:w-72 h-[95%] sm:h-[90%] sm:block shadow-side-blue `}
 				style={styles}
 			>
 				{/* logo */}
@@ -23,7 +23,7 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 				{/*arrow menu*/}
 				<ArrowMenu />
 
-				<div className="h-72 w-full absolute bottom-20 sm:bottom-0 p-7 flex flex-col justify-between">
+				<div className="absolute h-72 w-full  bottom-20 sm:bottom-0 p-7 flex flex-col justify-between">
 					{/* number-menu */}
 					<NumberMenu />
 					{/* centre-info */}
