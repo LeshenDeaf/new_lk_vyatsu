@@ -19,7 +19,7 @@ export default async function handler(
 					return resolve();
 				})
 				.catch((e) => {
-					res.status(e.response.status).json(e.response.data);
+					res.status(e.response?.status).json(e.response?.data);
 					return resolve();
 				});
 		}
