@@ -1,24 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import dayjs from 'dayjs';
+import { useCallback, useState } from 'react';
+import Modal from '../../app/components/ui/modal/Modal';
+import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
+import { ScheduleColors } from '../../app/configs/ScheduleColors';
 import { IDaySchedule } from '../../app/models/schedule';
 import {
-	useByTabnumMutation,
 	usePersonalQuery,
-	useTeacherQuery,
+	useTeacherQuery
 } from '../../app/services/edu/ScheduleService';
-import dayjs from 'dayjs';
-import { v4 as uuidv4 } from 'uuid';
-import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
-import Link from 'next/link';
-import { ScheduleColors } from '../../app/configs/ScheduleColors';
-import Modal from '../../app/components/ui/modal/Modal';
-import {
-	animated,
-	config,
-	useChain,
-	useSpring,
-	useSpringRef,
-	useTransition,
-} from 'react-spring';
+
 
 const Schedule = () => {
 	const { data: schedule, isLoading } = usePersonalQuery();
@@ -38,7 +28,7 @@ const Schedule = () => {
 	dayjs.extend(require('dayjs/plugin/customParseFormat'));
 	dayjs.locale(require('dayjs/locale/ru'));
 
-	const teacherClicked = useCallback(async (tnum: number, fio: string ) => {
+	const teacherClicked = useCallback(async (tnum: number, fio: string) => {
 		setTabnum(tnum);
 		setFio(fio);
 		setIsVisible(true);
@@ -54,10 +44,11 @@ const Schedule = () => {
 		/>
 	);
 
+
 	return (
 		<>
 			<div>{!isLoading && schedule?.map(getJSXDaySchedule)}</div>
-			{teacherSchedule && !isLoading  && !isFetching && !isError ? (
+			{teacherSchedule && !isLoading && !isFetching && !isError ? (
 				<>
 					<div>{isLoading && 'ЗАГРУЗКА'}</div>
 					<Modal

@@ -1,17 +1,19 @@
-import React, { useCallback } from 'react';
-import { NextPage } from 'next';
-import LoginForm from '../../app/components/screens/auth/form/LoginForm';
-import Fio from '../../app/components/screens/user/Fio';
-import Link from 'next/link';
-import { useLoginMutation } from '../../app/services/auth/AuthService';
-import { SubmitHandler } from 'react-hook-form';
-import { selectAuth, setAuthData } from '../../app/store/reducers/AuthSlice';
 import axios from 'axios';
-import { useAppDispatch, useAppSelector } from '../../app/hooks/redux';
-import { setUserData } from '../../app/store/reducers/UserSlice';
-import { ILoginFormFields } from '../../app/components/screens/auth/form/types';
+import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { ILoginFormFields } from '../../app/components/screens/auth/form/types';
+import { useAppDispatch } from '../../app/hooks/redux';
 import { LoginRequest } from '../../app/models/api/auth/types';
+import { useLoginMutation } from '../../app/services/auth/AuthService';
+import { setAuthData } from '../../app/store/reducers/AuthSlice';
+import { setUserData } from '../../app/store/reducers/UserSlice';
+// import LoginForm from '../../app/components/screens/auth/form/LoginForm';
+const DynamicLoginForm = dynamic(() => import('../../app/components/screens/auth/form/LoginForm'), {
+  suspense: true,
+})
 
 const Login: NextPage = () => {
 	const [login, loginRes] = useLoginMutation();
@@ -43,17 +45,8 @@ const Login: NextPage = () => {
 	);
 
 	return (
-			<LoginForm onSubmit={onSubmit} isLoading={loginRes.isLoading} />
+			<DynamicLoginForm onSubmit={onSubmit} isLoading={loginRes.isLoading} />
 	);
 };
-
-// export const getServerSideProps: GetServerSideProps =
-// 	wrapper.getServerSideProps((store) => async (ctx) => {
-//
-//
-// 		return {
-// 			props: { },
-// 		};
-// 	});
 
 export default Login;

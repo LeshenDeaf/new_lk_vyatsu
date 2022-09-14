@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import {
 	BaseQueryFn,
 	createApi,
@@ -38,7 +37,6 @@ const baseQueryWithReauth: BaseQueryFn<
 			api,
 			extraOptions
 		);
-
 
 		if (refreshResult.data) {
 			const res = refreshResult.data as AuthResponse;

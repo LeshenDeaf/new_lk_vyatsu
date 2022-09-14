@@ -17,7 +17,7 @@ const DaySchedule: FC<Props> = ({ color, schedule, dayjs, teacherClicked }) => {
 	const myFormat = 'DD.MM.YY';
 
 	return (
-		<div className={styles.daySchedule}>
+		<div className={styles.daySchedule} >
 			{/*  дата  */}
 			<div
 				className={styles.dateLabel}
