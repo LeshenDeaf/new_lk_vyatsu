@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { IVoting } from '../../../models/api/votings/types';
 import VotingsListElement from './VotingListElement';
+import styles from '../../../../styles/Votings.module.scss';
 
 interface Props {
   votings: IVoting[];
