@@ -12,7 +12,7 @@ const VotingsListElement: FC<Props> = ({ voting }) => {
 		() => ({
 			main: !voting.has_voted ? 'bg-vyatsu-blue/[0.15]' : 'bg-[#E7E7E7]/[0.15]',
 			border: !voting.has_voted ? 'bg-vyatsu-blue' : 'bg-[#E7E7E7]',
-			button: !voting.has_voted ? 'bg-vyatsu-blue' : 'bg-[#E7E7E7]',
+			button: !voting.has_voted ? 'bg-vyatsu-blue hover:bg-vyatsu-darkblue' : 'bg-[#E7E7E7]',
 			buttonText: !voting.has_voted ? 'text-white' : 'text-black',
 		}),
 		[voting.has_voted]
