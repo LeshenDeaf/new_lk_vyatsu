@@ -48,14 +48,14 @@ const Authenticate: FC<AuthProps> = ({ children }) => {
 
 	if (router.pathname === '/auth/login') {
 		return (
-			<NotAuthLayout title="TITLE" description="DESC">
+			<NotAuthLayout description="DESC">
 				{children}
 			</NotAuthLayout>
 		);
 	}
 
 	return (
-		<AuthLayout title="TITLE" description="DESC">
+		<AuthLayout description="DESC">
 			{children}
 		</AuthLayout>
 	);

@@ -9,11 +9,13 @@ import UserReducer from './reducers/UserSlice';
 import NavbarReducer from './reducers/NavbarSlice';
 import { basicVyatsu } from '../services/BasicVyatsu';
 import { createWrapper } from 'next-redux-wrapper';
+import TitleReducer from './reducers/TitleSlice';
 
 const rootReducer = combineReducers({
 	auth: AuthReducer,
 	user: UserReducer,
 	navbar: NavbarReducer,
+	title: TitleReducer,
 	[basicVyatsu.reducerPath]: basicVyatsu.reducer,
 });
 

@@ -7,14 +7,14 @@ import { ILayoutProps } from './ILayoutProps';
 import { Spring, Transition, animated } from 'react-spring';
 import { isMobile } from 'react-device-detect';
 
-const AuthLayout: FC<ILayoutProps> = ({ children, title, description }) => {
+const AuthLayout: FC<ILayoutProps> = ({ children, description }) => {
 	const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
 
 	useEffect(() => setIsSidebarVisible(!isMobile), []);
 
 	return (
 		<div className={styles.container}>
-			<Meta title={title} description={description} />
+			<Meta description={description} />
 
 			<Transition
 				items={isSidebarVisible}
