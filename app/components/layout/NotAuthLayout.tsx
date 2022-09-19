@@ -3,10 +3,10 @@ import styles from '../../../styles/Home.module.scss';
 import Meta from '../../utils/Meta';
 import { ILayoutProps } from './ILayoutProps';
 
-const NotAuthLayout: FC<ILayoutProps> = ({ children, title, description }) => {
+const NotAuthLayout: FC<ILayoutProps> = ({ children, description }) => {
 	return (
 		<div className={styles.container}>
-			<Meta title={title} description={description} />
+			<Meta description={description} />
 
 			<main className={styles.main}>
 				<>{ children }</>
