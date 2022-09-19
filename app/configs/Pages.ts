@@ -11,7 +11,10 @@ export type Category = {
 export const NavList = [
 	{
 		name: 'Доступные',
-		pages: [{ name: 'Главная', link: '/' }],
+		pages: [
+			{ name: 'Главная', link: '/' },
+			{ name: 'Опросы', link: '/votings'}
+		],
 	} as Category,
 	{
 		name: 'Учёба',
