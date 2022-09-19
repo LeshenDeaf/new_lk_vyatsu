@@ -1,16 +1,11 @@
 import axios from 'axios';
 import { NextPage } from 'next';
-import { useCallback, useMemo } from 'react';
-import CheckboxInput from '../../app/components/ui/inputs/CheckboxInput';
-import RadioInput from '../../app/components/ui/inputs/RadioInput';
-import TextareaInput from '../../app/components/ui/inputs/TextareaInput';
-import TextInput from '../../app/components/ui/inputs/TextInput';
+import Voting from '../../app/components/screens/votings/Voting';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
 import {
-	IAnswer,
 	IQuestion,
-	IVoting,
+	IVoting
 } from './../../app/models/api/votings/types';
 
 interface Props {
@@ -19,52 +14,7 @@ interface Props {
 }
 
 const VotingPage: NextPage<Props> = ({ voting, questions }) => {
-	const inputTypes = useMemo(
-		() => ({
-			text: TextInput,
-			checkbox: CheckboxInput,
-			radio: RadioInput,
-			textarea: TextareaInput,
-		}),
-		[]
-	);
-	const chooseInput = useCallback(
-		(answer: IAnswer, isRequired: boolean) => {
-			const Component = inputTypes[answer.type];
-
-			return (
-				<Component
-					isRequired={isRequired}
-					name={answer.id}
-					label={answer.message}
-					params={answer.params}
-				/>
-			);
-		},
-		[inputTypes]
-	);
-	const makeQuestion = useCallback(
-		(question: IQuestion) => {
-			return (
-				<div>
-					<div>{question.title.replaceAll('&nbsp;', ' ')}</div>
-					<div>
-						{question.answers.map((a) => chooseInput(a, question.is_required))}
-					</div>
-				</div>
-			);
-		},
-		[chooseInput]
-	);
-
-	return (
-		<>
-			{questions.map(makeQuestion)}
-
-			<pre>{JSON.stringify(voting, null, 2)}</pre>
-			<pre>{JSON.stringify(questions, null, 2)}</pre>
-		</>
-	);
+	return (<Voting voting={voting} questions={questions} />);
 };
 
 export default VotingPage;
