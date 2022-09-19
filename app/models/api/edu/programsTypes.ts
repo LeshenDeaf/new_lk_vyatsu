@@ -4,7 +4,7 @@ export const enum ProgramTypes {
 	prof = 'prof',
 	other = 'other',
 }
-export interface ProgramDiscipline {
+export interface IProgramDiscipline {
 	zet: number;
 	cp: number;
 	color: ProgramTypes;
@@ -12,19 +12,19 @@ export interface ProgramDiscipline {
 	op_id: number;
 	name: string;
 }
-export interface ProgramCourse {
+export interface IProgramCourse {
 	course: number;
-	disciplines: ProgramDiscipline[];
+	disciplines: IProgramDiscipline[];
 }
 export type ProgramTypesDescriptions = {
 	[key in ProgramTypes]: string;
 };
-export interface ProgramColors {
+export interface IProgramColors {
 	used: string[];
 	descriptions: ProgramTypesDescriptions;
 }
 export interface ProgramsApiResponse {
-	program: ProgramCourse[];
-	colors: ProgramColors;
+	program: IProgramCourse[];
+	colors: IProgramColors;
 	courses: number;
 }
