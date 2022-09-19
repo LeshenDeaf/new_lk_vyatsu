@@ -4,6 +4,8 @@ import { useAppSelector } from '../app/hooks/redux';
 import { selectUser } from '../app/store/reducers/UserSlice';
 import { Spring, animated } from 'react-spring';
 import Link from 'next/link';
+import { wrapper } from '../app/store/store';
+import { setTitle } from '../app/store/reducers/TitleSlice';
 
 const Home: NextPage = () => {
 	const user = useAppSelector(selectUser);
@@ -16,11 +18,8 @@ const Home: NextPage = () => {
 					<animated.div style={styles}>{user.data?.login}</animated.div>
 				)}
 			</Spring>
-			<Link href='/edu/schedule'>
-				<a
-					draggable="false"
-					className=""
-				>
+			<Link href="/edu/schedule">
+				<a draggable="false" className="">
 					TEST
 				</a>
 			</Link>
@@ -30,5 +29,15 @@ const Home: NextPage = () => {
 		</>
 	);
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+	(store) => async () => {
+		store.dispatch(setTitle('Личный кабинет'));
+
+		return {
+			props: {},
+		};
+	}
+);
 
 export default Home;
