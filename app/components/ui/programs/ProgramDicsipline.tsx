@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { ProgramDiscipline } from '../../../models/api/edu/programsTypes';
+import { IProgramDiscipline } from '../../../models/api/edu/programsTypes';
 
 interface Props {
 	isHidden: boolean;
 	color: string;
-	discipline: ProgramDiscipline;
+	discipline: IProgramDiscipline;
 }
 
 export default memo(function ProgramDicsipline({

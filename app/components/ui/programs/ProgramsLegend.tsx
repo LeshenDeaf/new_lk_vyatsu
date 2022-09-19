@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { ProgramColors } from '../../../models/api/edu/programsTypes';
+import { IProgramColors } from '../../../models/api/edu/programsTypes';
 import BirdLogo from '../../shared/BirdLogo';
 import { ProgramDisciplineColors } from '../../../configs/ProgramDisciplineColors';
 
 interface Props {
-	colors: ProgramColors;
+	colors: IProgramColors;
 }
 
 export default memo(function ProgramsLegend({ colors }: Props) {
