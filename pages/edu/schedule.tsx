@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { NextPage } from 'next';
 import { useCallback, useState } from 'react';
 import Modal from '../../app/components/ui/modal/Modal';
 import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
@@ -6,13 +7,13 @@ import { ScheduleColors } from '../../app/configs/ScheduleColors';
 import { IDaySchedule } from '../../app/models/schedule';
 import {
 	usePersonalQuery,
-	useTeacherQuery
+	useTeacherQuery,
 } from '../../app/services/edu/ScheduleService';
+import { setTitle } from '../../app/store/reducers/TitleSlice';
+import { wrapper } from '../../app/store/store';
 
-
-const Schedule = () => {
+const Schedule: NextPage = () => {
 	const { data: schedule, isLoading } = usePersonalQuery();
-	// const [getByTabnum, { isLoading: byTabnumLoading }] = useByTabnumMutation();
 
 	const [tabnum, setTabnum] = useState(0);
 	const [fio, setFio] = useState('');
@@ -20,9 +21,9 @@ const Schedule = () => {
 		data: teacherSchedule,
 		isLoading: isLoadingT,
 		isError,
-		error,
 		isFetching,
 	} = useTeacherQuery(tabnum, { skip: false });
+	
 	const [isVisible, setIsVisible] = useState(false);
 
 	dayjs.extend(require('dayjs/plugin/customParseFormat'));
@@ -43,7 +44,6 @@ const Schedule = () => {
 			key={`${schedule.date}-${schedule.day_of_week}`}
 		/>
 	);
-
 
 	return (
 		<>
@@ -66,5 +66,13 @@ const Schedule = () => {
 		</>
 	);
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+	(store) => async () => {
+		store.dispatch(setTitle('Расписание'));
+
+		return { props: {} };
+	}
+);
 
 export default Schedule;
