@@ -21,16 +21,6 @@ const Programs: NextPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) => async () => {
-		// const { auth } = store.getState();
-		// const programs = await axios.get(
-		// 	process.env.APP_URL + '/api/edu/programs/personal',
-		// 	{
-		// 		headers: {
-		// 			authorization: `Bearer ${auth.token}`,
-		// 		},
-		// 	}
-		// );
-
 		store.dispatch(setTitle('Программы'));
 
 		return {
