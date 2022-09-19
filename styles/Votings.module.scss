@@ -1,0 +1,38 @@
+@mixin lg-text {
+  @apply text-lg lg:text-base;
+}
+
+@mixin button-common {
+  @include lg-text;
+  @apply min-h-[60px] p-4 md:min-w-[170px] rounded-xl mt-4 ;
+}
+
+.votingElement {
+  @apply min-h-[60px] flex mb-4 last:mb-0 rounded-xl;
+
+  .bar {
+    @apply hidden lg:block w-[8px] min-h-[60px] rounded-tl-xl rounded-bl-xl;
+  }
+
+  .content {
+    @apply w-full flex flex-col lg:flex-row justify-between lg:items-center p-5 lg:p-0 lg:pl-4;
+
+    .name {
+      @include lg-text;
+      @apply lg:w-2/3;
+    }
+
+    .link {
+      @include button-common;
+      @apply lg:mt-0 flex justify-center items-center md:drop-shadow-none cursor-pointer mr-6 last:mr-0;
+    }
+  }
+}
+
+.send {
+  @include button-common;
+  @apply bg-vyatsu-blue drop-shadow-button text-white rounded-[10px] hover:bg-vyatsu-darkblue;
+}
+// .voting {
+
+// }
