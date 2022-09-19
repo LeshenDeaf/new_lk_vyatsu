@@ -21,3 +21,21 @@ export interface IAnswer {
 	type: answerTypes;
 	params: string;
 }
+
+export interface IRequestAnswer {
+  id: number;
+  message: string;
+  type: answerTypes;
+}
+
+export interface IRequestQuestion {
+  id: number;
+  title: string;
+  is_required: boolean;
+  answers: IRequestAnswer[]
+}
+
+export interface IVoteRequest {
+  id: number;
+  questions: IRequestQuestion[]
+}
