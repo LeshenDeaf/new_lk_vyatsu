@@ -1,11 +1,11 @@
-import { Voting } from './../../../app/models/api/votings/types';
+import { IVoting } from './../../../app/models/api/votings/types';
 import { NextApiRequest, NextApiResponse } from "next"
 import vyatsuApi from '../../../app/services/VyatsuApi';
 import { AxiosResponse } from 'axios';
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Voting>
+	res: NextApiResponse<IVoting>
 ) {
   const { id } = req.query
   return new Promise<void>((resolve) => {
@@ -16,7 +16,7 @@ export default async function handler(
       }, {
         headers: { Authorization: req.headers.authorization || '' }
       })
-      .then((r: AxiosResponse<Voting>) => {
+      .then((r: AxiosResponse<IVoting>) => {
         res.status(200).json(r.data);
         return resolve();
       })
