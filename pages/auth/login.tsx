@@ -9,11 +9,16 @@ import { useAppDispatch } from '../../app/hooks/redux';
 import { LoginRequest } from '../../app/models/api/auth/types';
 import { useLoginMutation } from '../../app/services/auth/AuthService';
 import { setAuthData } from '../../app/store/reducers/AuthSlice';
+import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { setUserData } from '../../app/store/reducers/UserSlice';
+import { wrapper } from '../../app/store/store';
 // import LoginForm from '../../app/components/screens/auth/form/LoginForm';
-const DynamicLoginForm = dynamic(() => import('../../app/components/screens/auth/form/LoginForm'), {
-  suspense: true,
-})
+const DynamicLoginForm = dynamic(
+	() => import('../../app/components/screens/auth/form/LoginForm'),
+	{
+		suspense: true,
+	}
+);
 
 const Login: NextPage = () => {
 	const [login, loginRes] = useLoginMutation();
@@ -45,8 +50,16 @@ const Login: NextPage = () => {
 	);
 
 	return (
-			<DynamicLoginForm onSubmit={onSubmit} isLoading={loginRes.isLoading} />
+		<DynamicLoginForm onSubmit={onSubmit} isLoading={loginRes.isLoading} />
 	);
 };
 
 export default Login;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+	(store) => async () => {
+		store.dispatch(setTitle('Авторизация'));
+
+		return { props: {} };
+	}
+);
