@@ -32,6 +32,10 @@
   }
 }
 
+::selection {
+  @apply bg-vyatsu-blue text-black bg-opacity-30;
+}
+
 .scrollbar-hide {
   scrollbar-width: none;
 }
