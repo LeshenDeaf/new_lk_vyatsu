@@ -1,12 +1,12 @@
-import { IDaySchedule } from '../../models/schedule';
+import { ProgramsApiResponse } from '../../models/api/edu/programsTypes';
 import { basicVyatsu } from '../BasicVyatsu';
 
-export const scheduleApi = basicVyatsu.injectEndpoints({
+export const programsApi = basicVyatsu.injectEndpoints({
 	endpoints: (builder) => ({
-		personal: builder.query<IDaySchedule[], void>({
+		programs: builder.query<ProgramsApiResponse, void>({
 			query: () => 'api/edu/programs/personal',
 		}),
 	}),
 });
 
-export const { usePersonalQuery } = scheduleApi;
+export const { useProgramsQuery } = programsApi;
