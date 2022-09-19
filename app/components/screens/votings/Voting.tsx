@@ -1,21 +1,12 @@
 import { FC, useCallback, useMemo } from 'react';
 import { IAnswer, IQuestion, IVoting } from '../../../models/api/votings/types';
-import dynamic from 'next/dynamic';
-// import RadioInput from '../../ui/inputs/RadioInput';
-// import TextareaInput from '../../ui/inputs/TextareaInput';
-// import TextInput from '../../ui/inputs/TextInput';
-const RadioInput = dynamic(() => import('../../ui/inputs/RadioInput'), {
-	suspense: true,
-});
-const CheckboxInput = dynamic(() => import('../../ui/inputs/CheckboxInput'), {
-	suspense: true,
-});
-const TextareaInput = dynamic(() => import('../../ui/inputs/TextareaInput'), {
-	suspense: true,
-});
-const TextInput = dynamic(() => import('../../ui/inputs/TextInput'), {
-	suspense: true,
-});
+// import dynamic from 'next/dynamic';
+import styles from '../../../../styles/Votings.module.scss';
+
+import RadioInput from '../../ui/inputs/RadioInput';
+import CheckboxInput from '../../ui/inputs/CheckboxInput';
+import TextareaInput from '../../ui/inputs/TextareaInput';
+import TextInput from '../../ui/inputs/TextInput';
 
 interface IProps {
 	voting: IVoting;
@@ -68,7 +59,7 @@ const Voting: FC<IProps> = ({ voting, questions }) => {
 		<form>
 			<div>{voting.name}</div>
 			<div>{questions.map(makeQuestion)}</div>
-      <button>Отправить</button>
+      <button className={styles.send}>Отправить</button>
 		</form>
 	);
 };
