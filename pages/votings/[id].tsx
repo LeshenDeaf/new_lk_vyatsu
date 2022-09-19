@@ -1,53 +1,48 @@
-import axios from 'axios';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import Voting from '../../app/components/screens/votings/Voting';
-import { setTitle } from '../../app/store/reducers/TitleSlice';
-import { wrapper } from '../../app/store/store';
 import {
-	IQuestion,
-	IVoting
-} from './../../app/models/api/votings/types';
+	useQuestionsQuery,
+	useVotingQuery
+} from '../../app/services/votings/VotingsApi';
+import { setTitle } from '../../app/store/reducers/TitleSlice';
 
-interface Props {
-	voting: IVoting;
-	questions: IQuestion[];
-}
+const VotingPage: NextPage = () => {
+	const dispatch = useDispatch();
+	const { query } = useRouter();
+	const id = useMemo(() => +(query?.id || 0), [query.id]);
 
-const VotingPage: NextPage<Props> = ({ voting, questions }) => {
-	return (<Voting voting={voting} questions={questions} />);
+	const votingQuery = useVotingQuery(id);
+	const questionsQuery = useQuestionsQuery(id);
+
+	if (!id) {
+		return <>Указан некорректный идентификатор опроса</>;
+	}
+
+	if (votingQuery.isError) {
+		return <>Возникла ошибка при получении данных опроса, обновите страницу</>;
+	}
+
+	if (questionsQuery.isError) {
+		return <>Возникла ошибка при получении данных опроса, обновите страницу</>;
+	}
+
+	if (votingQuery.data) {
+		dispatch(setTitle(votingQuery.data.name));
+	}
+
+	console.log('!!!!');
+
+	return (
+		<>
+			{votingQuery.isLoading || questionsQuery.isLoading ? 'Загрузка...' : ''}
+			{votingQuery.data && questionsQuery.data && (
+				<Voting voting={votingQuery.data} questions={questionsQuery.data} />
+			)}
+		</>
+	);
 };
 
 export default VotingPage;
-
-export const getServerSideProps = wrapper.getServerSideProps(
-	(store) =>
-		async ({ query }) => {
-			const { auth } = store.getState();
-
-			const [voting, questions] = await Promise.all([
-				axios.get(process.env.APP_URL + '/api/votings/' + query.id, {
-					headers: {
-						authorization: `Bearer ${auth.token}`,
-					},
-				}),
-				axios.post(
-					process.env.APP_URL + '/api/votings/questions/',
-					{ vote_id: query.id },
-					{
-						headers: {
-							authorization: `Bearer ${auth.token}`,
-						},
-					}
-				),
-			]);
-
-			store.dispatch(setTitle(voting.data.name));
-
-			return {
-				props: {
-					voting: voting.data as IVoting,
-					questions: questions.data as IQuestion[],
-				},
-			};
-		}
-);
