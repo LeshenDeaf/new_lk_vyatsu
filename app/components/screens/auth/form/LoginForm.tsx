@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 import LoginInput from '../inputs/LoginInput';
 import PasswordInput from '../inputs/PasswordInput';
 import { ILoginFormFields, ILoginFormProps } from './types';
