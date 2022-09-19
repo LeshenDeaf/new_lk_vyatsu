@@ -107,9 +107,9 @@ App.getInitialProps = wrapper.getInitialAppProps(
 					// @ts-ignore
 					if (e?.response?.status !== 401 || !rToken) {
 						redirectToLogin();
+					} else {
+						await refreshAll(rToken);
 					}
-
-					await refreshAll(rToken);
 				}
 			} else if (rToken) {
 				await refreshAll(rToken);
@@ -119,16 +119,12 @@ App.getInitialProps = wrapper.getInitialAppProps(
 
 			return {
 				pageProps: {
-					// Call page-level getInitialProps
 					...(Component.getInitialProps
 						? await Component?.getInitialProps({ ...ctx, store })
 						: {}),
-					// Some custom thing for all pages
-					// pathname: ctx.pathname,
 				},
 			};
 		}
 );
 
-// export default wrapper.withRedux(App);
 export default App;
