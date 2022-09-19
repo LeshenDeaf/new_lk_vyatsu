@@ -1,24 +1,70 @@
 import axios from 'axios';
 import { NextPage } from 'next';
+import { useCallback, useMemo } from 'react';
+import CheckboxInput from '../../app/components/ui/inputs/CheckboxInput';
+import RadioInput from '../../app/components/ui/inputs/RadioInput';
+import TextareaInput from '../../app/components/ui/inputs/TextareaInput';
+import TextInput from '../../app/components/ui/inputs/TextInput';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
-import { IQuestion, IVoting } from './../../app/models/api/votings/types';
+import {
+	IAnswer,
+	IQuestion,
+	IVoting,
+} from './../../app/models/api/votings/types';
 
 interface Props {
 	voting: IVoting;
-  questions: IQuestion[];
+	questions: IQuestion[];
 }
 
 const VotingPage: NextPage<Props> = ({ voting, questions }) => {
-	// const router = useRouter();
-	// const {id} = router.query;
+	const inputTypes = useMemo(
+		() => ({
+			text: TextInput,
+			checkbox: CheckboxInput,
+			radio: RadioInput,
+			textarea: TextareaInput,
+		}),
+		[]
+	);
+	const chooseInput = useCallback(
+		(answer: IAnswer, isRequired: boolean) => {
+			const Component = inputTypes[answer.type];
+
+			return (
+				<Component
+					isRequired={isRequired}
+					name={answer.id}
+					label={answer.message}
+					params={answer.params}
+				/>
+			);
+		},
+		[inputTypes]
+	);
+	const makeQuestion = useCallback(
+		(question: IQuestion) => {
+			return (
+				<div>
+					<div>{question.title.replaceAll('&nbsp;', ' ')}</div>
+					<div>
+						{question.answers.map((a) => chooseInput(a, question.is_required))}
+					</div>
+				</div>
+			);
+		},
+		[chooseInput]
+	);
 
 	return (
-    <>
-    <pre>{JSON.stringify(voting, null, 2)}</pre>
-    <pre>{JSON.stringify(questions, null, 2)}</pre>
-    </>
-  );
+		<>
+			{questions.map(makeQuestion)}
+
+			<pre>{JSON.stringify(voting, null, 2)}</pre>
+			<pre>{JSON.stringify(questions, null, 2)}</pre>
+		</>
+	);
 };
 
 export default VotingPage;
@@ -45,7 +91,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 				),
 			]);
 
-      store.dispatch(setTitle(voting.data.name));
+			store.dispatch(setTitle(voting.data.name));
 
 			return {
 				props: {
