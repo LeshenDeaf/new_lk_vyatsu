@@ -34,9 +34,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 		store.dispatch(setTitle('Программы'));
 
 		return {
-			props: {
-				// programs: programs.data as ProgramsApiResponse,
-			},
+			props: {},
 		};
 	}
 );
