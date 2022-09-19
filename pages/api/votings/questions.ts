@@ -2,11 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { AxiosResponse } from 'axios';
 import vyatsuApi from '../../../app/services/VyatsuApi';
-import { Question } from '../../../app/models/api/votings/types';
+import { IQuestion } from '../../../app/models/api/votings/types';
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Question[]>
+	res: NextApiResponse<IQuestion[]>
 ) {
 	return new Promise<void>((resolve) => {
     vyatsuApi
@@ -15,7 +15,7 @@ export default async function handler(
       }, {
         headers: { Authorization: req.headers.authorization || '' },
       })
-      .then((r: AxiosResponse<Question[]>) => {
+      .then((r: AxiosResponse<IQuestion[]>) => {
         res.status(200).json(r.data);
         return resolve();
       })
