@@ -10,7 +10,7 @@ export default async function handler(
   const vote = req.body as IVoteRequest;
   return new Promise<void>((resolve) => {
     vyatsuApi
-      .post('/api_mobile/v2/votings/list/', vote, {
+      .post('/api_mobile/v2/votings/vote/', vote, {
         headers: { Authorization: req.headers.authorization || '' }
       })
       .then((r: AxiosResponse<IVoting>) => {
