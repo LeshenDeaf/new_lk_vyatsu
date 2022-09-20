@@ -1,8 +1,16 @@
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { Suspense, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import Voting from '../../app/components/screens/votings/Voting';
+// import Voting from '../../app/components/screens/votings/Voting';
+const Voting = dynamic(
+	() => import('../../app/components/screens/votings/Voting'),
+	{
+		suspense: true,
+		// ssr: false,
+	}
+);
 import {
 	useQuestionsQuery,
 	useVotingQuery
@@ -35,14 +43,13 @@ const VotingPage: NextPage = () => {
 		return <>Возникла ошибка при получении данных опроса, обновите страницу</>;
 	}
 
-
-	console.log('!!!!');
-
 	return (
 		<>
 			{votingQuery.isLoading || questionsQuery.isLoading ? 'Загрузка...' : ''}
 			{votingQuery.data && questionsQuery.data && (
-				<Voting voting={votingQuery.data} questions={questionsQuery.data} />
+				<Suspense>
+					<Voting voting={votingQuery.data} questions={questionsQuery.data} />
+				</Suspense>
 			)}
 		</>
 	);
