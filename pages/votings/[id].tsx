@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import Voting from '../../app/components/screens/votings/Voting';
 import {
@@ -17,6 +17,12 @@ const VotingPage: NextPage = () => {
 	const votingQuery = useVotingQuery(id);
 	const questionsQuery = useQuestionsQuery(id);
 
+	useEffect(() => {
+		if (votingQuery.data) {
+			dispatch(setTitle(votingQuery.data.name));
+		}
+	}, [dispatch, votingQuery.data, votingQuery?.data?.name]);
+
 	if (!id) {
 		return <>Указан некорректный идентификатор опроса</>;
 	}
@@ -29,9 +35,6 @@ const VotingPage: NextPage = () => {
 		return <>Возникла ошибка при получении данных опроса, обновите страницу</>;
 	}
 
-	if (votingQuery.data) {
-		dispatch(setTitle(votingQuery.data.name));
-	}
 
 	console.log('!!!!');
 
