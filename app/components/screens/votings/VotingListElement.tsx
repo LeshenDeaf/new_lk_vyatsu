@@ -29,7 +29,7 @@ const VotingsListElement: FC<Props> = ({ voting }) => {
 			<div className={styles.content}>
 				<div className={styles.name}>{voting.name}</div>
 				<div>
-					<Link href={`${asPath}/${voting.id}/`}>
+					<Link href={`${asPath}${voting.id}/`}>
 						<a
 							className={`${backgrounds.button} ${backgrounds.buttonText} ${styles.link}`}
 						>
