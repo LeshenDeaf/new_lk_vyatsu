@@ -1,3 +1,5 @@
+type answerTypes = 'text' | 'checkbox' | 'radio' | 'textarea';
+
 export interface IVoting {
 	id: number;
 	name: string;
@@ -6,36 +8,36 @@ export interface IVoting {
 	has_voted: boolean;
 }
 
-export interface IQuestion {
+interface IQuestionInfo {
 	id: number;
 	title: string;
 	is_required: boolean;
-	answers: IAnswer[];
 }
 
-type answerTypes = "text" | "checkbox" | "radio" | "textarea";
-
-export interface IAnswer {
+interface IAnswerInfo {
 	id: number;
 	message: string;
 	type: answerTypes;
+}
+
+export interface IQuestion extends IQuestionInfo {
+	answers: IAnswer[];
+}
+
+export interface IRequestQuestion extends IQuestionInfo {
+	answers: IRequestAnswer[];
+}
+
+export interface IAnswer extends IAnswerInfo {
 	params: string;
 }
 
-export interface IRequestAnswer {
-  id: number;
-  message: string;
-  type: answerTypes;
-}
-
-export interface IRequestQuestion {
-  id: number;
-  title: string;
-  is_required: boolean;
-  answers: IRequestAnswer[]
+export interface IRequestAnswer extends IAnswerInfo {
+	answer: string;
+	is_select: boolean;
 }
 
 export interface IVoteRequest {
-  id: number;
-  questions: IRequestQuestion[]
+	id: number;
+	questions: IRequestQuestion[];
 }
