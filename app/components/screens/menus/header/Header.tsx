@@ -30,7 +30,6 @@ const Header = memo(function Header({ openSidebar }: Props) {
 		ref,
 		useCallback(
 			(e: MouseEvent) => {
-				console.log('clicked outside');
 				if (
 					isVisible &&
 					e.target !== avatarRef.current &&
