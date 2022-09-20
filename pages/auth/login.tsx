@@ -2,8 +2,8 @@ import axios from 'axios';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-import { SubmitHandler } from 'react-hook-form';
+import { Suspense, useCallback } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { ILoginFormFields } from '../../app/components/screens/auth/form/types';
 import { useAppDispatch } from '../../app/hooks/redux';
 import { LoginRequest } from '../../app/models/api/auth/types';
@@ -17,6 +17,7 @@ const DynamicLoginForm = dynamic(
 	() => import('../../app/components/screens/auth/form/LoginForm'),
 	{
 		suspense: true,
+		ssr: false,
 	}
 );
 
@@ -24,6 +25,12 @@ const Login: NextPage = () => {
 	const [login, loginRes] = useLoginMutation();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		setError,
+	} = useForm<ILoginFormFields>();
 
 	const onSubmit: SubmitHandler<ILoginFormFields> = useCallback(
 		async (data) => {
@@ -44,13 +51,24 @@ const Login: NextPage = () => {
 				} catch (e) {
 					console.error(e);
 				}
+			} else if ('error' in res) {
+				if ('credentials' in res.error?.data?.errors) {
+					setError('login', { type: 'custom', message: 'Неверный логин или пароль'});
+				}
 			}
 		},
-		[router, dispatch, login]
+		[router, dispatch, login, setError]
 	);
 
 	return (
-		<DynamicLoginForm onSubmit={onSubmit} isLoading={loginRes.isLoading} />
+		<Suspense fallback={<div>Загрузка...</div>}>
+			<DynamicLoginForm
+				handleSubmit={handleSubmit(onSubmit)}
+				errors={errors}
+				register={register}
+				isLoading={loginRes.isLoading}
+			/>
+		</Suspense>
 	);
 };
 
