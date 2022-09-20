@@ -1,16 +1,9 @@
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
 import LoginInput from '../inputs/LoginInput';
 import PasswordInput from '../inputs/PasswordInput';
-import { ILoginFormFields, ILoginFormProps } from './types';
+import { ILoginFormProps } from './types';
 
 const LoginForm: FC<ILoginFormProps> = ({ isLoading, register, handleSubmit, errors }) => {
-	// const {
-	// 	register,
-	// 	handleSubmit,
-	// 	formState: { errors },
-	// } = useForm<ILoginFormFields>();
-
 	return (
 		<div className="xl:w-1/2 w-full py-8 rounded-[10px] shadow-vyatsu-shadow shadow-side-blue absolute top-1/2 translate-x-[-50%] left-1/2 translate-y-[-50%]">
 			<form onSubmit={handleSubmit}>
