@@ -3,7 +3,6 @@ import {
 	FC,
 	FormEvent,
 	useCallback,
-	useEffect,
 	useMemo,
 	useState,
 } from 'react';
@@ -11,10 +10,11 @@ import { IAnswer, IQuestion, IVoting } from '../../../models/api/votings/types';
 // import dynamic from 'next/dynamic';
 import styles from '../../../../styles/Votings.module.scss';
 
-import RadioInput from '../../ui/inputs/RadioInput';
 import CheckboxInput from '../../ui/inputs/CheckboxInput';
+import RadioInput from '../../ui/inputs/RadioInput';
 import TextareaInput from '../../ui/inputs/TextareaInput';
 import TextInput from '../../ui/inputs/TextInput';
+import Question from './Question';
 
 interface IProps {
 	voting: IVoting;
@@ -35,11 +35,11 @@ const Voting: FC<IProps> = ({ voting, questions }) => {
 	const [formData, setFormData] = useState({});
 
 	const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setFormData({
-			...formData,
+		setFormData((prevData) => ({
+			...prevData,
 			[e.target.name]: e.target.value.trim(),
-		});
-	}, [formData]);
+		}));
+	}, []);
 
 	const chooseInput = useCallback(
 		(answer: IAnswer, isRequired: boolean, name: string) => {
@@ -60,35 +60,29 @@ const Voting: FC<IProps> = ({ voting, questions }) => {
 		[inputTypes, handleChange]
 	);
 
-	const makeQuestion = useCallback(
-		(question: IQuestion) => {
-			return (
-				<div key={question.id}>
-					<div>
-						{question.title.replaceAll('&nbsp;', ' ')}
-						{question.is_required ? ' *' : ''}
-					</div>
-					<div>
-						{question.answers.map((a) =>
-							chooseInput(a, question.is_required, `${question.id}`)
-						)}
-					</div>
-				</div>
-			);
+	const handleSubmit = useCallback(
+		(e: FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+
+			console.table(formData);
 		},
-		[chooseInput]
+		[formData]
 	);
 
-	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-
-		console.table(formData);
-	}, [formData]);
+	console.log('!!!!');
 
 	return (
 		<form onSubmit={handleSubmit}>
 			<div>{voting.name}</div>
-			<div>{questions.map(makeQuestion)}</div>
+			<div>
+				{questions.map((q) => (
+					<Question
+						key={`question-${q.id}`}
+						question={q}
+						chooseInput={chooseInput}
+					/>
+				))}
+			</div>
 			<button className={styles.send}>Отправить</button>
 		</form>
 	);
