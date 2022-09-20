@@ -9,6 +9,7 @@ const RadioInput: FC<IInputProps> = (props) => {
         name={`${props.name}`}
         required={props.isRequired}
         value={props.defaultValue}
+        onChange={props.handleChange}
         type="radio"
       />
       {props.label}

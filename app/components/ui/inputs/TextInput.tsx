@@ -9,6 +9,7 @@ const TextInput: FC<IInputProps> = (props) => {
 				name={`${props.name}`}
 				required={props.isRequired}
 				defaultValue={props.defaultValue}
+				onChange={props.handleChange}
 				// {props.params}
 			/>
 		</div>
