@@ -79,14 +79,18 @@ App.getInitialProps = wrapper.getInitialAppProps(
 			};
 
 			const refreshAll = async (rToken: string) => {
-				console.log('refreshed');
+				console.log('refreshing');
 				try {
 					const { token } = await refresh(rToken);
 
 					await getAndSetUserData(token, true);
 
+					console.log('refreshed')
 					redirectToHome();
 				} catch (e) {
+					console.log(`NOT refreshed`)
+					console.log(e.message);
+
 					redirectToLogin();
 				}
 			};
@@ -106,6 +110,7 @@ App.getInitialProps = wrapper.getInitialAppProps(
 
 					// @ts-ignore
 					if (e?.response?.status !== 401 || !rToken) {
+						console.log('NOT 401 NOT REFRESHED')
 						redirectToLogin();
 					} else {
 						await refreshAll(rToken);
