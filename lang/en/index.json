@@ -38,18 +38,18 @@
 		},
 		"phone_info": "Phone for information: (8332) 74-29-29"
 	},
-  "courses": {
-    "title": "Training courses:",
-    "phone": "Phones: 32-11-42, 74-29-35",
-    "address": "Address: Kirov, st. Moscow, 36, room. 243"
-  },
-  "links": {
-    "dirs": "Specialties and directions of training",
-    "prepare": "Preparation for admission",
-    "info": "Admission Information",
-    "calendar": "Applicant calendar",
-    "price": "Cost of education",
-    "results": "Results of admission of past years"    
-  },
-	"faq": "Frequently asked questions"
+	"courses": {
+		"title": "Training courses:",
+		"phone": "Phones: 32-11-42, 74-29-35",
+		"address": "Address: Kirov, st. Moscow, 36, room. 243"
+	},
+	"links": {
+		"dirs": "Specialties and directions of training",
+		"prepare": "Preparation for admission",
+		"info": "Admission Information",
+		"calendar": "Applicant calendar",
+		"price": "Cost of education",
+		"results": "Results of admission of past years"
+	},
+	"faq": { "title": "Frequently asked questions" }
 }
