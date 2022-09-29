@@ -1,0 +1,59 @@
+.list_element {
+	@apply font-light -indent-3 ml-6 mb-4;
+	&:before {
+		content: '•';
+		@apply text-vyatsu-blue w-1 text-[24px] leading-[19px] mr-2 h-4 inline-block translate-y-[20%];
+	}
+}
+.list_col {
+	@apply flex flex-col mr-[60px] w-full;
+}
+
+.title, .subtitle, .blue_title, .block_title, .list_element {
+	@apply text-[#141414];
+}
+
+.title, .subtitle, .blue_title, .block_title {
+	@apply leading-[36px];
+}
+.title {
+	@apply text-[24px] font-[600]  mb-[20px];
+}
+.subtitle {
+	@apply text-[18px] font-[500];
+}
+.blue_title {
+	@apply text-[20px] font-[600] text-vyatsu-blue text-center mt-[20px];
+}
+.block_title {
+	@apply font-[400] mt-4;
+}
+
+.info {
+	@apply font-[300];
+}
+.con {
+	@apply md:flex flex-col lg:flex-row;
+}
+.links {
+	@apply mt-[50px] mb-[55px];
+	// grid-auto-flow: row;
+  // grid-auto-columns: minmax(290px, 1fr);
+	display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(30%, 290px), 1fr));
+  grid-gap: 20px;
+  align-items: start;
+	grid-template-rows: auto;
+	align-items: flex-start;
+
+	.link_block {
+		@apply w-full h-[110px] rounded-[10px] bg-[#B3CCFB] relative py-[22px] pl-[22px] pr-[111px] leading-[23px] text-white;
+
+		.link_text {
+			@apply absolute top-1/2 -translate-y-1/2 font-[700] text-[20px] w-[150px];
+		}
+		.image {
+			@apply absolute right-0 bottom-0 opacity-30 h-[80px];
+		}
+	}
+}
