@@ -6,13 +6,13 @@ export function setCookieTokens(
 	accessToken: string,
 	refreshToken: string
 ): void {
-	setCookie({ res }, 'vyatsu_r_token', refreshToken, {
-		maxAge: 30 * 24 * 60 * 60,
+	setCookie({ res }, 'vyatsu_a_token', accessToken, {
+		maxAge: 24 * 60 * 60,
 		path: '/',
 		httpOnly: true,
 	});
-	setCookie({ res }, 'vyatsu_a_token', accessToken, {
-		maxAge: 24 * 60 * 60,
+	setCookie({ res }, 'vyatsu_r_token', refreshToken, {
+		maxAge: 30 * 24 * 60 * 60,
 		path: '/',
 		httpOnly: true,
 	});
