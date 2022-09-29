@@ -1,0 +1,55 @@
+{
+	"main": "Main page",
+	"why": "Why choose VyatSU",
+	"blocks": [
+		{
+			"title": " VyatSU positions in Russia and in the world:",
+			"elements": [
+				[
+					"44th place among Russian universities according to the global ranking of scientific institutions SCImago Institutions Rankings-2021",
+					"Included in 120 Russian universities of international QS ranking"
+				],
+				[
+					"39th place in National ranking of universities in the parameter «Education»",
+					"Included in TOP-100 of the «National Recognition»: \"the best universities in 2020\""
+				]
+			]
+		},
+		{
+			"title": "And also VyatSU is:",
+			"elements": [
+				[
+					"3427 places in comfortable hostels (the maximum number in the region)",
+					"2180 budget places (the maximum number in the region)"
+				],
+				[
+					"87% employment of university graduates in the specialty",
+					"18 000 students (largest university in the region)"
+				]
+			]
+		}
+	],
+	"blue_title": "Our graduates live and work all over the world!",
+	"admissions": {
+		"title": "Admissions office hours",
+		"work_hours": {
+			"mon_thur": "Monday to Thursday 8:00-17:00",
+			"friday": "Friday 8:00-16:00"
+		},
+		"phone_info": "Phone for information: (8332) 74-29-29"
+	},
+  "courses": {
+    "title": "Training courses:",
+    "phone": "Phones: 32-11-42, 74-29-35",
+    "address": "Address: Kirov, st. Moscow, 36, room. 243"
+  },
+  "links": {
+    "dirs": "Specialties and directions of training",
+    "prepare": "Preparation for admission",
+    "info": "Admission Information",
+    "calendar": "Applicant calendar",
+    "price": "Cost of education",
+    "results": "Results of admission of past years"    
+  },
+	"faq": "Frequently asked questions"
+}
