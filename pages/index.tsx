@@ -6,6 +6,8 @@ import en from '../lang/en/index.json';
 import ru from '../lang/ru/index.json';
 import styles from '../styles/Home.module.scss';
 import Image from 'next/image';
+import { MouseEvent } from 'react';
+import Faq from '../app/components/ui/accordion/Faq';
 
 const Home: NextPage = () => {
 	const { locale } = useRouter();
@@ -108,7 +110,16 @@ const Home: NextPage = () => {
 				</div>
 			</div>
 
-			<h1 className={styles.title}>{lang.faq}</h1>
+			<div className={styles.faq}>
+				<h1 className={styles.title}>{lang.faq.title}</h1>
+				<Faq
+					header="Какой режим работы Приемной комиссии?"
+					body="В период приема документов: 
+						Приёмная комиссия работает с
+						понедельника по пятницу с 9:00 до 16:00, 
+						в субботу – с 9:00 до 13:00."
+				/>
+			</div>
 		</>
 	);
 };
