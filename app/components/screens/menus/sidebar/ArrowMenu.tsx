@@ -37,7 +37,7 @@ const ArrowMenu: FC = () => {
 			setArrowsVisible((prev) => ({ ...prev, left: true }));
 		}
 
-		if (categoryIndex + 1 >= categoriesCount) {
+		if (categoryIndex > categoriesCount) {
 			setArrowsVisible((prev) => ({ ...prev, right: false }));
 		} else {
 			setArrowsVisible((prev) => ({ ...prev, right: true }));
@@ -114,7 +114,7 @@ const ArrowMenu: FC = () => {
 				className="overflow-auto left-menu-cont-items scrollbar-thin scrollbar-color-main"
 			>
 				{category.pages.map((e) => (
-					<Link href={e.link} key={e.link}>
+					<Link href={e.link} key={e.link} passHref>
 						<a
 							draggable="false"
 							className="w-full h-16 px-5 border-t first:border-t-0  border-vyatsu-darkblue flex justify-start items-center text-white text-[14px] sm:text-base cursor-pointer "
