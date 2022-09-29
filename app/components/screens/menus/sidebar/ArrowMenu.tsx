@@ -37,7 +37,7 @@ const ArrowMenu: FC = () => {
 			setArrowsVisible((prev) => ({ ...prev, left: true }));
 		}
 
-		if (categoryIndex > categoriesCount) {
+		if (categoryIndex + 1 >= categoriesCount) {
 			setArrowsVisible((prev) => ({ ...prev, right: false }));
 		} else {
 			setArrowsVisible((prev) => ({ ...prev, right: true }));
