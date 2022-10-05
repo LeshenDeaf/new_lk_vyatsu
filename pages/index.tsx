@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import FaqElement from '../app/components/ui/accordion/FaqElement';
+import Faq from '../app/components/ui/faq/Faq';
+import FaqElement from '../app/components/ui/faq/FaqElement';
 import Card from '../app/components/ui/index/Card';
 import { setTitle } from '../app/store/reducers/TitleSlice';
 import { wrapper } from '../app/store/store';
@@ -84,12 +85,13 @@ const Home: NextPage = () => {
 
 			<div className={styles.faq}>
 				<h1 className={styles.title}>{lang.faq.title}</h1>
-				<FaqElement header="Какой режим работы Приемной комиссии?">
+				{/* <FaqElement header="Какой режим работы Приемной комиссии?">
 					<div>В период приема документов:</div>
 					<div>Приёмная комиссия работает с понедельника</div>{' '}
 					<div>по пятницу с 9:00 до 16:00,</div>
 					<div>в субботу – с 9:00 до 13:00.</div>
-				</FaqElement>
+				</FaqElement> */}
+				<Faq />
 			</div>
 		</>
 	);
