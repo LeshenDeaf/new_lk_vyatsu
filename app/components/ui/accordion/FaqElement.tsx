@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 import { animated, config, Spring } from 'react-spring';
-import classNames from './Faq.module.scss';
+import classNames from './FaqElement.module.scss';
 
 interface IProps {
 	header: string;
 	children: React.ReactNode
 }
 
-const Faq: FC<IProps> = ({ header, children }) => {
+const FaqElement: FC<IProps> = ({ header, children }) => {
 	const [isClosed, setIsClosed] = useState<boolean>(true);
 
 	const expand = () => {
@@ -68,4 +68,4 @@ const Faq: FC<IProps> = ({ header, children }) => {
 	);
 };
 
-export default Faq;
+export default FaqElement;
