@@ -11,7 +11,7 @@ export default async function handler(
 	return new Promise<void>((resolve) => {
 		if (req.method === 'GET') {
 			vyatsuApi
-				.get('/api_mobile/v2/faq/get/', {
+				.post('/api_mobile/v2/faq/get/', {url: '/'}, {
 					headers: { Authorization: req.headers.authorization || '' },
 				})
 				.then((r: AxiosResponse<IFaq[]>) => {
