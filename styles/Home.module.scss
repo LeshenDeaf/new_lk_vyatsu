@@ -45,17 +45,6 @@
   align-items: start;
 	grid-template-rows: auto;
 	align-items: flex-start;
-
-	.link_block {
-		@apply w-full h-[110px] rounded-[10px] bg-[#B3CCFB] relative py-[22px] pl-[22px] pr-[111px] leading-[23px] text-white;
-
-		.link_text {
-			@apply absolute top-1/2 -translate-y-1/2 font-[700] text-[20px] w-[150px];
-		}
-		.image {
-			@apply absolute right-0 bottom-0 opacity-30 h-[80px];
-		}
-	}
 }
 .faq {
 	@apply text-[#1D1D1D];

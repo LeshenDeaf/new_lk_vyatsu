@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Faq from '../app/components/ui/accordion/Faq';
+import Card from '../app/components/ui/index/Card';
 import { setTitle } from '../app/store/reducers/TitleSlice';
 import { wrapper } from '../app/store/store';
 import en from '../lang/en/index.json';
 import ru from '../lang/ru/index.json';
 import styles from '../styles/Home.module.scss';
-import Image from 'next/image';
-import { MouseEvent } from 'react';
-import Faq from '../app/components/ui/accordion/Faq';
 
 const Home: NextPage = () => {
 	const { locale } = useRouter();
@@ -57,68 +57,40 @@ const Home: NextPage = () => {
 			</div>
 
 			<div className={styles.links}>
-				<div className={styles.link_block}>
-					<div className={styles.link_text}>{lang.links.dirs}</div>
-					<div className={styles.image}>
-						<Image src="/images/cap.png" alt="book" width="80" height="80" />
-					</div>
-				</div>
-				<div className={styles.link_block}>
-					<div className={styles.link_text}>{lang.links.prepare}</div>
-					<div className={styles.image}>
-						<Image src="/images/book.png" alt="book" width="80" height="80" />
-					</div>
-				</div>
-				<div className={styles.link_block}>
-					<div className={styles.link_text}>{lang.links.info}</div>
-					<div className={styles.image}>
-						<Image src="/images/info.png" alt="book" width="80" height="80" />
-					</div>
-				</div>
-				<div className={styles.link_block}>
-					<div className={styles.link_text}>{lang.links.calendar}</div>
-					<div className={styles.image}>
-						<Image
-							src="/images/calendar.png"
-							alt="book"
-							width="80"
-							height="80"
-						/>
-					</div>
-				</div>
-				<div className={styles.link_block}>
-					<div className={styles.link_text}>{lang.links.price}</div>
-					<div className={styles.image}>
-						<Image
-							src="/images/label-free.png"
-							alt="book"
-							width="80"
-							height="80"
-						/>
-					</div>
-				</div>
-				<div className={styles.link_block}>
-					<div className={styles.link_text}>{lang.links.results}</div>
-					<div className={styles.image}>
-						<Image
-							src="/images/list-check.png"
-							alt="book"
-							width="80"
-							height="80"
-						/>
-					</div>
-				</div>
+				<Card
+					text={lang.links.dirs}
+					image={{ src: '/images/cap.png', alt: 'cap' }}
+				/>
+				<Card
+					text={lang.links.prepare}
+					image={{ src: '/images/book.png', alt: 'book' }}
+				/>
+				<Card
+					text={lang.links.info}
+					image={{ src: '/images/info.png', alt: 'info' }}
+				/>
+				<Card
+					text={lang.links.calendar}
+					image={{ src: '/images/calendar.png', alt: 'calendar' }}
+				/>
+				<Card
+					text={lang.links.price}
+					image={{ src: '/images/label-free.png', alt: 'price' }}
+				/>
+				<Card
+					text={lang.links.results}
+					image={{ src: '/images/list-check.png', alt: 'results' }}
+				/>
 			</div>
 
 			<div className={styles.faq}>
 				<h1 className={styles.title}>{lang.faq.title}</h1>
-				<Faq
-					header="Какой режим работы Приемной комиссии?"
-					body="В период приема документов: 
-						Приёмная комиссия работает с
-						понедельника по пятницу с 9:00 до 16:00, 
-						в субботу – с 9:00 до 13:00."
-				/>
+				<Faq header="Какой режим работы Приемной комиссии?">
+					<div>В период приема документов:</div>
+					<div>Приёмная комиссия работает с понедельника</div>{' '}
+					<div>по пятницу с 9:00 до 16:00,</div>
+					<div>в субботу – с 9:00 до 13:00.</div>
+				</Faq>
 			</div>
 		</>
 	);
