@@ -1,10 +1,10 @@
 .block {
-  @apply bg-white rounded-[10px] shadow-dark p-[20px] relative mt-[30px];
+  @apply bg-white rounded-[10px] shadow-darkest sm:shadow-dark p-[20px] relative mt-[30px];
   .header {
     @apply text-[18px] ml-[67px];
   }
   .body {
-    @apply overflow-hidden ml-[67px];
+    @apply overflow-hidden ml-[67px] overflow-y-scroll;
   }
   .closeBtn {
     @apply absolute top-[24px] left-[24px] cursor-pointer;
