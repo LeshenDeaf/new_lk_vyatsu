@@ -17,7 +17,7 @@ const FaqElement: FC<IProps> = ({ header, children }) => {
 	return (
 		<div className={classNames.block}>
 			<Spring
-				from={{ transform: 'rotate(45deg)', color: '#4080F5' }}
+				from={{ transform: 'rotate(135deg)', color: '#4080F5' }}
 				to={{ transform: 'rotate(0deg)', color: '#1d1d1d' }}
 				reverse={isClosed}
 				config={config.stiff}
@@ -54,7 +54,7 @@ const FaqElement: FC<IProps> = ({ header, children }) => {
 			<Spring
 				// items={isOpen}
 				from={{ maxHeight: '0px', marginTop: '0em' }}
-				to={{ maxHeight: '100px', marginTop: '1em' }}
+				to={{ maxHeight: '200px', marginTop: '1em' }}
 				reverse={isClosed}
 				// config={config.stiff}
 			>
