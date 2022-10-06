@@ -51,10 +51,15 @@ const Login: NextPage = () => {
 				} catch (e) {
 					console.error(e);
 				}
-			} else if ('error' in res) {
-				if ('credentials' in res.error?.data?.errors) {
-					setError('login', { type: 'custom', message: 'Неверный логин или пароль'});
-				}
+			} else if (
+				'error' in res &&
+				'data' in res.error &&
+				'errors' in (res.error.data as any)
+			) {
+				setError('login', {
+					type: 'custom',
+					message: 'Неверный логин или пароль',
+				});
 			}
 		},
 		[router, dispatch, login, setError]
