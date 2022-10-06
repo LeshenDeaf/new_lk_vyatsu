@@ -87,9 +87,9 @@ App.getInitialProps = wrapper.getInitialAppProps(
 
 					console.log('refreshed')
 					redirectToHome();
-				} catch (e) {
+				} catch (e: any) {
 					console.log(`NOT refreshed`)
-					console.log(e.message);
+					console.log(e.message || '');
 
 					redirectToLogin();
 				}
