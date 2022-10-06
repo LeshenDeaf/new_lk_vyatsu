@@ -29,13 +29,21 @@ const VotingsListElement: FC<Props> = ({ voting }) => {
 			<div className={styles.content}>
 				<div className={styles.name}>{voting.name}</div>
 				<div>
-					<Link href={`${asPath}${voting.id}/`}>
-						<a
+					{!voting.has_voted ? (
+						<Link href={`${asPath}${voting.id}/`}>
+							<a
+								className={`${backgrounds.button} ${backgrounds.buttonText} ${styles.link}`}
+							>
+								Пройти
+							</a>
+						</Link>
+					) : (
+						<div
 							className={`${backgrounds.button} ${backgrounds.buttonText} ${styles.link}`}
 						>
 							Пройти
-						</a>
-					</Link>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
