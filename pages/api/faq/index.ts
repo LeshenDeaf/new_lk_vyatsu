@@ -9,19 +9,23 @@ export default async function handler(
 	res: NextApiResponse<IFaq[]>
 ) {
 	return new Promise<void>((resolve) => {
-		if (req.method === 'GET') {
-			vyatsuApi
-				.post('/api_mobile/v2/faq/get/', {url: '/'}, {
+		vyatsuApi
+			.post(
+				'/api_mobile/v2/faq/get/',
+				{
+					url: req.body.url,
+				},
+				{
 					headers: { Authorization: req.headers.authorization || '' },
-				})
-				.then((r: AxiosResponse<IFaq[]>) => {
-					res.status(200).json(r.data);
-					return resolve();
-				})
-				.catch((e) => {
-					res.status(e.response?.status).json(e.response?.data);
-					return resolve();
-				});
-		}
+				}
+			)
+			.then((r: AxiosResponse<IFaq[]>) => {
+				res.status(200).json(r.data);
+				return resolve();
+			})
+			.catch((e) => {
+				res.status(e.response?.status).json(e.response?.data);
+				return resolve();
+			});
 	});
 }

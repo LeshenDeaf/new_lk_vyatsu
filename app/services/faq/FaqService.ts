@@ -3,8 +3,12 @@ import { basicVyatsu } from '../BasicVyatsu';
 
 export const faqApi = basicVyatsu.injectEndpoints({
 	endpoints: (builder) => ({
-		faq: builder.query<IFaq[], void>({
-			query: () => 'api/faq/',
+		faq: builder.query<IFaq[], string>({
+			query: (url) => ({ 
+				url: 'api/faq/', 
+				method: 'POST',
+				body: {url} 
+			}),
 		}),
 	}),
 });

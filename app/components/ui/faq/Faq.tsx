@@ -7,7 +7,7 @@ import classNames from './Faq.module.scss';
 import reactStringReplace from 'react-string-replace';
 
 const Faq: FC = () => {
-	const { isLoading, isError, data } = useFaqQuery();
+	const { isLoading, isError, data } = useFaqQuery('/');
 
 	const makeLinks = useCallback((paragraph: string) => {
 		const regex = /<a rel="noreferrer" href="(.*)">(.*)<\/a>/gm;
@@ -20,7 +20,7 @@ const Faq: FC = () => {
 			regex,
 			(match) =>
 				match ? (
-					<><Link href={`https://new.vyatsu.ru${match}`} target="_blank" passHref>
+					<><Link key={match} href={`https://new.vyatsu.ru${match}`} target="_blank" passHref>
 						<a target="_blank" className={classNames.link}>{`https://new.vyatsu.ru${match}`}</a>
 					</Link>{' '}</>
 				) : (
