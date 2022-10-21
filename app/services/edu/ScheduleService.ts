@@ -5,6 +5,7 @@ export const scheduleApi = basicVyatsu.injectEndpoints({
 	endpoints: (builder) => ({
 		personal: builder.query<IDaySchedule[], void>({
 			query: () => 'api/edu/schedule/personal',
+			providesTags: ['Schedule']
 		}),
 		teacher: builder.query<IDaySchedule[], number>({
 			query: (tabnum) => ({

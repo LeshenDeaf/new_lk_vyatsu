@@ -1,7 +1,6 @@
-import { IUser } from '../../models/IUser';
-import { basicVyatsu } from '../BasicVyatsu';
-import { AuthState } from '../../store/reducers/AuthSlice';
 import { LoginRequest } from '../../models/api/auth/types';
+import { AuthState } from '../../store/reducers/AuthSlice';
+import { basicVyatsu } from '../BasicVyatsu';
 
 export const authApi = basicVyatsu.injectEndpoints({
 	endpoints: (builder) => ({
@@ -17,6 +16,7 @@ export const authApi = basicVyatsu.injectEndpoints({
 				url: 'api/auth/login_as/', //'api_mobile/v1/login',
 				method: 'POST',
 				body: { login },
+				invalidatesTags: ['Schedule'],
 			}),
 		}),
 		logout: builder.mutation<null, void>({
