@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { IUser } from '../../../../../models/IUser';
 
 interface Props {
@@ -6,19 +6,28 @@ interface Props {
 }
 
 export default memo(function UserInfo({ user }: Props) {
+	const fioSmall = useMemo(() => {
+		if ('fio_small' in user.logged_as.info) {
+			return user.logged_as.info.fio_small;
+		}
+		return `${user.logged_as.fio.first_name[0]}. ${
+			user.logged_as.fio.second_name
+				? `${user.logged_as.fio.second_name[0]}.`
+				: ''
+		} ${user.logged_as.fio.last_name}`;
+	}, [user.logged_as.fio, user.logged_as.info]);
+
 	return (
 		<div className="hidden items-center px-6 xl:flex">
 			<div className="flex flex-col">
 				<div className="text-vyatsu-blue text-lg whitespace-nowrap text-ellipsis overflow-hidden">
-					{user.fio.first_name[0]}.{' '}
-					{user.fio.second_name ? `${user.fio.second_name[0]}.` : ''}{' '}
-					{user.fio.last_name}
+					{fioSmall}
 				</div>
-				<div>{user.login}</div>
+				<div>{user.logged_as.login}</div>
 				<div>
-					{user.groups.includes(17)
+					{user.logged_as.rights.is_employee
 						? 'Сотрудник'
-						: user.groups.includes(15)
+						: user.logged_as.rights.is_student
 						? 'Студент'
 						: ''}
 				</div>
