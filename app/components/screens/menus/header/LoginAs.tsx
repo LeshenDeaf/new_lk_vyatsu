@@ -5,16 +5,18 @@ import Image from 'next/image';
 import en from '../../../../../lang/en/header.json';
 import ru from '../../../../../lang/ru/header.json';
 import { useLoginAsMutation } from '../../../../services/auth/AuthService';
-import { useAppDispatch } from '../../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import { setAuthData } from '../../../../store/reducers/AuthSlice';
 import axios from 'axios';
-import { setUserData } from '../../../../store/reducers/UserSlice';
+import { selectUser, setUserData } from '../../../../store/reducers/UserSlice';
 
 const LoginAs: FC = () => {
 	const { locale } = useRouter();
 	const lang = useMemo(() => locale === 'en' ? en : ru, [locale]);
 
-	const [login, setLogin] = useState<string>('');
+	const user = useAppSelector(selectUser);
+
+	const [login, setLogin] = useState<string>(user.data?.logged_as.login ?? '');
   const dispatch = useAppDispatch();
 
 	const [loginAs, loginAsRes] = useLoginAsMutation();
