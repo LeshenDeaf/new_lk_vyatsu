@@ -12,6 +12,13 @@ export const authApi = basicVyatsu.injectEndpoints({
 				body: credentials,
 			}),
 		}),
+		loginAs: builder.mutation<AuthState, string>({
+			query: (login: string) => ({
+				url: 'api/auth/login_as/', //'api_mobile/v1/login',
+				method: 'POST',
+				body: { login },
+			}),
+		}),
 		logout: builder.mutation<null, void>({
 			query: () => ({
 				url: 'api/auth/logout/',
@@ -25,4 +32,4 @@ export const authApi = basicVyatsu.injectEndpoints({
 	}),
 });
 
-export const { useLoginMutation, useLogoutMutation, useProtectedMutation } = authApi;
+export const { useLoginMutation, useLoginAsMutation, useLogoutMutation, useProtectedMutation } = authApi;
