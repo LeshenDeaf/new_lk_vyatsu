@@ -48,17 +48,20 @@ const Schedule: NextPage = () => {
 	return (
 		<>
 			<div>{!isLoading && schedule?.map(getJSXDaySchedule)}</div>
-			{teacherSchedule && !isLoading && !isFetching && !isError ? (
+			{teacherSchedule && !isFetching && !isError ? (
 				<>
-					<div>{isLoading && 'Загрузка...'}</div>
-					<Modal
-						isVisible={isVisible}
-						isLoading={isLoadingT || isFetching}
-						setIsVisible={setIsVisible}
-						header={fio}
-					>
-						{teacherSchedule.map(getJSXDaySchedule)}
-					</Modal>
+					{isLoading ? (
+						<div>Загрузка...</div>
+					) : (
+						<Modal
+							isVisible={isVisible}
+							isLoading={isLoadingT || isFetching}
+							setIsVisible={setIsVisible}
+							header={fio}
+						>
+							{teacherSchedule.map(getJSXDaySchedule)}
+						</Modal>
+					)}
 				</>
 			) : (
 				''
