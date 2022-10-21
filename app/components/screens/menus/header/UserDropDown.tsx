@@ -48,7 +48,7 @@ const UserDropDown = memo(function UserDropDown({
 				console.error(e);
 			}
 		},
-		[dispatch /* router */, , token]
+		[dispatch /* router ,*/ , token]
 	);
 
 	return (
@@ -71,16 +71,16 @@ const UserDropDown = memo(function UserDropDown({
 						width="52"
 					/>
 					<div className="text-vyatsu-blue text-[16px] font-[400] leading-5 ml-3 flex flex-col">
-						<div>{user.fio.last_name}</div>
-						<div>{user.fio.first_name}</div>
-						<div>{user.fio.second_name || ''}</div>
+						<div>{user.logged_as.fio.last_name}</div>
+						<div>{user.logged_as.fio.first_name}</div>
+						<div>{user.logged_as.fio.second_name || ''}</div>
 					</div>
 				</div>
 				<div className="mt-3 text-[12px] font-[400]">
 					Студент института математики и информационных систем кафедры
 					прикладной математики и физики
 				</div>
-				<div className="text-[#BFBFBF] text-[12px] mt-2">{user.login}</div>
+				<div className="text-[#BFBFBF] text-[12px] mt-2">{user.logged_as.login}</div>
 			</div>
 			<div className="border mt-2"></div>
 			<div className="flex flex-col">
