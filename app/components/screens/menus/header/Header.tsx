@@ -7,6 +7,7 @@ import HeaderSearch from './HeaderSearch';
 import HeaderMobile from './HeaderMobile';
 import { animated, config, Spring, Transition } from 'react-spring';
 import HeaderUser from './user/HeaderUser';
+import LoginAs from './LoginAs';
 
 interface Props {
 	openSidebar: () => void;
@@ -58,7 +59,7 @@ const Header = memo(function Header({ openSidebar }: Props) {
 						<div className="top-menu sm:h-36 top-24 sm:top-0 sm:left-72 relative sm:fixed bg-white shadow-l-blue sm:z-30 sm:flex justify-between">
 							{/* search and tags */}
 							{<HeaderSearch />}
-
+							{user.groups.includes(1) && <LoginAs />}
 							{/* user */}
 							<HeaderUser
 								ref={avatarRef}
