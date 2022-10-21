@@ -23,7 +23,7 @@ const Schedule: NextPage = () => {
 		isError,
 		isFetching,
 	} = useTeacherQuery(tabnum, { skip: false });
-	
+
 	const [isVisible, setIsVisible] = useState(false);
 
 	dayjs.extend(require('dayjs/plugin/customParseFormat'));
@@ -50,7 +50,7 @@ const Schedule: NextPage = () => {
 			<div>{!isLoading && schedule?.map(getJSXDaySchedule)}</div>
 			{teacherSchedule && !isLoading && !isFetching && !isError ? (
 				<>
-					<div>{isLoading && 'ЗАГРУЗКА'}</div>
+					<div>{isLoading && 'Загрузка...'}</div>
 					<Modal
 						isVisible={isVisible}
 						isLoading={isLoadingT || isFetching}
