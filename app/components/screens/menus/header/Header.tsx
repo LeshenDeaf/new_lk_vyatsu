@@ -22,7 +22,6 @@ const Header = memo(function Header({ openSidebar }: Props) {
 	const avatarClicked = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation();
 
-		console.log('avatar clicked');
 		setIsVisible((prev) => !prev);
 	}, []);
 
