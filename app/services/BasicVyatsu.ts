@@ -55,4 +55,5 @@ const baseQueryWithReauth: BaseQueryFn<
 export const basicVyatsu = createApi({
 	baseQuery: baseQueryWithReauth,
 	endpoints: () => ({}),
+	tagTypes: ['User', 'Schedule', 'Payments', 'Votings', 'Programs'],
 });
