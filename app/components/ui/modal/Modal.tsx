@@ -55,28 +55,24 @@ export default function Modal({
 			{(styles, item) =>
 				item && (
 					<animated.div className={classes.wrapper} style={styles}>
+						<div className={classes.closeWrapper}>
+							<div
+								className={classes.close}
+								onClick={() => setIsVisible(false)}
+							>
+								<Image
+									src="/images/close.svg"
+									alt="close"
+									draggable="false"
+									width="20"
+									height="20"
+									className="top-1/2"
+								/>
+							</div>
+						</div>
 						<div ref={ref} className={classes.modal}>
 							<div className={classes.header}>
 								<p>{header}</p>
-								<div
-									className="flex justify-center align-middle h-[28px] w-[28px] p-1 rounded-full hover:bg-[rgba(255,255,255,.1)] cursor-pointer"
-									onClick={() => setIsVisible(false)}
-								>
-										<Image
-											src="/images/close.svg"
-											alt="close"
-											draggable="false"
-											width="18"
-											height="18"
-											className="m-auto"
-											objectFit="contain"
-											layout="intrinsic"
-										/>
-									{/* <img
-										className="m-auto h-[18px] w-[18px]"
-										src="/images/close.svg"
-									/> */}
-								</div>
 							</div>
 							<div className={classes.body}>
 								{isLoading ? 'LOADING' : children}
