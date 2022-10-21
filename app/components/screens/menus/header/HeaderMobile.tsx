@@ -1,10 +1,8 @@
-import React, { memo, useMemo } from 'react';
 import Image from 'next/image';
-import UserAvatar from './user/UserAvatar';
+import { memo, useMemo } from 'react';
+import { animated, Spring } from 'react-spring';
 import useScrollDirection from '../../../../hooks/useScrollDirection';
-import { Spring, animated } from 'react-spring';
-
-// const HeaderMobile: FC = ;
+import UserAvatar from './user/UserAvatar';
 
 interface Props {
 	notifications: number;
@@ -22,7 +20,6 @@ export default memo(function HeaderMobile({
 			from={{ top: '-100em' }}
 			to={{ top: '0px' }}
 			reverse={scrollDirection === 'down' && scrollDirection !== null}
-			// config={{ duration: 2000 }}
 		>
 			{(styles) => (
 				<animated.div
@@ -44,21 +41,6 @@ export default memo(function HeaderMobile({
 							loading="lazy"
 						/>
 					</div>
-					{/*<div className="flex items-center justify-center w-10 relative">*/}
-					{/*	<Image*/}
-					{/*		className="rounded-full bg-white w-16 p-2"*/}
-					{/*		src="/images/user_mob.svg"*/}
-					{/*		alt="menu"*/}
-					{/*		height="48"*/}
-					{/*		width="48"*/}
-					{/*		loading="lazy"*/}
-					{/*	/>*/}
-					{/*	{notifications > 0 && (*/}
-					{/*		<div className="bg-red-600 rounded-full px-1 absolute right-0 top-0 text-white text-xs flex items-center justify-center">*/}
-					{/*			<div>{notifications}</div>*/}
-					{/*		</div>*/}
-					{/*	)}*/}
-					{/*</div>*/}
 				</animated.div>
 			)}
 		</Spring>
