@@ -16,8 +16,8 @@ export const authApi = basicVyatsu.injectEndpoints({
 				url: 'api/auth/login_as/', //'api_mobile/v1/login',
 				method: 'POST',
 				body: { login },
-				invalidatesTags: ['Schedule'],
 			}),
+			// invalidatesTags: ['Schedule'],
 		}),
 		logout: builder.mutation<null, void>({
 			query: () => ({

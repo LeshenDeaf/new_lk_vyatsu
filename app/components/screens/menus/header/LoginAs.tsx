@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import { setAuthData } from '../../../../store/reducers/AuthSlice';
 import axios from 'axios';
 import { selectUser, setUserData } from '../../../../store/reducers/UserSlice';
+import { scheduleApi } from '../../../../services/edu/ScheduleService';
 
 const LoginAs: FC = () => {
 	const { locale } = useRouter();
@@ -33,6 +34,11 @@ const LoginAs: FC = () => {
 				});
 
 				dispatch(setUserData(userData.data));
+
+				dispatch({
+					type: `${scheduleApi.reducerPath}/invalidateTags`,
+					payload: ['Schedule']
+				})
 
 				// await router.push('/');
 			} catch (e) {

@@ -13,14 +13,15 @@ export const scheduleApi = basicVyatsu.injectEndpoints({
 				method: 'POST',
 				body: {tabnum},
 				keepUnusedDataFor: 180
-			})
+			}),
+			providesTags: ['Schedule'],
 		}),
 		byTabnum: builder.mutation<IDaySchedule[], number>({
 			query: (tabnum) => ({
 				url: 'api/edu/schedule/by_tabnum',
 				method: 'POST',
 				body: { tabnum },
-			}),
+			})
 		}),
 	}),
 });
