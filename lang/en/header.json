@@ -1,1 +1,10 @@
-{}
+{
+  "search": "Search for services, information, and more",
+  "dropdown": {
+    "personal": "Personal data",
+    "portfolio": "Porfolio",
+    "instructions": "Instructions",
+    "certificates": "Certificates COVID19",
+    "logout": "Logout"
+  }
+}

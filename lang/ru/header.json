@@ -1,1 +1,10 @@
-{}
+{
+  "search": "Поиск услуг, информации и т.п.",
+  "dropdown": {
+    "personal": "Персональные данные",
+    "portfolio": "Портфолио",
+    "instructions": "Инструкции",
+    "certificates": "Сертификаты COVID19",
+    "logout": "Выйти"
+  }
+}

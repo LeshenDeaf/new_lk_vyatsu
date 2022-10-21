@@ -6,7 +6,12 @@ import { unsetUserData } from '../../../../store/reducers/UserSlice';
 import axios from 'axios';
 import { selectAuth } from '../../../../store/reducers/AuthSlice';
 import { animated } from 'react-spring';
-import Image from 'next/image'
+import Image from 'next/image';
+
+import en from '../../../../../lang/en/header.json';
+import ru from '../../../../../lang/ru/header.json';
+import { useRouter } from 'next/router';
+
 interface IUserDropDownProps {
 	user: IUser;
 	// isVisible: boolean;
@@ -20,26 +25,31 @@ const UserDropDown = memo(function UserDropDown({
 	const dispatch = useAppDispatch();
 	// const router = useRouter();
 	const { token } = useAppSelector(selectAuth);
+	const { locale } = useRouter();
+	const lang = locale === 'en' ? en : ru;
+	
+	const logout = useCallback(
+		async (e: React.MouseEvent) => {
+			try {
+				const response = await axios.get(
+					`${process.env.APP_URL}/api/auth/logout`,
+					{
+						headers: { authorization: `Bearer ${token}` },
+						withCredentials: true,
+					}
+				);
 
-	const logout = useCallback(async (e: React.MouseEvent) => {
-		try {
-			const response = await axios.get(
-				`${process.env.APP_URL}/api/auth/logout`,
-				{
-					headers: { authorization: `Bearer ${token}` },
-					withCredentials: true,
-				}
-			);
+				console.log(response);
 
-			console.log(response);
+				dispatch(unsetUserData());
 
-			dispatch(unsetUserData());
-
-			// await router.push('/auth/login');
-		} catch (e) {
-			console.error(e);
-		}
-	}, [dispatch, /* router */, token]);
+				// await router.push('/auth/login');
+			} catch (e) {
+				console.error(e);
+			}
+		},
+		[dispatch /* router */, , token]
+	);
 
 	return (
 		<animated.div
@@ -75,17 +85,24 @@ const UserDropDown = memo(function UserDropDown({
 			<div className="border mt-2"></div>
 			<div className="flex flex-col">
 				<div className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors">
-					Персональные данные
+					{lang.dropdown.personal}
 				</div>
-				<div className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors">Портфолио</div>
-				<div className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors">Инструкции</div>
 				<div className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors">
-					Сертификаты COVID19
+					{lang.dropdown.portfolio}
+				</div>
+				<div className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors">
+					{lang.dropdown.instructions}
+				</div>
+				<div className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors">
+					{lang.dropdown.certificates}
 				</div>
 			</div>
 			<div className="border mt-[16px]"></div>
-			<div onClick={logout} className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors">
-				Выйти
+			<div
+				onClick={logout}
+				className="mt-[10px] hover:cursor-pointer hover:text-vyatsu-blue transition-colors"
+			>
+				{lang.dropdown.logout}
 			</div>
 		</animated.div>
 	);
