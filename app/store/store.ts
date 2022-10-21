@@ -10,6 +10,8 @@ import NavbarReducer from './reducers/NavbarSlice';
 import { basicVyatsu } from '../services/BasicVyatsu';
 import { createWrapper } from 'next-redux-wrapper';
 import TitleReducer from './reducers/TitleSlice';
+import { scheduleApi } from '../services/edu/ScheduleService';
+import { authApi } from '../services/auth/AuthService';
 
 const rootReducer = combineReducers({
 	auth: AuthReducer,
@@ -19,11 +21,15 @@ const rootReducer = combineReducers({
 	[basicVyatsu.reducerPath]: basicVyatsu.reducer,
 });
 
-export const setupStore = () => configureStore({
-	reducer: rootReducer,
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(basicVyatsu.middleware),
-});
+export const setupStore = () =>
+	configureStore({
+		reducer: rootReducer,
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware()
+				.concat(basicVyatsu.middleware)
+				.concat(scheduleApi.middleware)
+				.concat(authApi.middleware),
+	});
 
 export type RootStore = ReturnType<typeof setupStore>;
 export type RootState = ReturnType<RootStore['getState']>;
