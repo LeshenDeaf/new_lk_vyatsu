@@ -18,7 +18,9 @@ module.exports = {
       },
       dropShadow: {
         'blue': '0 2px 30px rgba(34,47,162,0.2)',
-        'button': '0px 12px 20px rgba(27, 96, 255, 0.25)'
+        'button': '0px 12px 20px rgba(27, 96, 255, 0.25)',
+        'dark': '0px 10px 30px rgba(0,0,0,.1)',
+        'darkest': '0px 8px 20px rgba(0,0,0,.25)'
       },
       boxShadow: {
         'side-blue': '0px 20px 20px rgba(46, 158, 203, 0.2)',
