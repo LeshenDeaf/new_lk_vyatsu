@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import capitalizeFirstLetter from '../../../helpers/capitalize-first-letter';
 import { IDaySchedule } from '../../../models/schedule';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const DaySchedule: FC<Props> = ({ color, schedule, dayjs, teacherClicked }) => {
-	const myFormat = 'DD.MM.YY';
+	const myFormat = useMemo(() => 'DD.MM.YY', []);
 
 	return (
 		<div className={styles.daySchedule} >
