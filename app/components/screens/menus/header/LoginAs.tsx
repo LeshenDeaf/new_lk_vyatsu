@@ -10,6 +10,9 @@ import { setAuthData } from '../../../../store/reducers/AuthSlice';
 import axios from 'axios';
 import { selectUser, setUserData } from '../../../../store/reducers/UserSlice';
 import { scheduleApi } from '../../../../services/edu/ScheduleService';
+import { programsApi } from '../../../../services/edu/ProgramsService';
+import { useInvalidate } from '../../../../hooks/useInvalidate';
+import { votingsApi } from '../../../../services/votings/VotingsApi';
 
 const LoginAs: FC = () => {
 	const { locale } = useRouter();
@@ -19,6 +22,7 @@ const LoginAs: FC = () => {
 
 	const [login, setLogin] = useState<string>(user.data?.logged_as.login ?? '');
   const dispatch = useAppDispatch();
+	const invalidate = useInvalidate();
 
 	const [loginAs, loginAsRes] = useLoginAsMutation();
 
@@ -35,11 +39,9 @@ const LoginAs: FC = () => {
 
 				dispatch(setUserData(userData.data));
 
-				dispatch({
-					type: `${scheduleApi.reducerPath}/invalidateTags`,
-					payload: ['Schedule']
-				})
-
+				invalidate(scheduleApi.reducerPath, ['Schedule']);
+				invalidate(programsApi.reducerPath, ['Programs']);
+				invalidate(votingsApi.reducerPath, ['Votings']);
 				// await router.push('/');
 			} catch (e) {
 				console.error(e);
@@ -50,7 +52,7 @@ const LoginAs: FC = () => {
 			'errors' in (res.error.data as any)
 		) {
 		}
-	}, [dispatch, login, loginAs]);
+	}, [dispatch, invalidate, login, loginAs]);
 
 	return (
 		<div className="px-4 sm:px-10 flex flex-col justify-center w-full sm:w-1/4 md:w-1/4 xl:w-1/3 2xl:w-1/4">
