@@ -5,6 +5,7 @@ export const programsApi = basicVyatsu.injectEndpoints({
 	endpoints: (builder) => ({
 		programs: builder.query<ProgramsApiResponse, void>({
 			query: () => 'api/edu/programs/personal',
+			providesTags: ['Programs']
 		}),
 	}),
 });
