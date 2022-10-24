@@ -4,7 +4,7 @@
     @apply w-full xl:w-1/2 mx-auto bg-white mt-10 rounded-[10px] overflow-visible mb-4 top-4 ;
 
     .header {
-      @apply rounded-t-[10px] flex justify-between justify-center bg-vyatsu-blue w-full text-white text-lg p-3 px-10 drop-shadow-blue relative;
+      @apply rounded-t-[10px] flex justify-between bg-vyatsu-blue w-full text-white text-lg p-3 px-10 drop-shadow-blue relative;
     }
     .body {
       @apply p-10 h-[calc(100%-30px)];
