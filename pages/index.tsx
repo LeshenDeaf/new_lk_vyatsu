@@ -1,17 +1,14 @@
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Faq from '../app/components/ui/faq/Faq';
 import Card from '../app/components/ui/index/Card';
+import { IPageLangProps } from '../app/models/IPageLangProps';
 import { setTitle } from '../app/store/reducers/TitleSlice';
 import { wrapper } from '../app/store/store';
 import en from '../lang/en/index.json';
 import ru from '../lang/ru/index.json';
 import styles from '../styles/Home.module.scss';
 
-const Home: NextPage = () => {
-	const { locale } = useRouter();
-	const lang = locale === 'en' ? en : ru;
-
+const Home: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 	return (
 		<>
 			<h1 className={styles.title}>{lang.main}</h1>
@@ -91,11 +88,11 @@ const Home: NextPage = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-	(store) => async () => {
+	(store) => async (ctx) => {
 		store.dispatch(setTitle('Личный кабинет'));
 
 		return {
-			props: {},
+			props: {lang: ctx.locale === 'en' ? en : ru},
 		};
 	}
 );

@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import Modal from '../../app/components/ui/modal/Modal';
 import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
 import { ScheduleColors } from '../../app/configs/ScheduleColors';
+import { IPageLangProps } from '../../app/models/IPageLangProps';
 import { IDaySchedule } from '../../app/models/schedule';
 import {
 	usePersonalQuery,
@@ -11,8 +12,10 @@ import {
 } from '../../app/services/edu/ScheduleService';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
+import en from '../../lang/en/schedule.json';
+import ru from '../../lang/ru/schedule.json';
 
-const Schedule: NextPage = () => {
+const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 	const { data: schedule, isLoading } = usePersonalQuery();
 
 	const [tabnum, setTabnum] = useState(0);
@@ -47,11 +50,19 @@ const Schedule: NextPage = () => {
 
 	return (
 		<>
-			<div>{!isLoading && schedule?.map(getJSXDaySchedule)}</div>
+			<div>
+				{!isLoading && schedule?.length === 0 ? (
+					<div className="text-3xl text-slate-800 font-medium">
+						{lang.not_found}
+					</div>
+				) : (
+					schedule?.map(getJSXDaySchedule)
+				)}
+			</div>
 			{teacherSchedule && !isFetching && !isError ? (
 				<>
-					{isLoading ? (
-						<div>Загрузка...</div>
+					{isLoadingT ? (
+						<div> {lang.loading}</div>
 					) : (
 						<Modal
 							isVisible={isVisible}
@@ -71,10 +82,10 @@ const Schedule: NextPage = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-	(store) => async () => {
+	(store) => async (ctx) => {
 		store.dispatch(setTitle('Расписание'));
 
-		return { props: {} };
+		return { props: { lang: ctx.locale === 'en' ? en : ru } };
 	}
 );
 

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { IUser } from '../../../../models/IUser';
 // import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
@@ -26,7 +26,7 @@ const UserDropDown = memo(function UserDropDown({
 	// const router = useRouter();
 	const { token } = useAppSelector(selectAuth);
 	const { locale } = useRouter();
-	const lang = locale === 'en' ? en : ru;
+	const lang = useMemo(() => locale === 'en' ? en : ru, [locale]);
 	
 	const logout = useCallback(
 		async (e: React.MouseEvent) => {
