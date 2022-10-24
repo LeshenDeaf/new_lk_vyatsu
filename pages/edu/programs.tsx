@@ -5,7 +5,7 @@ import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
 
 const Programs: NextPage = () => {
-	const { data: programs, isLoading, isError } = useProgramsQuery();
+	const { data: programs, isLoading, isError, isFetching } = useProgramsQuery();
 
 	if (isError) {
 		return <div>При загрузке данных произошла ошибка</div>;
@@ -13,7 +13,7 @@ const Programs: NextPage = () => {
 
 	return (
 		<>
-			{isLoading && 'Загрузка...'}
+			{(isLoading || isFetching) && 'Загрузка...'}
 			{!isLoading && programs && <Program programs={programs} />}
 		</>
 	);
