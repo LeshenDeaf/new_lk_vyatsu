@@ -8,19 +8,17 @@ export default async function handle(
 	res: NextApiResponse<ProgramsApiResponse>
 ) {
 	return new Promise<void>((resolve) => {
-		if (req.method === 'GET') {
-			vyatsuApi
-				.get('/api_mobile/v2/edu/programs/by_user/', {
-					headers: { Authorization: req.headers.authorization || '' },
-				})
-				.then((r: AxiosResponse<any>) => {
-					res.status(200).json(r.data);
-					return resolve();
-				})
-				.catch((e) => {
-					res.status(e.response.status).json(e.response.data);
-					return resolve();
-				});
-		}
+		vyatsuApi
+			.get('/api_mobile/v2/edu/programs/by_user/', {
+				headers: { Authorization: req.headers.authorization || '' },
+			})
+			.then((r: AxiosResponse<any>) => {
+				res.status(200).json(r.data);
+				return resolve();
+			})
+			.catch((e) => {
+				res.status(e.response.status).json(e.response.data);
+				return resolve();
+			});
 	});
 }
