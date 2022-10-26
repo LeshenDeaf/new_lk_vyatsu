@@ -29,6 +29,9 @@ const DaySchedule: FC<Props> = ({ color, schedule, dayjs, teacherClicked }) => {
 				<div className={styles.day}>
 					{capitalizeFirstLetter(dayjs(schedule.date, myFormat).format('MMMM'))}
 				</div>
+				<div className={styles.day_of_week}>
+					{capitalizeFirstLetter(schedule.day_of_week)}
+				</div>
 			</div>
 			{/*  пары  */}
 			<div>

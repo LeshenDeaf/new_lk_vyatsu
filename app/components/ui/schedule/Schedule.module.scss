@@ -7,8 +7,11 @@
 	.date {
 		@apply text-white font-bold text-4xl;
 	}
-	.day {
+	.day, .day_of_week {
 		@apply text-white font-light ml-4 sm:ml-0;
+	}
+	.day_of_week {
+		@apply text-xs mt-auto;
 	}
 }
 
