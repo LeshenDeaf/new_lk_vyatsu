@@ -52,6 +52,7 @@ const Login: NextPage = () => {
 					console.error(e);
 				}
 			} else if (
+				typeof res === 'string' || res instanceof String ||
 				'error' in res &&
 				'data' in res.error &&
 				'errors' in (res.error.data as any)
