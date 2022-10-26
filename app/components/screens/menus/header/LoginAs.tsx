@@ -1,18 +1,19 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useCallback, useMemo, useState } from 'react';
 
+import axios from 'axios';
 import en from '../../../../../lang/en/header.json';
 import ru from '../../../../../lang/ru/header.json';
-import { useLoginAsMutation } from '../../../../services/auth/AuthService';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
-import { setAuthData } from '../../../../store/reducers/AuthSlice';
-import axios from 'axios';
-import { selectUser, setUserData } from '../../../../store/reducers/UserSlice';
-import { scheduleApi } from '../../../../services/edu/ScheduleService';
-import { programsApi } from '../../../../services/edu/ProgramsService';
+import { useEnter } from '../../../../hooks/useEnter';
 import { useInvalidate } from '../../../../hooks/useInvalidate';
+import { useLoginAsMutation } from '../../../../services/auth/AuthService';
+import { programsApi } from '../../../../services/edu/ProgramsService';
+import { scheduleApi } from '../../../../services/edu/ScheduleService';
 import { votingsApi } from '../../../../services/votings/VotingsApi';
+import { setAuthData } from '../../../../store/reducers/AuthSlice';
+import { selectUser, setUserData } from '../../../../store/reducers/UserSlice';
 
 const LoginAs: FC = () => {
 	const { locale } = useRouter();
@@ -54,6 +55,8 @@ const LoginAs: FC = () => {
 		}
 	}, [dispatch, invalidate, login, loginAs]);
 
+	const handleKeyDown = useEnter(submit); 
+
 	return (
 		<div className="px-4 sm:px-10 flex flex-col justify-center w-full sm:w-1/4 md:w-1/4 xl:w-1/3 2xl:w-1/4">
 			<div className="w-full flex border-b px-3">
@@ -61,6 +64,7 @@ const LoginAs: FC = () => {
 					className="w-full border-0 outline-0 leading-10"
 					placeholder={lang.loginAs}
           onChange={(e) => setLogin(e.target.value ?? '')}
+					onKeyDown={handleKeyDown}
           value={login}
 				/>
 				<div className="cursor-pointer flex items-center justify-center w-6"
