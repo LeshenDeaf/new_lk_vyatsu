@@ -1,12 +1,14 @@
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useAppSelector } from '../../../hooks/redux';
-import { IUser } from '../../../models/IUser';
 import { IPair, ITechInfo } from '../../../models/schedule';
-import { useLazyStudListQuery } from '../../../services/edu/ScheduleService';
+import {
+  useLazyStudListQuery
+} from '../../../services/edu/ScheduleService';
 import { selectUser } from '../../../store/reducers/UserSlice';
 import Accordion from '../accordion/Accordion';
 import styles from './Schedule.module.scss';
+import Student from './Student';
 
 interface IProps {
 	pair: IPair;
@@ -16,7 +18,7 @@ interface IProps {
 
 const Pair: FC<IProps> = ({ pair, isModal, teacherClicked }) => {
 	const { data: user } = useAppSelector(selectUser);
-	const [trigger, { isLoading, isFetching, isError, data, error }] =
+	const [trigger, { isLoading, isFetching, isError, data }] =
 		useLazyStudListQuery();
 
 	if (!user) {
@@ -25,7 +27,7 @@ const Pair: FC<IProps> = ({ pair, isModal, teacherClicked }) => {
 
 	const loadStudents = (techInfo: ITechInfo) => {
 		return async () => {
-			if (!data) {
+			if (!data && !isError) {
 				await trigger(techInfo);
 			}
 			return data;
@@ -57,7 +59,22 @@ const Pair: FC<IProps> = ({ pair, isModal, teacherClicked }) => {
 					pair.mesto
 				)}
 			</div>
-			<Accordion header="Студенты" getBody={loadStudents(pair.tech_info)} />
+			{user.logged_as.rights.is_employee ? (
+				<Accordion header="Студенты" onClick={loadStudents(pair.tech_info)}>
+          <div className='flex flex-row flex-wrap'>
+					{isLoading
+						? 'Загрузка...'
+						: data?.map((student) => (
+								<Student
+									key={`${pair.tech_info}-${student.id}`}
+									student={student}
+								/>
+              ))}
+          </div>
+				</Accordion>
+			) : (
+				''
+			)}
 		</>
 	);
 };
