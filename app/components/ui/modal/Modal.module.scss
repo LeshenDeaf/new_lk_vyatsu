@@ -11,10 +11,10 @@
     }
   }
   .closeWrapper {
-    @apply z-50 fixed top-0 right-0 h-[50px] w-[50px] rounded-[3px] hover:bg-[rgba(255,255,255,.2)] cursor-pointer;
+    @apply z-50 fixed top-0 right-0 h-[75px] w-[75px] rounded-[3px] hover:bg-[rgba(255,255,255,.2)] cursor-pointer;
 
     .close {
-      @apply  absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[20px] w-[20px];
+      @apply  absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[40px] w-[40px];
     }
   }
 }

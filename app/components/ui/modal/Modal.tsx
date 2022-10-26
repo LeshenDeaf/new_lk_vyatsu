@@ -64,8 +64,8 @@ export default function Modal({
 									src="/images/close.svg"
 									alt="close"
 									draggable="false"
-									width="20"
-									height="20"
+									width="40"
+									height="40"
 									className="top-1/2"
 								/>
 							</div>
