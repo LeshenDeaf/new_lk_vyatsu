@@ -6,23 +6,27 @@ import { v4 as uuidv4 } from 'uuid';
 import PairGroup from './PairGroup';
 import styles from './Schedule.module.scss';
 
-interface Props {
+interface IProps {
 	color: string;
 	schedule: IDaySchedule;
 	dayjs: any;
 	teacherClicked: (tabnum: number, fio: string) => void;
+	isModal?: boolean;
 }
 
-const DaySchedule: FC<Props> = ({ color, schedule, dayjs, teacherClicked }) => {
+const DaySchedule: FC<IProps> = ({
+	color,
+	schedule,
+	dayjs,
+	teacherClicked,
+	isModal,
+}) => {
 	const myFormat = useMemo(() => 'DD.MM.YY', []);
 
 	return (
-		<div className={styles.daySchedule} >
+		<div className={styles.daySchedule}>
 			{/*  дата  */}
-			<div
-				className={styles.dateLabel}
-				style={{ backgroundColor: color }}
-			>
+			<div className={styles.dateLabel} style={{ backgroundColor: color }}>
 				<div className={styles.date}>
 					{dayjs(schedule.date, myFormat).format('DD')}
 				</div>
@@ -34,9 +38,14 @@ const DaySchedule: FC<Props> = ({ color, schedule, dayjs, teacherClicked }) => {
 				</div>
 			</div>
 			{/*  пары  */}
-			<div>
+			<div className={styles.dayPairGroup}>
 				{schedule.pairs.map((pairGroup) => (
-					<PairGroup pairGroup={pairGroup} key={uuidv4()} teacherClicked={teacherClicked} />
+					<PairGroup
+						pairGroup={pairGroup}
+						key={uuidv4()}
+						teacherClicked={teacherClicked}
+						isModal={isModal ?? false}
+					/>
 				))}
 			</div>
 		</div>
