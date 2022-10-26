@@ -35,3 +35,17 @@ export interface IDaySchedule {
 	pairs: IPairGroup[];
 }
 
+export interface IScheduleStudent {
+	id: number;
+	name: string;
+	status: IStudentStatus;
+}
+
+export type Status = 'was' | 'was_not' | 'i_dunno' | null;
+
+export interface IStudentStatus {
+	teacher: Status;
+	headman: Status;
+	your: Status;
+	prev: Status;
+}
