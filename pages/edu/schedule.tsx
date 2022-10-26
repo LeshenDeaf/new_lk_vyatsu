@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Modal from '../../app/components/ui/modal/Modal';
 import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
 import { ScheduleColors } from '../../app/configs/ScheduleColors';
@@ -17,6 +17,7 @@ import ru from '../../lang/ru/schedule.json';
 
 const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 	const { data: schedule, isLoading } = usePersonalQuery();
+	// const ref = useRef();
 
 	const [tabnum, setTabnum] = useState(0);
 	const [fio, setFio] = useState('');
@@ -38,12 +39,13 @@ const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 		setIsVisible(true);
 	}, []);
 
-	const getJSXDaySchedule = (schedule: IDaySchedule, index: number) => (
+	const getJSXDaySchedule = (schedule: IDaySchedule, index: number, isModal: boolean = false) => (
 		<DaySchedule
 			color={index % 2 === 0 ? ScheduleColors.odd : ScheduleColors.even}
 			schedule={schedule}
 			dayjs={dayjs}
 			teacherClicked={teacherClicked}
+			isModal={isModal}
 			key={`${schedule.date}-${schedule.day_of_week}`}
 		/>
 	);
@@ -56,7 +58,7 @@ const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 						{lang.not_found}
 					</div>
 				) : (
-					schedule?.map(getJSXDaySchedule)
+					schedule?.map((e, i) => getJSXDaySchedule(e, i))
 				)}
 			</div>
 			{teacherSchedule && !isFetching && !isError ? (
@@ -70,7 +72,7 @@ const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 							setIsVisible={setIsVisible}
 							header={fio}
 						>
-							{teacherSchedule.map(getJSXDaySchedule)}
+							{teacherSchedule.map((e, i) => getJSXDaySchedule(e, i, true))}
 						</Modal>
 					)}
 				</>
