@@ -4,16 +4,17 @@ import classNames from './Accordion.module.scss';
 
 interface IProps {
 	header: string;
-	children: React.ReactNode;
-	onOpen?: () => void;
+	children?: React.ReactNode;
+	getBody?: () => any;
 }
 
-const Accordion: FC<IProps> = ({ header, children, onOpen }) => {
+const Accordion: FC<IProps> = ({ header, children, getBody }) => {
 	const [isClosed, setIsClosed] = useState<boolean>(true);
+	const [body, setBody] = useState(children);
 
-	const expand = () => {
+	const expand = async () => {
+		setBody(getBody ? await getBody() : {});
 		setIsClosed((prev) => !prev);
-		onOpen ? onOpen() : '';
 	};
 
 	return (
@@ -62,7 +63,7 @@ const Accordion: FC<IProps> = ({ header, children, onOpen }) => {
 			>
 				{(styles) => (
 					<animated.div style={styles} className={classNames.body}>
-						{children}
+						{JSON.stringify(body)}
 					</animated.div>
 				)}
 			</Spring>
