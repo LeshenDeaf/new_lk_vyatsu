@@ -1,4 +1,4 @@
-import { ITechInfo } from './../../models/schedule';
+import { IScheduleStudent, ITechInfo } from './../../models/schedule';
 import { IDaySchedule } from '../../models/schedule';
 import { basicVyatsu } from '../BasicVyatsu';
 
@@ -25,7 +25,7 @@ export const scheduleApi = basicVyatsu.injectEndpoints({
 				keepUnusedDataFor: 180,
 			}),
 		}),
-		studList: builder.query<any, ITechInfo>({
+		studList: builder.query<IScheduleStudent[], ITechInfo>({
 			query: (techInfo) => ({
 				url: 'api/edu/schedule/stud_list',
 				method: 'POST',
@@ -41,4 +41,5 @@ export const {
 	useTeacherQuery,
 	useByTabnumMutation,
 	useLazyStudListQuery,
+	useStudListQuery
 } = scheduleApi;
