@@ -1,0 +1,12 @@
+.block {
+  @apply w-full bg-white rounded-[10px] shadow-darkest sm:shadow-dark p-[20px] relative;
+  .header {
+    @apply text-[18px] ml-[67px];
+  }
+  .body {
+    @apply overflow-hidden ml-[67px] overflow-y-scroll;
+  }
+  .closeBtn {
+    @apply absolute top-[24px] left-[24px] cursor-pointer;
+  }
+}
