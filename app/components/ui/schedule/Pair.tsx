@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { useAppSelector } from '../../../hooks/redux';
 import { IPair, ITechInfo } from '../../../models/schedule';
 import {
@@ -79,4 +79,4 @@ const Pair: FC<IProps> = ({ pair, isModal, teacherClicked }) => {
 	);
 };
 
-export default Pair;
+export default memo(Pair);
