@@ -3,13 +3,12 @@ import { NextPage } from 'next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Modal from '../../app/components/ui/modal/Modal';
 import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
-import RefedDaySchedule from '../../app/components/ui/schedule/RefedDaySchedule';
 import { ScheduleColors } from '../../app/configs/ScheduleColors';
 import { IPageLangProps } from '../../app/models/IPageLangProps';
 import { IDaySchedule } from '../../app/models/schedule';
 import {
 	usePersonalQuery,
-	useTeacherQuery,
+	useTeacherQuery
 } from '../../app/services/edu/ScheduleService';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
@@ -60,19 +59,21 @@ const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 		isModal: boolean = false
 	) => {
 		if (
-			!scrolled && dayjs(new Date()).isSameOrBefore(dayjs(schedule.date, 'DD.MM.YY'))
+			!scrolled &&
+			dayjs(new Date()).isSameOrBefore(dayjs(schedule.date, 'DD.MM.YY'))
 		) {
 			scrolled = true;
 			return (
-				<RefedDaySchedule
-					color={index % 2 === 0 ? ScheduleColors.odd : ScheduleColors.even}
-					schedule={schedule}
-					dayjs={dayjs}
-					teacherClicked={teacherClicked}
-					isModal={isModal}
-					key={`${schedule.date}-${schedule.day_of_week}`}
-					ref={ref}
-				/>
+				<div ref={ref}>
+					<DaySchedule
+						color={index % 2 === 0 ? ScheduleColors.odd : ScheduleColors.even}
+						schedule={schedule}
+						dayjs={dayjs}
+						teacherClicked={teacherClicked}
+						isModal={isModal}
+						key={`${schedule.date}-${schedule.day_of_week}`}
+					/>
+				</div>
 			);
 		}
 

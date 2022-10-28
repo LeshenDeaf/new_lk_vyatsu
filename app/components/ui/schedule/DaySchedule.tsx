@@ -5,7 +5,7 @@ import { IDaySchedule } from '../../../models/schedule';
 import PairGroup from './PairGroup';
 import styles from './Schedule.module.scss';
 
-export interface IProps {
+interface IProps {
 	color: string;
 	schedule: IDaySchedule;
 	dayjs: any;
