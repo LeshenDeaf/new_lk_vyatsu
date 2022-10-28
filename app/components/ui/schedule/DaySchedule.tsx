@@ -1,12 +1,11 @@
-import dayjs from 'dayjs';
 import React, { FC, useMemo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import capitalizeFirstLetter from '../../../helpers/capitalize-first-letter';
 import { IDaySchedule } from '../../../models/schedule';
-import { v4 as uuidv4 } from 'uuid';
 import PairGroup from './PairGroup';
 import styles from './Schedule.module.scss';
 
-interface IProps {
+export interface IProps {
 	color: string;
 	schedule: IDaySchedule;
 	dayjs: any;
