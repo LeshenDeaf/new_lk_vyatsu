@@ -13,6 +13,8 @@ import {
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
 
+import styles from '../../app/components/ui/schedule/Schedule.module.scss';
+
 import en from '../../lang/en/schedule.json';
 import ru from '../../lang/ru/schedule.json';
 
@@ -60,7 +62,7 @@ const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 		) {
 			scrolled = true;
 			return (
-				<div ref={ref}>
+				<div ref={ref} className={styles.daySchedule}>
 					<DaySchedule
 						color={index % 2 === 0 ? ScheduleColors.odd : ScheduleColors.even}
 						schedule={schedule}
