@@ -1,14 +1,14 @@
-import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Modal from '../../app/components/ui/modal/Modal';
 import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
+import dayjs from '../../app/configs/DayJS';
 import { ScheduleColors } from '../../app/configs/ScheduleColors';
 import { IPageLangProps } from '../../app/models/IPageLangProps';
 import { IDaySchedule } from '../../app/models/schedule';
 import {
 	usePersonalQuery,
-	useTeacherQuery
+	useTeacherQuery,
 } from '../../app/services/edu/ScheduleService';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
@@ -32,10 +32,6 @@ const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 	} = useTeacherQuery(tabnum, { skip });
 
 	const ref = useRef<null | HTMLDivElement>(null);
-
-	dayjs.extend(require('dayjs/plugin/customParseFormat'));
-	dayjs.locale(require('dayjs/locale/ru'));
-	dayjs.extend(require('dayjs/plugin/isSameOrBefore'));
 
 	const teacherClicked = useCallback(async (tnum: number, fio: string) => {
 		setTabnum(tnum);
