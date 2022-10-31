@@ -1,13 +1,13 @@
-import { ProgramsApiResponse } from '../../models/api/edu/programsTypes';
+import { PaymentGraph, PaymentType } from '../../models/api/edu/paymentTypes';
 import { basicVyatsu } from '../BasicVyatsu';
 
-export const programsApi = basicVyatsu.injectEndpoints({
+export const paymentsApi = basicVyatsu.injectEndpoints({
 	endpoints: (builder) => ({
-		list: builder.query<ProgramsApiResponse, void>({
+		typesList: builder.query<PaymentType[], void>({
 			query: () => 'api/edu/payments/list',
 			providesTags: ['Payments'],
 		}),
-		graph: builder.query<ProgramsApiResponse, string>({
+		graph: builder.query<PaymentGraph[], string>({
 			query: (paymentType) =>
 				`api/edu/payments/graph/?payment_type=${paymentType}`,
 			providesTags: ['Payments'],
@@ -15,4 +15,4 @@ export const programsApi = basicVyatsu.injectEndpoints({
 	}),
 });
 
-export const { useListQuery, useGraphQuery } = programsApi;
+export const { useTypesListQuery, useGraphQuery } = paymentsApi;
