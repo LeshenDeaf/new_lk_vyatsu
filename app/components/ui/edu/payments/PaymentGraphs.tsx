@@ -1,5 +1,5 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import { dateFormat } from '../../../../configs/DateFormat';
 import dayjs from '../../../../configs/DayJS';
 import {
@@ -44,4 +44,4 @@ const PaymentGraphs: FC = () => {
 	);
 };
 
-export default PaymentGraphs;
+export default memo(PaymentGraphs);
