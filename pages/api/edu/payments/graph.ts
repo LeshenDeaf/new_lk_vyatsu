@@ -9,8 +9,8 @@ export default async function handle(
 	return new Promise<void>((resolve) => {
 		vyatsuApi
 			.post(
-				'/api_mobile/v2/edu/payments/types/',
-				{ payment_type: req.body.payment_type },
+				'/api_mobile/v2/edu/payments/graph/',
+				{ payment_type: req.query.payment_type },
 				{
 					headers: { Authorization: req.headers.authorization || '' },
 				}
