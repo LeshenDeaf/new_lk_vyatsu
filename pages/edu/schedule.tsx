@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Modal from '../../app/components/ui/modal/Modal';
-import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
+import DaySchedule from '../../app/components/ui/edu/schedule/DaySchedule';
 import dayjs from '../../app/configs/DayJS';
 import { ScheduleColors } from '../../app/configs/ScheduleColors';
 import { IPageLangProps } from '../../app/models/IPageLangProps';
@@ -13,7 +13,7 @@ import {
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
 
-import styles from '../../app/components/ui/schedule/Schedule.module.scss';
+import styles from '../../app/components/ui/edu/schedule/Schedule.module.scss';
 
 import en from '../../lang/en/schedule.json';
 import ru from '../../lang/ru/schedule.json';
