@@ -56,7 +56,8 @@ const Payments: NextPage = () => {
 
 	if (isError && error) {
 		const err = error as FetchBaseQueryError;
-		return <>{err.data?.message}</>;
+
+		return <>{(err.data as { message: string })?.message}</>;
 	}
 
 	return (
@@ -74,7 +75,7 @@ const Payments: NextPage = () => {
 								<div className="mr-4">
 									{el.grafic_pay.map((gpay) => (
 										<div key={`${el.graf_id}-${gpay.DataPay}-${gpay.Summa}`}>
-											{dayjs(gpay.DataPay).format(dateFormat)} - {gpay.Summa} ₽
+											{dayjs(gpay.DataPay).format(dateFormat)} — {gpay.Summa} ₽
 										</div>
 									))}
 								</div>
@@ -83,7 +84,7 @@ const Payments: NextPage = () => {
 										<div
 											key={`${el.graf_id}-${fpay.DataPaySt}-${fpay.SummaSt}`}
 										>
-											{dayjs(fpay.DataPaySt).format(dateFormat)} -{' '}
+											{dayjs(fpay.DataPaySt).format(dateFormat)} —{' '}
 											{fpay.SummaSt} ₽
 										</div>
 									))}
