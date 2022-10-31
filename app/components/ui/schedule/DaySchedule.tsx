@@ -1,5 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { dateFormat } from '../../../configs/DateFormat';
 import capitalizeFirstLetter from '../../../helpers/capitalize-first-letter';
 import { IDaySchedule } from '../../../models/schedule';
 import PairGroup from './PairGroup';
@@ -20,7 +21,7 @@ const DaySchedule: FC<IProps> = ({
 	teacherClicked,
 	isModal,
 }) => {
-	const myFormat = useMemo(() => 'DD.MM.YY', []);
+	const myFormat = dateFormat;
 
 	return (
 		<div className={styles.daySchedule}>
