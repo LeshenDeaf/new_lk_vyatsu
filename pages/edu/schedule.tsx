@@ -1,8 +1,8 @@
-import dayjs from 'dayjs';
 import { NextPage } from 'next';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Modal from '../../app/components/ui/modal/Modal';
-import DaySchedule from '../../app/components/ui/schedule/DaySchedule';
+import DaySchedule from '../../app/components/ui/edu/schedule/DaySchedule';
+import dayjs from '../../app/configs/DayJS';
 import { ScheduleColors } from '../../app/configs/ScheduleColors';
 import { IPageLangProps } from '../../app/models/IPageLangProps';
 import { IDaySchedule } from '../../app/models/schedule';
@@ -12,43 +12,80 @@ import {
 } from '../../app/services/edu/ScheduleService';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';
+
+import styles from '../../app/components/ui/edu/schedule/Schedule.module.scss';
+
 import en from '../../lang/en/schedule.json';
 import ru from '../../lang/ru/schedule.json';
 
 const Schedule: NextPage<IPageLangProps<typeof ru, typeof en>> = ({ lang }) => {
 	const { data: schedule, isLoading } = usePersonalQuery();
-	// const ref = useRef();
 
+	const [skip, setSkip] = useState<boolean>(true);
 	const [tabnum, setTabnum] = useState(0);
 	const [fio, setFio] = useState('');
+	const [isVisible, setIsVisible] = useState(false);
+
 	const {
 		data: teacherSchedule,
 		isLoading: isLoadingT,
 		isError,
 		isFetching,
-	} = useTeacherQuery(tabnum, { skip: false });
+	} = useTeacherQuery(tabnum, { skip });
 
-	const [isVisible, setIsVisible] = useState(false);
-
-	dayjs.extend(require('dayjs/plugin/customParseFormat'));
-	dayjs.locale(require('dayjs/locale/ru'));
+	const ref = useRef<null | HTMLDivElement>(null);
 
 	const teacherClicked = useCallback(async (tnum: number, fio: string) => {
 		setTabnum(tnum);
 		setFio(fio);
 		setIsVisible(true);
+		setSkip(false);
 	}, []);
 
-	const getJSXDaySchedule = (schedule: IDaySchedule, index: number, isModal: boolean = false) => (
-		<DaySchedule
-			color={index % 2 === 0 ? ScheduleColors.odd : ScheduleColors.even}
-			schedule={schedule}
-			dayjs={dayjs}
-			teacherClicked={teacherClicked}
-			isModal={isModal}
-			key={`${schedule.date}-${schedule.day_of_week}`}
-		/>
-	);
+	useEffect(() => {
+		if (ref.current) {
+			ref.current.scrollIntoView();
+		}
+		console.log(ref.current);
+	}, [schedule]);
+
+	let scrolled = false;
+
+	const getJSXDaySchedule = (
+		schedule: IDaySchedule,
+		index: number,
+		isModal: boolean = false
+	) => {
+		if (
+			!scrolled &&
+			dayjs(new Date()).isSameOrBefore(dayjs(schedule.date, 'DD.MM.YY'))
+		) {
+			scrolled = true;
+			return (
+				<div ref={ref} className={styles.daySchedule}>
+					<DaySchedule
+						color={index % 2 === 0 ? ScheduleColors.odd : ScheduleColors.even}
+						schedule={schedule}
+						dayjs={dayjs}
+						teacherClicked={teacherClicked}
+						isModal={isModal}
+						key={`${schedule.date}-${schedule.day_of_week}`}
+					/>
+				</div>
+			);
+		}
+
+		return (
+			<DaySchedule
+				color={index % 2 === 0 ? ScheduleColors.odd : ScheduleColors.even}
+				schedule={schedule}
+				dayjs={dayjs}
+				teacherClicked={teacherClicked}
+				isModal={isModal}
+				key={`${schedule.date}-${schedule.day_of_week}`}
+			/>
+		);
+	};
 
 	return (
 		<>

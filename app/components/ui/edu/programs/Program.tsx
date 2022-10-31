@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProgramsApiResponse } from '../../../models/api/edu/programsTypes';
+import { ProgramsApiResponse } from '../../../../models/api/edu/programsTypes';
 import ProgramsLegend from './ProgramsLegend';
 import ProgramsTable from './ProgramsTable';
 

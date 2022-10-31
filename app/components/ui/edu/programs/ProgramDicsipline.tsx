@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { IProgramDiscipline } from '../../../models/api/edu/programsTypes';
+import { IProgramDiscipline } from '../../../../models/api/edu/programsTypes';
 
 interface Props {
 	isHidden: boolean;

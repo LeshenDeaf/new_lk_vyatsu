@@ -20,6 +20,7 @@ export const NavList = [
 		name: 'Учёба',
 		pages: [
 			{ name: 'Расписание', link: '/edu/schedule' },
+			{ name: 'Графики оплаты', link: '/edu/payments' },
 			{ name: 'Программы', link: '/edu/programs' },
 		],
 	} as Category,

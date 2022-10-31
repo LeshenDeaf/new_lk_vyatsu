@@ -8,13 +8,9 @@ export default async function handle(
 ) {
 	return new Promise<void>((resolve) => {
 		vyatsuApi
-			.post(
-				'/api_mobile/v2/edu/payments/graph/',
-				{ payment_type: req.query.payment_type },
-				{
-					headers: { Authorization: req.headers.authorization || '' },
-				}
-			)
+			.get('/api_mobile/v2/edu/payments/questions/', {
+				headers: { Authorization: req.headers.authorization || '' },
+			})
 			.then((r: AxiosResponse<any>) => {
 				res.status(200).json(r.data);
 				return resolve();

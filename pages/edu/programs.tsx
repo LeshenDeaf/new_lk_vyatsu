@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Program from '../../app/components/ui/programs/Program';
+import Program from '../../app/components/ui/edu/programs/Program';
 import { useProgramsQuery } from '../../app/services/edu/ProgramsService';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 import { wrapper } from '../../app/store/store';

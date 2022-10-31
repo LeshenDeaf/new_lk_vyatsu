@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
-import { IProgramColors } from '../../../models/api/edu/programsTypes';
-import BirdLogo from '../../shared/BirdLogo';
-import { ProgramDisciplineColors } from '../../../configs/ProgramDisciplineColors';
+import { IProgramColors } from '../../../../models/api/edu/programsTypes';
+import BirdLogo from '../../../shared/BirdLogo';
+import { ProgramDisciplineColors } from '../../../../configs/ProgramDisciplineColors';
 
 interface Props {
 	colors: IProgramColors;

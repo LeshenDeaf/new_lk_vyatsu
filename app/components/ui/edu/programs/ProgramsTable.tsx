@@ -1,6 +1,6 @@
 import React, { memo, useMemo, useState } from 'react';
-import { ProgramDisciplineColors } from '../../../configs/ProgramDisciplineColors';
-import { ProgramsApiResponse } from '../../../models/api/edu/programsTypes';
+import { ProgramDisciplineColors } from '../../../../configs/ProgramDisciplineColors';
+import { ProgramsApiResponse } from '../../../../models/api/edu/programsTypes';
 import ProgramDicsipline from './ProgramDicsipline';
 interface Props {
 	programs: ProgramsApiResponse;

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { IScheduleStudent } from '../../../models/schedule';
+import { IScheduleStudent } from '../../../../models/schedule';
 
 interface IProps {
   student: IScheduleStudent;

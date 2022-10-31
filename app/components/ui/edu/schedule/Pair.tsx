@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { FC } from 'react';
-import { useAppSelector } from '../../../hooks/redux';
-import { IPair, ITechInfo } from '../../../models/schedule';
+import { FC, memo } from 'react';
+import { useAppSelector } from '../../../../hooks/redux';
+import { IPair, ITechInfo } from '../../../../models/schedule';
 import {
   useLazyStudListQuery
-} from '../../../services/edu/ScheduleService';
-import { selectUser } from '../../../store/reducers/UserSlice';
-import Accordion from '../accordion/Accordion';
+} from '../../../../services/edu/ScheduleService';
+import { selectUser } from '../../../../store/reducers/UserSlice';
+import Accordion from '../../accordion/Accordion';
 import styles from './Schedule.module.scss';
 import Student from './Student';
 
@@ -79,4 +79,4 @@ const Pair: FC<IProps> = ({ pair, isModal, teacherClicked }) => {
 	);
 };
 
-export default Pair;
+export default memo(Pair);
