@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { animated } from 'react-spring';
 import VyatsuLogo from './VyatsuLogo';
 import ArrowMenu from './ArrowMenu';
 import ReviewButton from './ReviewButton';
 import NumberMenu from './NumberMenu';
+
+import en from '../../../../../lang/en/header.json';
+import ru from '../../../../../lang/ru/header.json';
+import { useRouter } from 'next/router';
 
 interface Props {
 	closeSidebar: () => void;
@@ -11,6 +15,9 @@ interface Props {
 }
 
 const SideBar = ({ styles, closeSidebar }: Props) => {
+	const { locale } = useRouter();
+	const lang = useMemo(() => locale === 'en' ? en : ru, [locale]);
+
 	return (
 		<>
 			<animated.div
@@ -29,7 +36,7 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 					{/* centre-info */}
 					<div className="text-white flex flex-col justify-between h-32">
 						<div>
-							Центр организации корпоративного обучения сотрудников и студентов
+							{lang.org_center}
 						</div>
 						<div className="text-xl">742-752</div>
 						<div className="underline opacity-50">
@@ -39,9 +46,9 @@ const SideBar = ({ styles, closeSidebar }: Props) => {
 				</div>
 
 				{/* feedback mobile */}
-				<ReviewButton isMobile={true} />
+				<ReviewButton isMobile={true} text={lang.leave_a_review} />
 			</animated.div>
-			<ReviewButton isMobile={false} />
+			<ReviewButton isMobile={false} text={lang.leave_a_review} />
 		</>
 	);
 };
