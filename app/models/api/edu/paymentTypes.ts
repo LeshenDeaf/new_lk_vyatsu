@@ -27,3 +27,9 @@ export interface RealPayment {
   Return: boolean;
 }
 
+export interface PaymentQuestion {
+  id: number;
+  text: string;
+  answer: string;
+  date: string;
+}
