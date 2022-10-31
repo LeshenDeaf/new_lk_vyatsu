@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppSelector } from '../../../hooks/redux';
-import { IPairGroup } from '../../../models/schedule';
-import { selectUser } from '../../../store/reducers/UserSlice';
+import { useAppSelector } from '../../../../hooks/redux';
+import { IPairGroup } from '../../../../models/schedule';
+import { selectUser } from '../../../../store/reducers/UserSlice';
 import Pair from './Pair';
 import styles from './Schedule.module.scss';
 

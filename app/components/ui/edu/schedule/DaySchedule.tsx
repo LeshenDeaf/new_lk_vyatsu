@@ -1,8 +1,8 @@
 import React, { FC, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { dateFormat } from '../../../configs/DateFormat';
-import capitalizeFirstLetter from '../../../helpers/capitalize-first-letter';
-import { IDaySchedule } from '../../../models/schedule';
+import { dateFormat } from '../../../../configs/DateFormat';
+import capitalizeFirstLetter from '../../../../helpers/capitalize-first-letter';
+import { IDaySchedule } from '../../../../models/schedule';
 import PairGroup from './PairGroup';
 import styles from './Schedule.module.scss';
 
