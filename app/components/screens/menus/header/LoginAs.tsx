@@ -14,6 +14,7 @@ import { scheduleApi } from '../../../../services/edu/ScheduleService';
 import { votingsApi } from '../../../../services/votings/VotingsApi';
 import { setAuthData } from '../../../../store/reducers/AuthSlice';
 import { selectUser, setUserData } from '../../../../store/reducers/UserSlice';
+import { paymentsApi } from '../../../../services/edu/PaymentsService';
 
 const LoginAs: FC = () => {
 	const { locale } = useRouter();
@@ -43,6 +44,7 @@ const LoginAs: FC = () => {
 				invalidate(scheduleApi.reducerPath, ['Schedule']);
 				invalidate(programsApi.reducerPath, ['Programs']);
 				invalidate(votingsApi.reducerPath, ['Votings']);
+				invalidate(paymentsApi.reducerPath, ['Payments']);
 				// await router.push('/');
 			} catch (e) {
 				console.error(e);
