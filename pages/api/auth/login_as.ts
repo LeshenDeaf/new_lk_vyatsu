@@ -23,6 +23,15 @@ export default async function handle(
 				}
 			)
 			.then((result: AxiosResponse<AuthAPIResponse>) => {
+				if (!result.data.access_token || !result.data.refresh_token) {
+					res.status(404).json({
+						token: '',
+						isAuth: false,
+					});
+
+					return resolve();
+				}
+
 				setCookieTokens(
 					res,
 					result.data.access_token,
