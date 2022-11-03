@@ -10,19 +10,14 @@ import redisUserService from '../../../app/services/redis/RedisUserService';
 
 const getUserInfo = async (token: string) => {
 	const decoded = jwtDecode(token) as IToken;
-	const tokenValid = decoded.exp > Date.now() / 1000;
-
-	if (!tokenValid) {
-		return null;
-	}
 
 	const user = await redisUserService.find(decoded.logged_as);
 
-	if (user) {
-		console.log('User read from redis')
+	if (user && Object.keys(user).length !== 0) {
+		console.log('User read from redis');
 		return user;
 	}
-	console.log('User read from API')
+	console.log('User read from API');
 
 	const r = await vyatsuApi.get('/api_mobile/v2/user/logged_as/', {
 		headers: { Authorization: token },
@@ -37,22 +32,21 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<any>
 ) {
-	return new Promise<void>((resolve) => vyatsuApi
-	.get('/api_mobile/v2/user/me/', {
-		headers: { Authorization: req.headers.authorization || '' },
-	})
-	.then(async (r: AxiosResponse<IUser>) => {
-		res
-			.status(200)
-			.json({
-				...r.data,
-				logged_as: await getUserInfo(req.headers.authorization || ''),
-			});
-		return resolve();
-	})
-	.catch((e) => {
-		res.status(e.response?.status).json(e.response?.data);
-	})
+	return new Promise<void>((resolve) =>
+		vyatsuApi
+			.get('/api_mobile/v2/user/me/', {
+				headers: { Authorization: req.headers.authorization || '' },
+			})
+			.then(async (r: AxiosResponse<IUser>) => {
+				const logged_as = await getUserInfo(req.headers.authorization || '');
+				res.status(200).json({
+					...r.data,
+					logged_as,
+				});
+				return resolve();
+			})
+			.catch((e) => {
+				res.status(e.response?.status || 500).json(e.response?.data || e.message);
+			})
 	);
-	
 }
