@@ -9,35 +9,45 @@ class RedisService {
 		this.expiresIn = expiresIn;
 	}
 
-	async create(data: any) {
-		await connect();
+	async create(data: any, id: number | string = '') {
+		try{
+			await connect();
+		} catch (e) {
+			return null;
+		}
 
-		data.id = parseInt(data.id);
-
+		if (!id){
+			data.id = parseInt(data.id);
+			id = data.id;
+		}
+		
 		await client.execute([
 			'JSON.SET',
-			`${this.prefix}:${data.id}`,
+			`${this.prefix}:${id}`,
 			'$',
 			JSON.stringify(data),
 		]);
 		await client.execute([
 			'EXPIRE',
-			`${this.prefix}:${data.id}`,
+			`${this.prefix}:${id}`,
 			this.expiresIn,
 		]);
 
 		return data.id;
 	}
 
-	async find(elementId: number) {
-		await connect();
-
+	async find(elementId: number | string) {
+		try{
+			await connect();
+		} catch (e) {
+			return null;
+		}
 		const res = (await client.execute([
 			'JSON.GET',
 			`${this.prefix}:${elementId}`,
 		])) as string;
 
-		return JSON.parse(res);
+		return JSON.parse(res || '{}');
 	}
 }
 

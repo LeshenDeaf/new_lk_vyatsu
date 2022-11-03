@@ -9,12 +9,14 @@ export default async function handler(
 ) {
   const { id } = req.query
   return new Promise<void>((resolve) => {
+    const token = req.headers.authorization || '';
+    
     vyatsuApi
       .post('/api_mobile/v2/votings/list/', {
-        headers: { Authorization: req.headers.authorization || '' },
+        headers: { Authorization: token },
         vote_id: id
       }, {
-        headers: { Authorization: req.headers.authorization || '' }
+        headers: { Authorization: token }
       })
       .then((r: AxiosResponse<IVoting>) => {
         res.status(200).json(r.data);
