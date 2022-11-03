@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Link from 'next/dist/client/link';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { Suspense, useEffect, useMemo } from 'react';
@@ -13,7 +14,7 @@ const Voting = dynamic(
 );
 import {
 	useQuestionsQuery,
-	useVotingQuery
+	useVotingQuery,
 } from '../../app/services/votings/VotingsApi';
 import { setTitle } from '../../app/store/reducers/TitleSlice';
 
@@ -45,6 +46,9 @@ const VotingPage: NextPage = () => {
 
 	return (
 		<>
+			<Link href={'/votings/'} passHref={true}>
+				<a className="text-vyatsu-blue hover:text-vyatsu-darkblue">Обратно</a>
+			</Link>
 			{votingQuery.isLoading || questionsQuery.isLoading ? 'Загрузка...' : ''}
 			{votingQuery.data && questionsQuery.data && (
 				<Suspense>
