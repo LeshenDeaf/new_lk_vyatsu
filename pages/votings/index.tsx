@@ -21,23 +21,9 @@ const Votings: NextPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) => async () => {
-		// const { auth } = store.getState();
-		// const votings = await axios.get(
-		// 	process.env.APP_URL + '/api/votings/list/',
-		// 	{
-		// 		headers: {
-		// 			authorization: `Bearer ${auth.token}`,
-		// 		},
-		// 	}
-		// );
-
 		store.dispatch(setTitle('Опросы'));
 
-		return {
-			props: {
-				// votings: votings.data as IVoting[],
-			},
-		};
+		return { props: {} };
 	}
 );
 

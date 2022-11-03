@@ -36,11 +36,7 @@ const VotingPage: NextPage = () => {
 		return <>Указан некорректный идентификатор опроса</>;
 	}
 
-	if (votingQuery.isError) {
-		return <>Возникла ошибка при получении данных опроса, обновите страницу</>;
-	}
-
-	if (questionsQuery.isError) {
+	if (votingQuery.isError || questionsQuery.isError) {
 		return <>Возникла ошибка при получении данных опроса, обновите страницу</>;
 	}
 
