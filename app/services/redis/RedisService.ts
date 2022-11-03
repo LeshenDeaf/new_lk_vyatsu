@@ -23,13 +23,13 @@ class RedisService {
 		
 		await client.execute([
 			'JSON.SET',
-			`${this.prefix}:${data.id}`,
+			`${this.prefix}:${id}`,
 			'$',
 			JSON.stringify(data),
 		]);
 		await client.execute([
 			'EXPIRE',
-			`${this.prefix}:${data.id}`,
+			`${this.prefix}:${id}`,
 			this.expiresIn,
 		]);
 
