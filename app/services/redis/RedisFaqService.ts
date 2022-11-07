@@ -1,4 +1,4 @@
-import { Entity, Schema } from 'redis-om';
+import { Entity, EntityData, Schema } from 'redis-om';
 import { client, connect } from './../../../lib/redis';
 import { IFaq } from './../../models/api/IFaq';
 
@@ -21,7 +21,8 @@ class RedisFaqService {
 		const repository = client.fetchRepository<Faq>(schema);
 		faqs.map(async (faq) => {
 			faq.url = faq.url.map((u) => encodeURIComponent(u));
-			await repository.save(repository.createEntity(faq));
+			
+			await repository.save(repository.createEntity(faq as unknown as EntityData));
 		});
 	}
 
