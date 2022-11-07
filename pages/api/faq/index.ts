@@ -32,7 +32,7 @@ export default async function handler(
 	return new Promise<void>((resolve) => {
 		getFaqInfo(req.body.url, req.headers.authorization || '')
 			.then((faq) => {
-				res.status(200).json(faq);
+				res.status(200).json(faq as IFaq[]);
 				return resolve();
 			})
 			.catch((error) => {
