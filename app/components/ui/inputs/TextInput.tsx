@@ -8,7 +8,8 @@ const TextInput: FC<IInputProps> = (props) => {
 			<input
 				name={`${props.name}`}
 				required={props.isRequired}
-				defaultValue={props.defaultValue}
+				// defaultValue={props.defaultValue}
+				attr-id={props.id}
 				onChange={props.handleChange}
 				// {props.params}
 			/>

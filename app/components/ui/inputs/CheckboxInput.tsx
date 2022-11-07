@@ -6,6 +6,7 @@ const CheckboxInput: FC<IInputProps> = (props) => {
 		<label>
       <input
         name={`${props.name}`}
+        attr-id={props.id}
         required={props.isRequired}
         value={props.defaultValue}
         onChange={props.handleChange}
