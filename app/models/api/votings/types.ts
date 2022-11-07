@@ -38,6 +38,6 @@ export interface IRequestAnswer extends IAnswerInfo {
 }
 
 export interface IVoteRequest {
-	id: number;
+	vote_id: number;
 	questions: IRequestQuestion[];
 }

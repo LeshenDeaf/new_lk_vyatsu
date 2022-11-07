@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 
 export interface IInputProps {
+	id: number;
 	isRequired: boolean;
 	label: string;
 	name: string | number;
