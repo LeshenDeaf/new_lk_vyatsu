@@ -4,7 +4,7 @@ import {
 	FormEvent,
 	useCallback,
 	useMemo,
-	useState,
+	useState
 } from 'react';
 import {
 	IAnswer,
@@ -12,17 +12,18 @@ import {
 	IRequestAnswer,
 	IRequestQuestion,
 	IVoteRequest,
-	IVoting,
+	IVoting
 } from '../../../models/api/votings/types';
 // import dynamic from 'next/dynamic';
 import styles from '../../../../styles/Votings.module.scss';
 
+import { useRouter } from 'next/router';
+import { useVoteMutation } from '../../../services/votings/VotingsApi';
 import CheckboxInput from '../../ui/inputs/CheckboxInput';
 import RadioInput from '../../ui/inputs/RadioInput';
 import TextareaInput from '../../ui/inputs/TextareaInput';
 import TextInput from '../../ui/inputs/TextInput';
 import Question from './Question';
-import { useVoteMutation } from '../../../services/votings/VotingsApi';
 
 interface IProps {
 	voting: IVoting;
@@ -39,6 +40,8 @@ const Voting: FC<IProps> = ({ voting, questions }) => {
 		}),
 		[]
 	);
+
+	const router = useRouter();
 
 	const [vote, result] = useVoteMutation();
 
@@ -77,36 +80,45 @@ const Voting: FC<IProps> = ({ voting, questions }) => {
 		[inputTypes, handleChange]
 	);
 
+	const makeRequestOb = useCallback(() => {
+		const fd = formData as any;
+
+		return questions.map(
+			(question) =>
+				({
+					...question,
+					answers: question.answers.map((answer) =>
+						fd[question.id][answer.id]
+							? ({
+									...answer,
+									answer: fd[question.id][answer.id].value ?? '',
+									is_select: fd[question.id][answer.id].is_checked ?? false,
+							  } as IRequestAnswer)
+							: ({ ...answer, answer: '', is_select: false } as IRequestAnswer)
+					),
+				} as IRequestQuestion)
+		);
+	}, [formData, questions]);
+
 	const handleSubmit = useCallback(
-		(e: FormEvent<HTMLFormElement>) => {
+		async (e: FormEvent<HTMLFormElement>) => {
 			e.preventDefault();
-			const fd = formData as any;
+			const request = makeRequestOb();
 
-			const request = questions.map(
-				(question) =>
-					({
-						...question,
-						answers: question.answers.map((answer) =>
-							fd[question.id][answer.id]
-								? ({
-										...answer,
-										answer: fd[question.id][answer.id].value ?? '',
-										is_select: fd[question.id][answer.id].is_checked ?? false,
-								  } as IRequestAnswer)
-								: ({
-										...answer,
-										answer: '',
-										is_select: false,
-								  } as IRequestAnswer)
-						),
-					} as IRequestQuestion)
-			);
+			try {
+				const result = await vote({
+					vote_id: voting.id,
+					questions: request,
+				} as IVoteRequest);
 
-			// console.table(formData);
-			// console.table(request);
-			vote({ vote_id: voting.id, questions: request } as IVoteRequest);
+				if ('data' in result) {
+					router.push('/votings/');
+				}
+			} catch (e) {
+				console.error(e);
+			}
 		},
-		[formData, questions, vote, voting.id]
+		[makeRequestOb, router, vote, voting.id]
 	);
 
 	console.log('!!!!');
