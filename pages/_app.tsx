@@ -8,6 +8,7 @@ import { setAuthData } from '../app/store/reducers/AuthSlice';
 import { setUserData } from '../app/store/reducers/UserSlice';
 import { wrapper } from '../app/store/store';
 import '../styles/globals.scss';
+import { Alerts } from '../app/components/ui/alerts/Alerts';
 
 function App({ Component, ...rest }: AppProps) {
 	const { store, props } = wrapper.useWrappedStore(rest);
@@ -17,6 +18,7 @@ function App({ Component, ...rest }: AppProps) {
 			<Authenticate>
 				<Component {...props.pageProps} />
 			</Authenticate>
+			<Alerts />
 		</Provider>
 	);
 }
