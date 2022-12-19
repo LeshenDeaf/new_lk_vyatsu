@@ -7,7 +7,13 @@ import {
 	MdOutlineWarningAmber,
 	MdCheckCircleOutline,
 } from 'react-icons/md';
-import { Transition, animated, config } from '@react-spring/web';
+import {
+	Transition,
+	Spring,
+	animated,
+	config,
+	useSpring,
+} from '@react-spring/web';
 import { AlertTypes, remove } from '../../../store/reducers/AlertsSlice';
 import { useAppDispatch } from '../../../hooks/redux';
 
@@ -46,7 +52,7 @@ const alertIcons = {
 };
 
 interface AlertProps {
-  id: string;
+	id: string;
 	title: string;
 	text: string | JSX.Element;
 	alertType: AlertTypes;
@@ -56,6 +62,13 @@ interface AlertProps {
 export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 	const [isShown, setIsShown] = useState<boolean>(true);
 	const dispatch = useAppDispatch();
+	const springProps = useSpring({
+		from: { width: '0%' },
+		to: { width: '100%' },
+		config: {
+			duration: time
+		}
+	});
 
 	useEffect(() => {
 		let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -65,8 +78,8 @@ export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 		}
 
 		return () => {
-      timeoutId && window.clearTimeout(timeoutId);
-    };
+			timeoutId && window.clearTimeout(timeoutId);
+		};
 	}, [time, isShown, setIsShown]);
 
 	return (
@@ -78,7 +91,7 @@ export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 				leave={{ opacity: 0, right: '-250px', marginLeft: '0px' }}
 				reverse={isShown}
 				config={config.stiff}
-        onDestroyed={() => dispatch(remove(id))}
+				onDestroyed={() => dispatch(remove(id))}
 			>
 				{(styles, item) =>
 					item && (
@@ -104,6 +117,12 @@ export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 									/>
 								</div>
 							</div>
+							{time && (
+								<animated.div
+									className="bg-red-500 h-5"
+									style={{ width: springProps.width.to((w) => `${w}`) }}
+								></animated.div>
+							)}
 						</animated.div>
 					)
 				}
