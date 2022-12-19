@@ -37,7 +37,7 @@ export const alertsSlice = createSlice({
       state: AlertsState,
       action: PayloadAction<string>
     ) => {
-      state.filter(value => value.id === action.payload);
+      return state.filter(value => value.id !== action.payload);
     }
 	}
 });
