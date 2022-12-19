@@ -25,8 +25,8 @@ module.exports = {
       boxShadow: {
         'side-blue': '0px 20px 20px rgba(46, 158, 203, 0.2)',
         'l-blue': '0px 0px 40px rgba(34, 47, 162, 0.1)',
-        'dark': '0px 10px 30px rgba(0,0,0,.1)',
-        'darkest': '0px 8px 20px rgba(0,0,0,.25)'
+        'dark': '0px 2px 3px rgba(0,0,0,.2), 0px 10px 30px rgba(0,0,0,.1)',
+        'darkest': '0px 2px 3px rgba(0,0,0,.35), 0px 8px 20px rgba(0,0,0,.25)'
         // 'l-blue': '0px 0px 40px rgba(34, 47, 162, 1)',
       },
       
