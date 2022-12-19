@@ -11,3 +11,8 @@ export const programsApi = basicVyatsu.injectEndpoints({
 });
 
 export const { useProgramsQuery } = programsApi;
+
+export const programsInvalidation = {
+	reducerPath: programsApi.reducerPath,
+	tags: ['Programs'],
+}

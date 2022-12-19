@@ -36,3 +36,8 @@ export const {
 	useQuestionsQuery,
 	useVoteMutation,
 } = votingsApi;
+
+export const votingsInvalidation = {
+	reducerPath: votingsApi.reducerPath,
+	tags: ['Votings']
+}
