@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { Portal } from '../portals/Portal';
 import {
 	MdOutlineInfo,
@@ -12,6 +12,7 @@ import {
 	Spring,
 	animated,
 	config,
+	easings,
 	useSpring,
 } from '@react-spring/web';
 import { AlertTypes, remove } from '../../../store/reducers/AlertsSlice';
@@ -69,6 +70,7 @@ export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 			duration: time
 		}
 	});
+	const ref = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -86,19 +88,20 @@ export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 		<Portal container={document && document.getElementById('alerts')}>
 			<Transition
 				items={isShown}
-				from={{ opacity: 0, right: '-250px', marginLeft: '0px' }}
-				enter={{ opacity: 1, right: '16px', marginLeft: '16px' }}
-				leave={{ opacity: 0, right: '-250px', marginLeft: '0px' }}
+				from={{ opacity: 0, transform: 'translateX(250px)', marginBottom: `-100px` }}
+				enter={{ opacity: 1, transform: 'translateX(0px)', marginBottom: '20px' }}
+				leave={{ opacity: 0, transform: 'translateX(250px)', marginBottom: `-${ref?.current?.clientHeight || 0}px` }}
 				reverse={isShown}
-				config={config.stiff}
+				config={{easing: easings.easeInOutCubic, tension: 400, friction: 26}}
 				onDestroyed={() => dispatch(remove(id))}
 			>
 				{(styles, item) =>
 					item && (
 						<animated.div
 							style={styles}
-							className="cursor-pointer relative mb-10 z-[999] bg-white max-w-md p-4 pl-6 rounded-md shadow-dark overflow-hidden"
+							className="right-10 cursor-pointer relative z-[999] bg-white max-w-md p-4 pl-6 rounded-md shadow-dark overflow-hidden"
 							onClick={() => setIsShown(false)}
+							ref={ref}
 						>
 							<div
 								className={`absolute top-0 left-0 h-full w-1`}
