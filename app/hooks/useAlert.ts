@@ -27,8 +27,8 @@ export function useAlert(): UseAlertResult {
 
 	return {
 		success: (alertInfo) => dispatch(addSuccessAlert(alertInfo)),
-		info: (alertInfo) => dispatch(addSuccessAlert(alertInfo)),
-		warning: (alertInfo) => dispatch(addSuccessAlert(alertInfo)),
-		danger: (alertInfo) => dispatch(addSuccessAlert(alertInfo)),
+		info: (alertInfo) => dispatch(addInfoAlert(alertInfo)),
+		warning: (alertInfo) => dispatch(addWarningAlert(alertInfo)),
+		danger: (alertInfo) => dispatch(addDangerAlert(alertInfo)),
 	};
 }
