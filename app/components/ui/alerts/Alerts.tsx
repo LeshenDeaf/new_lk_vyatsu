@@ -8,7 +8,7 @@ export const Alerts = () => {
 	return (
 		<div
 			id="alerts"
-			className="fixed flex flex-col-reverse right-0 top-10"
+			className="fixed flex flex-col-reverse right-0 top-10 z-[999]"
 			style={{transition: ".2s all ease-in-out"}}
 		>
 			{alerts.map((alert) => {
