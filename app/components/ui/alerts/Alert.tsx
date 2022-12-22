@@ -10,6 +10,7 @@ import {
 import { useAppDispatch } from '../../../hooks/redux';
 import { AlertTypes, removeAlert } from '../../../store/reducers/AlertsSlice';
 import { Portal } from '../portals/Portal';
+import { Timer } from '../../../helpers/timer';
 
 const alertColors = {
 	[AlertTypes.Success]: 'rgb(22 163 74)',
@@ -56,24 +57,28 @@ interface AlertProps {
 export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 	const [isShown, setIsShown] = useState<boolean>(true);
 	const dispatch = useAppDispatch();
-	const springProps = useSpring({
+	const [springProps, springApi] = useSpring(() => ({
 		from: { width: '100%' },
 		to: { width: '0%' },
 		config: {
 			duration: time,
 		},
-	});
+	}));
 	const ref = useRef<HTMLDivElement>(null);
+	const timer = useRef<Timer | null>(null);
 
 	useEffect(() => {
-		let timeoutId: ReturnType<typeof setTimeout> | undefined;
+		if (!timer.current) {
+			timer.current = new Timer(() => setIsShown(false));
+		}
 
 		if (time && isShown) {
-			timeoutId = setTimeout(() => setIsShown(false), time);
+			timer.current.start(time);
 		}
 
 		return () => {
-			timeoutId && window.clearTimeout(timeoutId);
+			timer.current && timer.current.stop();
+			console.log(timer.current)
 		};
 	}, [time, isShown, setIsShown]);
 
@@ -107,11 +112,27 @@ export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 							className="right-10 relative z-[999] bg-white max-w-md p-4 pl-6 rounded-md shadow-dark overflow-hidden"
 							// onClick={() => setIsShown(false)}
 							ref={ref}
+							onMouseEnter={() => {
+								if (!timer.current) {
+									return;
+								}
+								timer.current.pause();
+								springApi.pause();
+							}}
+							onMouseLeave={() => {
+								if (!timer.current) {
+									return;
+								}
+								timer.current.resume();
+								springApi.resume();
+							}}
 						>
-							{!time && <div
-								className={`absolute top-0 left-0 h-full w-1`}
-								style={{ backgroundColor: alertColors[alertType] }}
-							></div>}
+							{!time && (
+								<div
+									className={`absolute top-0 left-0 h-full w-1`}
+									style={{ backgroundColor: alertColors[alertType] }}
+								></div>
+							)}
 							<div className="flex">
 								<div className="h-full w-6 mr-4">{alertIcons[alertType]}</div>
 								<div className="text break-words">
@@ -128,7 +149,10 @@ export const Alert: FC<AlertProps> = ({ id, title, text, alertType, time }) => {
 							{time && (
 								<animated.div
 									className="h-1 absolute bottom-0 left-0 right-0"
-									style={{ width: springProps.width.to((w) => `${w}`), backgroundColor: alertColors[alertType] }}
+									style={{
+										width: springProps.width.to((w) => `${w}`),
+										backgroundColor: alertColors[alertType],
+									}}
 								></animated.div>
 							)}
 						</animated.div>
