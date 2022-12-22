@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useMemo, useState } from 'react';
 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import en from '../../../../../lang/en/header.json';
 import ru from '../../../../../lang/ru/header.json';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
@@ -19,6 +19,7 @@ import { scheduleInvalidation } from '../../../../services/edu/ScheduleService';
 import { votingsInvalidation } from '../../../../services/votings/VotingsApi';
 import { setAuthData } from '../../../../store/reducers/AuthSlice';
 import { selectUser, setUserData } from '../../../../store/reducers/UserSlice';
+import { useAlert } from '../../../../hooks/useAlert';
 
 const mustBeInvalidated: reducerInfo[] = [
 	programsInvalidation,
@@ -42,6 +43,8 @@ const LoginAs: FC = () => {
 
 	const [loginAs, loginAsRes] = useLoginAsMutation();
 
+	const alerts = useAlert();
+
 	const submit = useCallback(async () => {
 		const res = await loginAs(login);
 
@@ -55,16 +58,25 @@ const LoginAs: FC = () => {
 
 				dispatch(setUserData(userData.data));
 				invalidateAll(invalidate);
-			} catch (e) {
+			} catch (e: any) {
 				console.error(e);
+				if ('response' in e && e.response.status === 500) {
+					alerts.danger({title: 'Ошибка сервера', text: `Попробуйте позже`, time: 3000});
+				}
 			}
 		} else if (
 			'error' in res &&
 			'data' in res.error &&
 			'errors' in (res.error.data as any)
 		) {
+			if (res.error.status === 422) {
+				alerts.danger({title: 'Ошибка смены логина', text: `Пользователь "${login}" не найден`, time: 3000});
+			}
+			if (res.error.status === 500) {
+				alerts.danger({title: 'Ошибка сервера', text: `Попробуйте позже`, time: 3000});
+			}
 		}
-	}, [dispatch, invalidate, login, loginAs]);
+	}, [alerts, dispatch, invalidate, login, loginAs]);
 
 	const handleKeyDown = useEnter(submit);
 
