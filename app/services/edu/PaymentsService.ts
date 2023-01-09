@@ -23,3 +23,8 @@ export const paymentsApi = basicVyatsu.injectEndpoints({
 });
 
 export const { useTypesListQuery, useGraphQuery, usePaymentQuestionsQuery } = paymentsApi;
+
+export const paymentsInvalidation = {
+	reducerPath: paymentsApi.reducerPath,
+	tags: ['Payments'],
+}

@@ -7,9 +7,10 @@ interface Props {
 
 export default memo(function UserInfo({ user }: Props) {
 	const fioSmall = useMemo(() => {
-		if ('fio_small' in user.logged_as.info) {
+		if ('fio_small' in user.logged_as.info && user.logged_as.info.fio_small) {
 			return user.logged_as.info.fio_small;
 		}
+
 		return `${user.logged_as.fio.first_name[0]}. ${
 			user.logged_as.fio.second_name
 				? `${user.logged_as.fio.second_name[0]}.`

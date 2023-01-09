@@ -1,16 +1,15 @@
-import React, { memo, useCallback, useMemo } from 'react';
-import { IUser } from '../../../../models/IUser';
-// import { useRouter } from 'next/router';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
-import { unsetUserData } from '../../../../store/reducers/UserSlice';
 import axios from 'axios';
-import { selectAuth } from '../../../../store/reducers/AuthSlice';
-import { animated } from 'react-spring';
 import Image from 'next/image';
+import React, { memo, useCallback, useMemo } from 'react';
+import { animated } from 'react-spring';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
+import { IStudentInfo, IUser } from '../../../../models/IUser';
+import { selectAuth } from '../../../../store/reducers/AuthSlice';
+import { unsetUserData } from '../../../../store/reducers/UserSlice';
 
+import { useRouter } from 'next/router';
 import en from '../../../../../lang/en/header.json';
 import ru from '../../../../../lang/ru/header.json';
-import { useRouter } from 'next/router';
 
 interface IUserDropDownProps {
 	user: IUser;
@@ -51,6 +50,14 @@ const UserDropDown = memo(function UserDropDown({
 		[dispatch /* router ,*/ , token]
 	);
 
+	const makeStudInfo = useCallback(() => {
+		if (!user.logged_as.rights.is_student) {
+			return '';
+		}
+		const studInfo = user.logged_as.info as IStudentInfo;
+		return `Студент ${studInfo.faculty_full} группы ${studInfo.group_name}`;
+	}, [])
+
 	return (
 		<animated.div
 			className={
@@ -77,8 +84,7 @@ const UserDropDown = memo(function UserDropDown({
 					</div>
 				</div>
 				<div className="mt-3 text-[12px] font-[400]">
-					Студент института математики и информационных систем кафедры
-					прикладной математики и физики
+					{makeStudInfo()}
 				</div>
 				<div className="text-[#BFBFBF] text-[12px] mt-2">{user.logged_as.login}</div>
 			</div>

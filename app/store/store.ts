@@ -12,6 +12,7 @@ import { createWrapper } from 'next-redux-wrapper';
 import TitleReducer from './reducers/TitleSlice';
 import { scheduleApi } from '../services/edu/ScheduleService';
 import { authApi } from '../services/auth/AuthService';
+import { alertsSlice } from './reducers/AlertsSlice';
 
 const rootReducer = combineReducers({
 	auth: AuthReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 	navbar: NavbarReducer,
 	title: TitleReducer,
 	[basicVyatsu.reducerPath]: basicVyatsu.reducer,
+	alerts: alertsSlice.reducer,
 });
 
 export const setupStore = () =>

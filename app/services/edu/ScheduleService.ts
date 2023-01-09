@@ -43,3 +43,9 @@ export const {
 	useLazyStudListQuery,
 	useStudListQuery
 } = scheduleApi;
+
+export const scheduleInvalidation = {
+	reducerPath: scheduleApi.reducerPath,
+	tags: ['Schedule'],
+}
+
