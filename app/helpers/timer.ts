@@ -3,7 +3,7 @@ export class Timer {
 	startTime?: number;
 	remaining?: number;
 	callback;
-  status: 'paused' | 'started' | 'stopped' | 'ticking' = 'stopped';
+	status: 'paused' | 'started' | 'stopped' | 'ticking' = 'stopped';
 
 	constructor(callback: CallableFunction) {
 		this.callback = callback;
@@ -14,7 +14,7 @@ export class Timer {
 			return;
 		}
 
-    this.status = 'paused';
+		this.status = 'paused';
 
 		window.clearTimeout(this.timerId);
 		this.timerId = null;
@@ -29,35 +29,36 @@ export class Timer {
 			return;
 		}
 
-    this.status = 'ticking';
+		this.status = 'ticking';
 
 		this.startTime = Date.now();
 		this.timerId = window.setTimeout(this.callback, this.remaining);
 	}
 
 	start(delay: number) {
-    if (this.timerId) {
-      return;
-    }
-    this.status = 'started';
+		if (this.timerId) {
+			return;
+		}
+		this.status = 'started';
 
 		this.remaining = delay;
 		this.resume();
 	}
 
-  restart(delay: number) {
-    this.stop();
-    this.start(delay);
-  }
+	restart(delay: number) {
+		this.stop();
+		this.start(delay);
+	}
 
-  stop() {
-    if (this.timerId){
-      this.status = 'stopped';
-
-      window.clearTimeout(this.timerId);
-      this.timerId = undefined;
-      this.startTime = undefined;
-      this.remaining = undefined;
-    }
-  }
+	stop() {
+		if (this.timerId || this.status === 'paused') {
+			this.status = 'stopped';
+			if (this.timerId) {
+				window.clearTimeout(this.timerId);
+			}
+			this.timerId = undefined;
+			this.startTime = undefined;
+			this.remaining = undefined;
+		}
+	}
 }
