@@ -31,6 +31,8 @@ const mustBeInvalidated: reducerInfo[] = [
 const invalidateAll = (invalidate: useInvalidateCallback) =>
 	mustBeInvalidated.forEach(invalidate);
 
+type ProcessableErrorStatuses = 422 | 500 | 503;
+
 const LoginAs: FC = () => {
 	const { locale } = useRouter();
 	const lang = useMemo(() => (locale === 'en' ? en : ru), [locale]);
@@ -44,6 +46,32 @@ const LoginAs: FC = () => {
 	const [loginAs, loginAsRes] = useLoginAsMutation();
 
 	const alerts = useAlert();
+
+	const errors = useMemo<{
+		[key in ProcessableErrorStatuses]: CallableFunction;
+	}>(
+		() => ({
+			422: (login: string) =>
+				alerts.danger({
+					title: 'Ошибка смены логина',
+					text: `Пользователь "${login}" не найден`,
+					time: 3000,
+				}),
+			500: () =>
+				alerts.danger({
+					title: 'Ошибка сервера',
+					text: `Попробуйте позже`,
+					time: 3000,
+				}),
+			503: () =>
+				alerts.danger({
+					title: 'Слишком много запросов',
+					text: 'Вы отправили слишком много запросов, попробуйте позже',
+					time: 3000,
+				}),
+		}),
+		[alerts]
+	);
 
 	const submit = useCallback(async () => {
 		const res = await loginAs(login);
@@ -60,23 +88,35 @@ const LoginAs: FC = () => {
 				invalidateAll(invalidate);
 			} catch (e: any) {
 				console.error(e);
-				if ('response' in e && e.response.status === 500) {
-					alerts.danger({title: 'Ошибка сервера', text: `Попробуйте позже`, time: 3000});
+
+				if ('response' in e && e.response.status) {
+					const handler = errors[e.response.status as ProcessableErrorStatuses];
+
+					if (handler) {
+						handler(login);
+					}
+					return;
 				}
+
+				alerts.danger({
+					title: `Неизвестная ошибка`,
+					text: `Попробуйте перезагрузить страницу. Если ошибка повторится, обратитесь к администратору.`,
+				});
 			}
-		} else if (
-			'error' in res &&
-			'data' in res.error &&
-			'errors' in (res.error.data as any)
-		) {
-			if (res.error.status === 422) {
-				alerts.danger({title: 'Ошибка смены логина', text: `Пользователь "${login}" не найден`, time: 3000});
+		} else if ('error' in res && 'data' in res.error) {
+			const handler = errors[res.error.status as ProcessableErrorStatuses];
+
+			if (handler) {
+				handler(login);
+				return;
 			}
-			if (res.error.status === 500) {
-				alerts.danger({title: 'Ошибка сервера', text: `Попробуйте позже`, time: 3000});
-			}
+			
+			alerts.danger({
+				title: `Неизвестная ошибка ${res.error.status}`,
+				text: `Попробуйте перезагрузить страницу. Если ошибка повторится, обратитесь к администратору. Статус запроса: ${res.error.status}`,
+			});
 		}
-	}, [alerts, dispatch, invalidate, login, loginAs]);
+	}, [alerts, dispatch, errors, invalidate, login, loginAs]);
 
 	const handleKeyDown = useEnter(submit);
 
