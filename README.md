@@ -35,12 +35,12 @@ npm run lint
 
 - Если в результате команды выведено сообщение (см. ниже), то можно заливать изменения в `main` ветку
 
-```bash
-✔ No ESLint warnings or errors
-```
+    ```bash
+    ✔ No ESLint warnings or errors
+    ```
 
 - Иначе, необходимо исправить ошибки
-  > Если ошибки не исправить, то собрать проект не получится.
+> Если ошибки не исправить, то собрать проект не получится.
 
 После этого можно заливать изменения из `dev` ветки в `main`. Желательно делать это с помощью `Pull Request`.
 
@@ -48,31 +48,31 @@ npm run lint
 
 1. Нужно получить актуальную версию проекта с гита
 
-```bash
-git pull
-```
+    ```bash
+    git pull
+    ```
 
 2. Сборка проекта
 
-```bash
-cd /var/www/html/vyatsu_lk
-npm install --save
-sudo npm run build
-```
+    ```bash
+    cd /var/www/html/vyatsu_lk
+    npm install --save
+    sudo npm run build
+    ```
 
 3. (Не обязательный пункт) Для того, чтобы получить список текущих процессов нужно выполнить команду ниже. После этого скорее всего можно будет понять, как называется процесс с сервером **скорее всего это `npm`**.
 
-```bash
-pm2 ls
-```
+    ```bash
+    pm2 ls
+    ```
 
 4. После сборки проекта, нужно его перезапустить. Для этого необходимо выполнить команды:
 
-```bash
-pm2 delete npm
-pm2 start npm -- start
-pm2 save
-```
+    ```bash
+    pm2 delete npm
+    pm2 start npm -- start
+    pm2 save
+    ```
 
 ## Redis
 
@@ -95,34 +95,34 @@ make dc_down # Остановка и удаление докер приложе�
 
 1. Изменить добавить в файл `./docker/redis/redis.conf` строку `requirepass *желаемый пароль*`
 2. Изменить добавить переменную окружения `REDIS_PASSWORD=*желаемый пароль*` в файл `./docker/docker-compose.yml` для сервиса `redis-commander`.
-<details> 
-  <summary>Пример </summary>
+    <details> 
+      <summary>Пример </summary>
 
-```yaml
-...
-redis-commander:
-  container_name: redis-commander
-  build:
-    context: ./../
-    dockerfile: ./docker/redis-commander/Dockerfile
-  environment:
-    - REDIS_HOSTS=lk_redis:redis:${REDIS_PORT}
-    - REDIS_PASSWORD=12345 # <--- пароль
-  ports:
-    - ${COMMANDER_PORT}:8081
-  restart: always
-...
-```
+    ```yaml
+    ...
+    redis-commander:
+      container_name: redis-commander
+      build:
+        context: ./../
+        dockerfile: ./docker/redis-commander/Dockerfile
+      environment:
+        - REDIS_HOSTS=lk_redis:redis:${REDIS_PORT}
+        - REDIS_PASSWORD=12345 # <--- пароль
+      ports:
+        - ${COMMANDER_PORT}:8081
+      restart: always
+    ...
+    ```
 
-</details>
+    </details>
 
 3. Изменить `REDIS_URL` в файле `./.env` по шаблону `REDIS_URL=redis://default:PASSWORD@HOST:PORT`, т.е. строка должна выглядеть так:
 
-```
-...
-REDIS_URL=redis://default:*PASSWORD*@127.0.0.1:6379
-...
-```
+    ```
+    ...
+    REDIS_URL=redis://default:*PASSWORD*@127.0.0.1:6379
+    ...
+    ```
 
 ## Докер
 
