@@ -6,14 +6,14 @@ export const authApi = basicVyatsu.injectEndpoints({
 	endpoints: (builder) => ({
 		login: builder.mutation<AuthState, LoginRequest>({
 			query: (credentials: LoginRequest) => ({
-				url: 'api/auth/login/', //'api_mobile/v1/login',
+				url: 'api/auth/login/',
 				method: 'POST',
 				body: credentials,
 			}),
 		}),
 		loginAs: builder.mutation<AuthState, string>({
 			query: (login: string) => ({
-				url: 'api/auth/login_as/', //'api_mobile/v1/login',
+				url: 'api/auth/login_as/',
 				method: 'POST',
 				body: { login },
 			}),
